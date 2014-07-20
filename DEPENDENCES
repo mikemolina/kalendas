@@ -1,0 +1,44 @@
+# < LENGUAJE: es >
+
+DEPENDENCIAS
+
+Los siguientes paquetes se deben instalar cuando se instala "kalendas"
+(dependencias de ejecución):
+
+ * libintl-perl
+   + Recomendado. Necesario para el soporte de idioma nativo y traducción de mensajes.
+   + Verificación del módulo. Ejecutar: perl -e "use Locale::TextDomain;"
+     Si no se devuelve nada, Perl tiene instalado el módulo.
+   + Descarga:
+     http://search.cpan.org/~guido/libintl-perl-1.23/
+   + Homepage:
+     http://git.guido-flohr.net/projects/libintl-perl/
+   + Instalación: El paquete está disponible para diferentes sistemas operativos.
+     > Distribuciones Linux
+     Distribuciones con base en RPM: rpm -Uvh perl-libintl-perl
+     Distribuciones con base en Debian: apt-get install libintl-perl
+     > Sistemas operativos Windows (Woe), MSYS-MinGW
+     Desde la línea de comandos: perl -MCPAN -e "install Locale::TextDomain"
+
+
+# < LANGUAGE: en >
+
+DEPENDENCES
+
+The following packages should be installed when "kalendas" is installed
+(runtime dependencies):
+
+ * libintl-perl
+   + Recommended. Needed for the native language support and translation messages.
+   + Checking the module. Run: perl -e "use Locale::TextDomain;"
+     If nothing is returned, Perl have installed the module.
+   + Download:
+     http://search.cpan.org/~guido/libintl-perl-1.23/
+   + Homepage:
+     http://git.guido-flohr.net/projects/libintl-perl/
+   + Install: The package are available for different operating systems.
+     > Linux Distros
+     RPM based distributions: rpm -Uvh perl-libintl-perl
+     Debian based distributions: apt-get install libintl-perl
+     > Windows Operating systems (Woe), MSYS-MinGW
+     From command line: perl -MCPAN -e "install Locale::TextDomain"
