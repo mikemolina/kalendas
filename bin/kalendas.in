@@ -1,0 +1,551 @@
+#!@PERL@
+#
+#
+#    kalendas - Calculos de calendario.
+#
+#    Copyright (C) 2013  Miguel Molina
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#    AVISO IMPORTANTE: Esta traduccion tiene caracter meramente informativo
+#    y carece de validez legal.
+#
+#    Este programa es software libre: usted puede redistribuirlo y/o modificarlo
+#    conforme a los terminos de la Licencia Publica General de GNU publicada por
+#    la Free Software Foundation, ya sea la version 3 de la Licencia, o (en su
+#    opcion) cualquier version posterior.
+#
+#    Este programa se distribuye con el deseo de que le resulte util, pero SIN
+#    GARANTIAS DE NINGUN TIPO; ni siquiera con las garantias implicitas de
+#    COMERCIABILIDAD o APTITUD PARA UN PROPOSITO DETERMINADO. Para mas informacion,
+#    consulte la Licencia Publica General de GNU.
+#
+#    Usted debe haber recibido una copia de la Licencia Publica General de GNU
+#    junto con este programa. Si no, ver <http://www.gnu.org/licenses/>.
+
+
+# __MAIN__
+
+use POSIX;
+use Getopt::Long;
+
+# --- ENABLE NLS ---
+use Locale::TextDomain ("@PACKAGE@" => "@localedir@");
+use POSIX qw(setlocale);
+binmode STDOUT, ':raw';      # Needed to make it work in UTF-8 locales in Perl-5.8.
+
+#------------------------------
+# < Plataforma y Perl version >
+#------------------------------
+my $PROG  = "kalendas";
+$] > 5 or die __x ("{PROG} requires Perl 5.\n", PROG => $PROG);
+$so = "";
+$so = "macos" if -e 'Dev:Null';
+$so = "unix"  if -e '/dev/null';
+$so = "windows" if -e 'nul';
+
+#-----------------------------
+# < Informacion del programa >
+#-----------------------------
+my $idrcs = '$Id: kalendas,v 1.0.0 2013/09/12 23:20:35 ymmike Exp $ ';
+my $autor = "Miguel Molina";
+my ($nombre, $verno, $data) = ( $idrcs =~ /: (\D+),v ([\d.]+) (\d+\/\d+\/\d+)/ );
+my $InfoId = "$nombre - $verno (SO: $so)";
+my $InfoAp = __x ("Written by {autor}, {data}, <mmolina.unphysics\@gmail.com>.", 'autor' => $autor, 'data' => $data);
+
+#-----------------------------------
+# < Opciones por linea de comandos > 
+#-----------------------------------
+$opt_help    = 0;
+$opt_version = 0;
+$opt_calc2FJ = 0;
+$opt_jul2FJ  = 0;
+$opt_greg2FJ = 0;
+$opt_FJ2jul  = 0;
+$opt_FJ2greg = 0;
+$opt_convcal = 0;
+$opt_mas     = "";
+
+GetOptions("help|h",
+	   "version|v",
+	   "calc2FJ",
+	   "jul2FJ",
+	   "greg2FJ",
+	   "FJ2jul",
+	   "FJ2greg",
+	   "convcal",
+	   "mas=s"
+	   );
+
+my %NDSem=(0, __"Monday", 1, __"Tuesday", 2, __"Wednesday", 3, __"Thursday", 4, __"Friday", 5, __"Saturday", 6, __"Sunday");
+
+@ARGV < 2 or die __"Many arguments!\n";
+if( $opt_mas ne "" ){
+    MasInfo($opt_mas);
+    exit(0);
+}                                         # Muestra informacion adicional de 'funcion'
+if( $opt_version ){ vtxt();  exit(0); }   # Muestra version y sale
+if( $opt_help ){  usotxt();  exit(0); }   # Muestra ayuda y sale
+if( @ARGV == 0 ){ Hoy2FJ();  exit(0); }   # Sin argumentos, evalua FJ actual y sale
+
+#-----------------------------------------------------------------------------
+#   Argumentos por linea de comandos
+#-----------------------------------------------------------------------------
+# Mis variables
+my ($era,$y,$m,$d,$hora,$h,$mn,$s,$dsem,$ndj,$fdj,$cal0,$cal);
+my $fecha=$ARGV[0];
+
+if( ($era,$y,$m,$d,$hora)
+    = ( $fecha =~ /^\((aC|AD),([-0-9]+),(\d+),(\d+),((\d+):(\d+):(\d+)|md)\)$/ ) ){
+    $y > 0 or die __x ("Year {y} no found in the scale Christian.\n", 'y' => $y);
+    $y=1-$y if $era =~ /aC/;
+    if( $hora =~ /md/ ){
+	($h, $mn, $s)=(12, 0, 0);
+    }elsif( $hora =~ /(\d+):(\d+):(\d+)/ ){
+	($h, $mn, $s) = ($1, $2, $3);
+    }
+}elsif( ($era,$y,$m,$d,$cal0,$cal) 
+       = ( $fecha =~ /^\((aC|AD),([-0-9]+),(\d+),(\d+),(jul|greg),(jul|greg)\)$/ ) ){
+    $cal0 ne $cal or die __"Conversion between calendars equals!!!\n";
+    $y > 0 or die __x ("Year {y} no found in the scale Christian.\n", 'y' => $y);
+    $y=1-$y if $era =~ /aC/;
+}elsif( ($fecha) = ( $fecha =~ /^\(([-0-9]+(?:\.\d*|))\)$/ ) ){
+#   Parte entera y fraccional de FJ
+    ($fdj, $ndj) = modf($fecha);
+#   Mantisa positiva
+    if( $fecha < 0 ){
+	$ndj--;  
+	$fdj++;
+    }
+#   Si fdj >= 0.5 ? hora a.m. del otro dia : hora p.m. del dia 
+    $ndj++ if $fdj >= 0.5;
+    $fdj-- if $fdj >= 0.5;
+}else{
+    die __"Bad input date!\n";
+}
+
+#-----------------------------------------------------------------------------
+#   Evaluacion de funcion
+#-----------------------------------------------------------------------------
+# Fecha Juliana actual
+sub Hoy2FJ{
+    ($s,$mn,$h,$d,$m,$y,$dsem,@dti)=gmtime(time);
+    $m++;  $y+=1900;  $dsem=($dsem+6)%7;  @dti=();
+    print __x (" Date present: {dsem}, {y}-{m}-{d},", 'dsem' => $NDSem{$dsem}, 'y'=>$y, 'm'=>$m, 'd'=>$d);
+    printf " %02d:%02d:%02d UT\n", $h, $mn, $s;
+    $FJ=&DJ($y,$m,$d);
+    $FJ+=($h+($mn+$s/60)/60)/24-0.5;
+    printf " JD = %.5f\n", $FJ;
+    print __x (" For more information: {PROG} --help\n", 'PROG' => $PROG);
+}
+
+# Conversion fecha calendario civil -> fecha juliana
+if( $opt_calc2FJ ){
+    $FJ=&DJ($y,$m,$d);
+    $FJ+=($h+($mn+$s/60)/60)/24-0.5;
+    printf " JD = %.5f\n", $FJ;
+    exit(0);
+}
+
+# Conversion fecha calendario Juliano -> fecha juliana
+if( $opt_jul2FJ ){
+    $FJ=&DiasEntreRJul(-4712,1,1,$y,$m,$d);
+    $FJ+=($h+($mn+$s/60)/60)/24-0.5;
+    printf " JD = %.5f\n", $FJ;
+    exit(0);
+}
+
+# Conversion fecha calendario Gregoriano -> fecha juliana
+if( $opt_greg2FJ ){
+    $FJ=&DiasEntreRGreg(-4713,11,24,$y,$m,$d);
+    $FJ+=($h+($mn+$s/60)/60)/24-0.5;
+    printf " JD = %.5f\n", $FJ;
+    exit(0);
+}
+
+# Conversion dia Juliano -> fecha calendario Juliano
+if( $opt_FJ2jul ){
+    ($era,$y,$m,$d,$dsem) = &DJ2CalJul($ndj);
+    ($h,$mn,$s) = &fd2hora($fdj);
+    print __x (" Data: {dsem}, {era} {y}-{m}-{d},", 'dsem' => $NDSem{$dsem}, 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
+    printf " %02d:%02d:%02d UT\n", $h, $mn, $s;   
+    exit(0);
+}
+
+# Conversion dia Juliano -> fecha calendario Gregoriano
+if( $opt_FJ2greg ){
+    ($era,$y,$m,$d,$dsem) = &DJ2CalGregor($ndj);
+    ($h,$mn,$s) = &fd2hora($fdj);
+    print __x (" Data: {dsem}, {era} {y}-{m}-{d},", 'dsem' => $NDSem{$dsem}, 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
+    printf " %02d:%02d:%02d UT\n", $h, $mn, $s;
+    exit(0);
+}
+
+# Conversion fecha calendario Juliano <-> fecha calendario Gregoriano
+if( $opt_convcal ){
+#   jul->greg
+    if( $cal0 eq "jul" ){
+	$dj0 = &DiasEntreRJul(-4712,1,1,$y,$m,$d);
+	($era,$y,$m,$d,$dsem) = &DJ2CalGregor($dj0);
+	print __x (" Data: ({era},{y},{m},{d})\n", 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
+	exit(0);
+    }
+#   greg->jul
+    if( $cal0 eq "greg" ){
+	$dj0 = &DiasEntreRGreg(-4713,11,24,$y,$m,$d);
+	($era,$y,$m,$d,$dsem) = &DJ2CalJul($dj0);
+	print __x (" Data: ({era},{y},{m},{d})\n", 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
+	exit(0);
+    }
+}
+
+#-----------------------------------------------------------------------------
+#   SUBRUTINAS
+#-----------------------------------------------------------------------------
+# Conversion fraccion de dia juliano a hora del dia
+sub fd2hora{
+    my @H;
+    my $fd = shift;
+    $fd=86400.0*($fd+0.5);  # Fraccion de dia [segundos]
+# Redondeo
+    if( $fd-int($fd) < 0.5 ){
+	$fd=floor($fd);
+    }else{
+	$fd=ceil($fd);
+    }
+    $H[2]=$fd%60;         # seg
+    $q=int($fd/60);
+    $H[1]=$q%60;          # min
+    $H[0]=int($q/60)%24;  # hora
+    return @H;
+}
+
+# Inversion numero de dia Juliano a fecha de calendario Juliano 
+sub DJ2CalJul{
+    my @fcal;
+    my ($a,$b,$c,$d,$e,$f);
+    my $j = shift;                               # numero de dia Juliano
+    $SJ = &Zw($j-4749,36525)-46;                 # siglo Juliano
+    $a = (($j-4749)%36525)+1;                    # dia del siglo Juliano
+    $Ct = &Zw($a-1,1461)+1;                      # cuatrienio
+    $b = (($a-1)%1461)+1;                        # dia del cuatrienio
+    $yc = &Zw($b-1,365)-&Zw($b,1461)+1;          # year del cuatrienio
+    $c = ($b+3*&Zw($yc,4)-1)%(365+&Zw($yc,4))+1; # dia del year
+    $T = &Zw($c+93-&Zw($yc,4),153)+1;            # tercio del year
+    $d = (($c+93-&Zw($yc,4))%153)+1-(94-&Zw($yc,4))*&Zw(4-$T,3); # dia del tercio
+    $Pb = &Zw($d-1,61)+1;                        # periodo bimestral
+    $e = (($d-1)%61)+1;                          # dia periodo bimestral
+    $mb = &Zw($e-1,31)+1;                        # mes del bimestre
+    $f = (($e-1)%31)+1;                          # dia del mes
+    $fcal[0] = "AD";                             # era
+    $fcal[1] = 100*($SJ-1)+4*($Ct-1)+$yc;        # year
+    $fcal[2] = (3*$T+1)*($T-2)/2+2*$Pb+$mb;      # mes
+    $fcal[3] = $f;                               # dia
+    $fcal[4] = $j%7;                             # dia de la semana
+    if( $fcal[1] <= 0 ){
+	$fcal[0] = "aC";
+	$fcal[1] = 1-$fcal[1];
+    }
+    return @fcal;
+}
+
+# Inversion numero de dia Juliano a fecha de calendario Gregoriano 
+sub DJ2CalGregor{
+    my @fcal;
+    my ($a,$b,$c,$d,$e,$f,$g);
+    my $j = shift;                                    # numero de dia Juliano
+    $PC = &Zw($j+31738,146097)-15;                    # periodo de Clavius
+    $a = (($j+31738)%146097)+1;                       # dia del periodo de Clavius
+    $S = &Zw($a-1,36524)-&Zw($a,146097)+1;            # siglo del periodo de Clavius
+    $b =(($a+3*&Zw($S,4)-1)%(36524+&Zw($S,4)))+1;     # dia del siglo
+    $Ct = &Zw($b-1,1461)+1;                           # cuatrienio
+    $c = (($b-1)%1461)+1;                             # dia del cuatrienio
+    $yc = &Zw($c-1,365)-&Zw($c,1461)+1;               # year del cuatrienio
+    $d = (($c+3*&Zw($yc,4)-1)%(365+&Zw($yc,4)))+1;    # dia del year
+    $T = &Zw($d+93-(&Zw($yc,4)-(1-&Zw($S,4))*&Zw($Ct,25)),153)+1; # tercio
+    $e = (($d+93-(&Zw($yc,4)-(1-&Zw($S,4))*&Zw($Ct,25)))%153)+1
+	-(94-&Zw($yc,4)+(1-&Zw($S,4))*&Zw($Ct,25))*&Zw(4-$T,3);   # dia del tercio  
+    $Pb = &Zw($e-1,61)+1;                             # periodo bimestral
+    $f = (($e-1)%61)+1;                               # dia periodo bimestral
+    $mb = &Zw($f-1,31)+1;                             # mes bimestral
+    $g = (($f-1)%31)+1;                               # dia del mes
+    $fcal[0] = "AD";                                  # era
+    $fcal[1] = 400*($PC+3)+100*($S-1)+4*($Ct-1)+$yc;  # year
+    $fcal[2] = (3*$T+1)*($T-2)/2+2*$Pb+$mb;           # mes
+    $fcal[3] = $g;                                    # dia
+    $fcal[4] = $j%7;                                  # dia de la semana
+    if( $fcal[1] <= 0 ){
+	$fcal[0] = "aC";
+	$fcal[1] = 1-$fcal[1];
+    }
+    return @fcal;
+}
+
+# Numero de dia Juliano (por defecto)
+sub DJ{
+    my $DJ0=0;
+    my($yy,$mm,$dd)=@_;
+    if( $yy>1582 ){
+	$DJ0+=&DiasEntreRGreg(1582,10,14,$yy,$mm,$dd)+2299160;
+    }
+    elsif( $yy<1582 ){
+	$DJ0+=&DiasEntreRJul(-4712,1,1,$yy,$mm,$dd);
+    }
+    else{ # $y==1582
+	$fcut=&DiaYear($mm,$dd);
+	if( $fcut<277 ){    # fcut < 5 Oct 1582
+	    $DJ0+=&DiasEntreRJul(-4712,1,1,$yy,$mm,$dd);
+	}
+	elsif( $fcut>286 ){ # fcut > 14 Oct 1582
+	    $DJ0+=&DiasEntreRGreg(1582,10,14,$yy,$mm,$dd)+2299160;
+	}else{              # 5 Oct 1582 <= fcut <=  14 Oct 1582
+	    print __" Dates between 5 and 14 of October of 1582 no\n";
+	    print __" exist for calculus of the Julian Day.\n";
+	    exit(0);
+	}
+    }
+    return $DJ0;
+}
+
+# Calculo de dias transcurridos entre dos fechas bajo reforma Gregoriana
+sub DiasEntreRGreg{
+    my $d=0;
+    my($yy0,$mm0,$dd0,$yy,$mm,$dd)=@_;
+    $d+=365*($yy-$yy0);
+    $d+=&DiaYearRGreg($yy,$mm,$dd)-&DiaYearRGreg($yy0,$mm0,$dd0);
+    $d+=&BisSextoEntre($yy0,$yy)-&CenturiaEntre($yy0,$yy);
+    return $d;
+}
+
+# Calculo de dias transcurridos entre dos fechas bajo reforma Juliana
+sub DiasEntreRJul{
+    my $d=0;
+    my($yy0,$mm0,$dd0,$yy,$mm,$dd)=@_;
+    $d+=365*($yy-$yy0);
+    $d+=&DiaYearRJul($yy,$mm,$dd)-&DiaYearRJul($yy0,$mm0,$dd0);
+    $d+=&BisSextoEntre($yy0,$yy);
+    return $d;
+}
+
+# Calculo de years centuria no-bisiestos
+sub CenturiaEntre{
+    my $cent=0;
+    my($yy0,$yy)=@_;
+    $aux0=&Zw($yy0,100);  $aux=&Zw($yy,100);
+    $cent+=$aux-$aux0;
+    $cent+=-(&Zw($aux,4)-&Zw($aux0,4));   
+    $is=100-($yy0%100);  $ivs=400-($yy0%400);
+    $cent+=&Zw($is,100)-&Zw($ivs,400);
+    $is=100-($yy%100);   $ivs=400-($yy%400);
+    $cent+=-(&Zw($is,100)-&Zw($ivs,400));
+    return $cent;
+}
+
+# Calculo de years bisiestos
+sub BisSextoEntre{
+    my $bis=0;
+    my($yy0,$yy)=@_;
+    $bis=&Zw($yy,4)-&Zw($yy0,4);
+    $aux0=4-($yy0%4);  $aux=4-($yy%4);
+    $bis+=-&Zw($aux,4)+&Zw($aux0,4);
+    return $bis;
+}
+
+# Dia del year - calendario Gregoriano
+sub DiaYearRGreg{
+    my $d=0;
+    my($year,$mes,$dia)=@_;
+    $maux=$mes+9;
+    $is=100-($year%100);
+    $ivs=400-($year%400);
+    $d+=-&Zw($maux,12)*(&Zw($is,100)-&Zw($ivs,400));
+    $d+=&DiaYearRJul($year,$mes,$dia);
+    return $d;
+}
+
+# Dia del year - calendario Juliano
+sub DiaYearRJul{
+    my $d=0;
+    my($year,$mes,$dia)=@_;
+    $maux=$mes+9;
+    $yaux=4-($year%4);
+    $d+=&Zw($maux,12)*&Zw($yaux,4);
+    $d+=&DiaYear($mes,$dia);
+    return $d;
+}
+
+# Dia del year - calendario ordinario
+sub DiaYear{
+    my $d=0;
+    my($mes,$dia)=@_;
+    $d+=(214*$mes-218)/7;
+    $maux=$mes-2;
+    $d+=-(($maux-7*($maux%2))%14)/14;
+    $maux=$mes+9;
+    $d+=-2*&Zw($maux,12)+$dia;
+    return $d;
+}
+
+# Funcion parte entera de ancho w, Zw(x,w)
+sub Zw{
+    my($x,$w)=@_;
+    return ($x-($x%$w))/$w;
+}
+
+#-----------------------------------------------------------------------------
+#   Informacion adicional de funciones
+#-----------------------------------------------------------------------------
+sub MasInfo{
+    my $arg = shift;
+  INFO: {
+      if( $arg =~ /^arg$/ ){
+	  print __ <<"END_INFO";
+  Arguments
+ Note: writing quotes ("") is obligatory for input of arguments.
+ 'era':= The position of the year in the Christian scale. With 'aC' denotes
+        ante Christium or before Christ; 'AD', Anno Domini or common era.
+ 'yy':= The year with a number greater than zero. The year zero or a year
+        negative does not exist in the Christian scale.
+ 'mm':= The month with numerical value (1-12).
+ 'dd':= The day of the month.
+ 'tt':= The solar time, has two options of entrance: writing the time
+        universal (UT) in format 'hh:mm:ss', or 'md' that is the hour to
+        noon of Greenwich (12:00:00 UT).
+ 'jd':= The Julian date. The integer and decimal parts the 'jd' represent
+        the Julian day number and Julian day fraction respectively. With
+        five numbers decimals the time is obtained with precision of 1
+        second. 'jd' can be a negative number.
+END_INFO
+    last INFO;
+      }
+      if( $arg =~ /^calc2FJ$/ ){
+	  print __ <<"END_INFO";
+  --calc2FJ "(era,yy,mm,dd,tt)"
+ Calculation of Julian date from a calendar date used in the
+ Christian or Western culture. This function assumes the calendars
+ used in Western culture: the Gregorian calendar, currently used
+ for civil purposes, and its predecessor, the Julian calendar, used
+ by the old Roman Empire with use until end of century XVI.
+ Therefore, for a date previous to the 5 of October of 1582 the
+ Julian calendar is assumed, whereas for a date later to the 14 of
+ October of 1582 the Gregorian calendar is assumed.
+END_INFO
+    last INFO;
+      }
+      if( $arg =~ /^jul2FJ$/ ){
+	  print __ <<"END_INFO";
+  --jul2FJ "(era,yy,mm,dd,tt)"
+ Calculation of Julian date from a Julian calendar date.
+ The function assumes only the Julian calendar.
+END_INFO
+    last INFO;
+      }
+      if( $arg =~ /^greg2FJ$/ ){
+	  print __ <<"END_INFO";
+  --greg2FJ "(era,yy,mm,dd,tt)"
+ Calculation of Julian date from a Gregorian calendar date.
+ The function assumes only the Gregorian calendar.
+END_INFO
+    last INFO;
+      }
+      if( $arg =~ /^FJ2jul$/ ){
+	  print __ <<"END_INFO";
+  --FJ2jul "(jd)"
+ Calculation of a Julian calendar date, time and day of the week
+ from a Julian date. It gives the date with format day of week,
+ era, year, month, day and time UT.
+END_INFO
+    last INFO;
+      }
+      if( $arg =~ /^FJ2greg$/ ){
+	  print __ <<"END_INFO";
+  --FJ2greg "(jd)"
+ Calculation of a Gregorian calendar date, time and day of the week
+ from a Julian date. It gives the date with format day of week,
+ era, year, month, day and time UT.
+END_INFO
+    last INFO;
+      }
+      if( $arg =~ /^convcal$/ ){
+	  print __ <<"END_INFO";
+  --convcal "(era,yy,mm,dd,cal1,cal2)"
+ Conversion between calendar date 'cal1' to calendar date 'cal2'. The
+ conversion is made between Julian 'jul' and Gregorian 'greg' calendars
+ or vice versa. It gives the date with format era, year, month and day.
+END_INFO
+    last INFO;
+      }
+      if( $arg =~ /^mas$/ ){
+	  print __ <<"END_INFO";
+  --mas 'fun'
+ Show additional information about function 'fun', where 'fun' is one of
+ the options: 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg'.
+ The option 'arg' shows additional information on the arguments.
+ For calculate Julian date present, from PC clock, write kalendas without
+ arguments.
+END_INFO
+    last INFO;
+      }
+      if( $arg ne "" ){
+	  die __x ("There is not information for: '{arg}'\n", 'arg' => $arg);
+      }
+  }
+}
+
+#-----------------------------------------------------------------------------
+#   Version
+#-----------------------------------------------------------------------------
+sub vtxt{
+    print "$InfoId\n";
+    print "Copyright (C) 2013 $autor\n";
+    print __ <<"END_VERSION";
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This program comes with ABSOLUTELY NO WARRANTY; This is free software, and you
+are welcome to redistribute it under certain conditions.
+END_VERSION
+    print "\n$InfoAp\n";
+}
+
+#-----------------------------------------------------------------------------
+#   Uso, funciones y opciones
+#-----------------------------------------------------------------------------
+sub usotxt{
+    print __x ("Use: {PROG} --Function \"Arguments\"\n", PROG => $PROG);
+    print __ <<"END_KALENDAS";
+ Arguments: 'era' is the position of the year in the Christian scale: 'aC|AD',
+             'yy' year, 'mm' month (1-12) and 'dd' day, 'tt' hour in UT
+             or noon of Greenwich: 'hh:mm:ss|md'. 'jd' is the Julian date.
+ Functions:
+ --calc2FJ "(era,yy,mm,dd,tt)"
+   Calculation Julian date from a calendar date used in the Western culture.
+ --jul2FJ "(era,yy,mm,dd,tt)"
+   Calculation of Julian date from a Julian calendar date.
+ --greg2FJ "(era,yy,mm,dd,tt)"
+   Calculation of Julian date from a Gregorian calendar date.
+ --FJ2jul "(jd)"
+   Calculation of a Julian calendar date from a Julian date.
+ --FJ2greg "(jd)"
+   Calculation of a Gregorian calendar date from a Julian date.
+ --convcal "(era,yy,mm,dd,cal1,cal2)",  cal_=jul|greg
+   Conversion between calendar date 'cal1' to calendar date 'cal2'. The
+   conversion is made between Julian and Gregorian calendars or vice versa.
+ --mas fun, fun=calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg
+   Show additional information about function fun; arg show arguments.
+ -h,--help    Show this help.       -v,--version    Show version.
+ JD present!  For calculate Julian date present, from PC clock, write
+END_KALENDAS
+    print __x ("              {PROG} without arguments.\n", PROG => $PROG);
+}
+
+# __FIN__
