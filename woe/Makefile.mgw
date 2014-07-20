@@ -1,0 +1,97 @@
+# -*- Makefile -*-
+#
+# Makefile.mgw - Makefile for install kalendas
+#
+# Copyright (C) 2014  Miguel Molina
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# For install, specify the installation directory in the prefix variable.
+
+prefix=%USERPROFILE%\Documents\local
+
+# Choose the idiom for translate the perlscript, options: (es|pt_BR)
+# A value unassigned in the variable, leave the default english language.
+
+localelang=
+
+# End edition
+
+bindir=$(prefix)\bin
+datarootdir=$(prefix)\share
+docdir=$(datarootdir)\doc\kalendas
+localedir=$(datarootdir)\locale
+
+srcdir = .
+LANG = es pt_BR
+GMOS = $(addprefix $(srcdir)\po\, $(addsuffix .gmo, $(LANG)))
+
+all:
+	@echo Installation directory: $(prefix)
+	@echo For install:   gmake -f Makefile.mgw install
+	@echo For uninstall: gmake -f Makefile.mgw uninstall
+
+install: perlscript install-dirs install-binSCRIPTS install-mo install-doc
+	@echo kalendas installed
+
+perlscript: $(srcdir)\bin\kalendas.in
+	@echo Creating perlscript
+	@copy $(srcdir)\bin\kalendas.in $(srcdir)\bin\kalendas
+	perl -pi~ -e "s/\@localedir\@/\.\.\/share\/locale/g" $(srcdir)\bin\kalendas
+	perl -pi~ -e "s/\@PACKAGE\@/kalendas/g" $(srcdir)\bin\kalendas
+	@copy $(srcdir)\woe\kalendas.bat.in $(srcdir)\woe\kalendas.bat
+	perl -pi~ -e "s/\@localelang\@/$(localelang)/g" $(srcdir)\woe\kalendas.bat
+	@del /f $(srcdir)\bin\kalendas~ $(srcdir)\woe\kalendas.bat~
+
+install-dirs:
+	@echo Creating directories...
+	@if not exist $(prefix)\nul echo mkdir $(prefix)
+	@if not exist $(prefix)\nul mkdir $(prefix)
+	@if not exist $(bindir)\nul echo mkdir $(bindir)
+	@if not exist $(bindir)\nul mkdir $(bindir)
+	@if not exist $(datarootdir)\nul echo mkdir $(datarootdir)
+	@if not exist $(datarootdir)\nul mkdir $(datarootdir)
+	@if not exist $(docdir)\nul echo mkdir $(docdir)
+	@if not exist $(docdir)\nul mkdir $(docdir)
+
+install-binSCRIPTS:
+	@echo Installing kalendas...
+	@copy $(srcdir)\bin\kalendas $(bindir)
+	@copy $(srcdir)\woe\kalendas.bat $(bindir)
+
+install-mo: $(GMOS)
+	@echo Installing locales...
+	@if not exist $(localedir)\nul echo mkdir $(localedir)
+	@if not exist $(localedir)\nul mkdir $(localedir)
+	@for %%l in ($(LANG)) do if not exist $(localedir)\%%l\LC_MESSAGES\nul \
+	mkdir $(localedir)\%%l\LC_MESSAGES
+	@for %%l in ($(LANG)) do copy $(srcdir)\po\%%l.gmo $(localedir)\%%l\LC_MESSAGES\kalendas.mo
+
+install-doc:
+	@echo Installing documentation...
+	@copy $(srcdir)\doc\kalendas.htm $(docdir)
+
+uninstall:
+	@echo Uninstalling binaries...
+	@if exist $(bindir)\kalendas del /f $(bindir)\kalendas
+	@if exist $(bindir)\kalendas.bat del /f $(bindir)\kalendas.bat
+	@echo Uninstalling locales...
+	@for %%l in ($(LANG)) do if exist $(localedir)\%%l\LC_MESSAGES\kalendas.mo \
+	del /f $(localedir)\%%l\LC_MESSAGES\kalendas.mo
+	@echo Uninstalling documentation...
+	@if exist $(docdir)\kalendas.htm rmdir /s /q $(docdir)
+	@echo kalendas uninstalled
+
+clean:
+	del /f $(srcdir)\bin\kalendas $(srcdir)\woe\kalendas.bat
