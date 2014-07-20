@@ -1,0 +1,277 @@
+=encoding iso-8859-1
+
+=head1 NOME
+
+kalendas - Cálculos do calendário
+
+=head1 SINOPSIS
+
+B<kalendas> [I<opção>] [I<argumentos>]
+
+=head1 RESUMO
+
+kalendas é um perl script para realizar cálculos de calendário. Os
+cómputos estão desenvolvidos sobre três sistemas de datación: o calendário
+Juliano, o calendário Gregoriano e o sistema de numeración de dia/data 
+Juliana.
+
+ Palavras finque;
+   Calendário Juliano, Calendário Gregoriano, Data Juliana.
+
+=head1 DESCRIÇÃO
+
+Os calendários Juliano e Gregoriano são sistemas de datación usados
+pela Cultura Ocidental ou Cristã: o calendário Juliano, introduzido
+pelo triunviro Julio César no 46 a.C., foi usado até o 1582 A.D.,
+época onde foi corrigido através da reforma ordenada pelo Papa Gregorio
+XIII e que deu origem ao calendário Gregoriano, calendário de uso comum
+na atualidade. Ambos calendários consideram nos mesmos meses e dias, mas
+difieren no conteo dos anos bisiestos. O sistema de numeración de dias
+Julianos consiste em contar nos dias (incluindo frações de dia) desde
+uma data de referência até uma data dada e seu uso é comum em astronomia
+e cronología. 
+
+Os cómputos têm por objetivo a conversão de datas entre os três
+sistemas de datación mencionados anteriormente. A maioria de algoritmos
+implementados usam a função modulo (o residuo da divisão entre dois
+números inteiros) com o propósito de manejar variables inteiras ao longo
+do cómputo, já que os calendários manejam números inteiros, com exceção
+do sistema de numeración de dia/data Juliana que contém parte decimal
+por causa da fração de dia.
+
+=head1 OPÇÕES
+
+=head2 I. Argumentos
+
+B<Nota>: escrita citações (C<"">) é obrigatória para rendimento de argumentos.
+
+=over 6
+
+=item 'era'
+
+É a posição do ano em escala-a cristã. Com 'C<aC>' denota ante
+Christium ou dantes de Cristo; 'C<AD>', Anno Domini ou após Cristo.
+
+=item 'yy'
+
+No ano com um número maior que zero. No ano zero ou em um ano negativo
+não existe na escala cristã.
+
+=item 'mm'
+
+No mês com valor numérico: Ene-E<gt>1, Feb-E<gt>2, ..
+
+=item 'dd'
+
+No dia do mês.
+
+=item 'tt'
+
+A hora solar, tem duas opções de rendimento: escrevendo o tempo universal
+(UT) em formato 'C<hh:mm:ss>', ou 'C<md>' que é a hora a meio dia de
+Greenwich (12:00:00 UT).
+
+=item 'fj'
+
+A data Juliana. As partes inteira e decimal de 'C<fj>' representam o
+número de dia Juliano e a fração de dia Juliano respectivamente.
+Com cinco cifras decimales obtém-se a hora com uma precisão de 1
+segundo. 'C<fj>' pode ser um número negativo.
+
+=back
+
+=head2 II. Funções
+
+=over 4
+
+=item --calc2FJ "(era,yy,mm,dd,tt)"
+
+Cálculo de data Juliana a partir de uma data do calendário usado na
+cultura Cristã ou Ocidental. Esta função assume os calendários usados
+na cultura Ocidental: o calendário Gregoriano, usado atualmente para
+fins civis, e seu antecessor, o calendário Juliano, usado pelo antigo
+Império Romano com vigência até finais do século XVI. Por tanto, para
+uma data anterior ao 5 de Outubro de 1582 assume-se o calendário Juliano,
+enquanto para uma data posterior ao 14 de Outubro de 1582 assume-se o
+calendário Gregoriano.
+ 
+=item --jul2FJ "(era,yy,mm,dd,tt)"
+
+Cálculo de data Juliana a partir de uma data do calendário Juliano.
+A função assume unicamente o calendário Juliano.
+
+=item --greg2FJ "(era,yy,mm,dd,tt)"
+
+Cálculo de data Juliana a partir de uma data do calendário Gregoriano.
+A função assume unicamente o calendário Gregoriano.
+
+=item --FJ2jul "(fj)"
+
+Cálculo de uma data do calendário Juliano, hora e dia da semana a partir
+de uma data Juliana. Entrega a data com formato dia da semana, era, ano,
+mês, dia e hora UT.
+
+=item --FJ2greg "(fj)"
+
+Cálculo de uma data do calendário Gregoriano, hora e dia da semana a partir
+de uma data Juliana. Entrega a data com formato dia da semana, era, ano,
+mês, dia e hora UT.
+
+=item --convcal "(era,yy,mm,dd,cal1,cal2)"
+
+Conversão entre data do calendário 'C<cal1>' a data do calendário 'C<cal2>'.
+A conversão realiza-se entre calendários Juliano 'C<jul>' e Gregoriano
+'C<greg>' ou vice-versa. Entrega a data com formato era, ano, mês e dia.
+
+=item --mas fun
+
+Mostra informação adicional sobre função 'C<fun>', onde 'C<fun>' é uma
+das opções
+
+ 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg'
+
+A opção 'C<arg>' mostra informação adicional dos argumentos.
+
+=item -h, --help
+
+Mostra resumem de funções e argumentos.
+
+=item -v, --version
+
+Mostra versão do programa.
+
+=back 
+
+Se não há algum parámetro na linha de comandos, se avalia a data Juliana
+desde o relógio do PC.
+
+=head1 EXEMPLOS
+
+Nos seguintes exemplos, escrever função e argumentos na mesma forma
+como se encontra.
+
+=over 6
+
+=item *
+
+Em diversas aplicações astronómicas faz-se referência à época J2000,
+entendida como a data Juliana do 1 de Janeiro do 2000 A.D. a meio dia
+de Greenwich (12:00:00 UT). A data Juliana para tal instante é:
+
+      kalendas --calc2FJ "(AD,2000,1,1,md)"
+      FJ = 2451545.00000 
+
+=item *
+
+A data Juliana do dia 15 de Março do 44 a.C. às 5:45:35 UT é:
+
+      kalendas --calc2FJ "(aC,44,3,15,5:45:35)"
+      FJ = 1705425.73999 
+
+=item *
+
+A data Juliana do dia 3 de Setembro de 1752 A.D. (calendário
+Juliano) a meia noite de Greenwich (00:00:00 TEU) é:
+
+      kalendas --jul2FJ "(AD,1752,09,03,00:00:00)"
+      FJ = 2361221.50000 
+
+A data Juliana do dia 14 de Setembro de 1752 A.D. (calendário
+Gregoriano) a meia noite de Greenwich (00:00:00 TEU) é:
+
+      kalendas --greg2FJ "(AD,1752,09,14,00:00:00)"
+      FJ = 2361221.50000 
+ 
+Observa-se que ambos calendários coincidem com a mesma data Juliana. De fato,
+nesta data Grã-Bretanha e suas colônias adotaram o calendário Gregoriano.
+
+=item *
+
+N. Armstrong calcou o solo lunar na data Juliana 2440421.62278. As
+respectivas datas calendário Juliano e Gregoriano do histórico momento
+são:
+
+      kalendas --FJ2jul "(2440421.62278)"
+      Fecha: Sabado, AD 1969-7-6, 02:56:48 UT
+      kalendas --FJ2greg "(2440421.62278)" 
+      Fecha: Sabado, AD 1969-7-19, 02:56:48 UT
+
+=item *
+
+Converter a data 1 janeiro do 1 A.D. calendário Juliano a calendário
+Gregoriano
+
+      kalendas --convcal "(AD,1,1,1,jul,greg)"
+      Fecha: (aC,1,12,30) 
+
+por suposto a operação inversa recupera a data inicial 
+
+      kalendas --convcal "(aC,1,12,30,greg,jul)" 
+      Fecha: (AD,1,1,1) 
+
+=item *
+
+Para calcular a data Juliana atual desde o relógio do PC
+
+      kalendas
+
+=back
+
+=head1 DIAGNÓSTICO
+
+kalendas retorna um das seguintes mensagens, com interrupção do
+programa, por rendimento incorrecto de argumentos.
+
+=over 4
+
+=item 'Muitos argumentos!'
+
+A opção requerida tem mais de um argumento ou as comillas foram
+omitidas. Correntes de carateres separados por espaços ou comas
+(C<--fun arg1 arg2,arg3...>) são considerados como argumentos; por
+tanto, a cada opção requer um argumento entre comillas. Ver Exemplos.
+
+=item 'Entrada de data incorreta!'
+
+Os argumentos ingressados por linha de comandos não se ajustam ao formato
+requerido pela função. A cada argumento deve estar entre paréntesis. Para
+cálculos de data Juliana o argumento 'C<era>' admite unicamente as correntes
+'C<aC>' ou 'C<AD>', 'C<yy,mm,dd>' admitem unicamente números inteiros
+positivos, o tempo 'C<tt>' admite a corrente 'C<md>' ou a hora UT em
+formato 'C<hh:mm:ss>' com números inteiros positivos. Para cálculos de data
+de calendário 'C<fj>' é um número real positivo ou negativo. Ver Exemplos. 
+
+=item 'Conversão entre mesmos calendários!!!'
+
+A opção C<--convcal> realiza conversões unicamente entre os calendários
+Juliano e/ou Gregoriano. Obviamente, não há nada mas que comentar!
+
+=item 'Nenhuma informação para: argx'
+
+O argumento 'C<argx>' não corresponde às funções de kalendas. Para
+recordar as funções do programa, escrever 'C<--help>'.
+
+=back
+
+=head1 AUTOR
+
+  Miguel Molina <mmolina.unphysics@gmail.com>
+
+=head1 VERSÃO
+
+C<kalendas>, versão 1.0.0, $Date: 2013/09/13 21:22:26 $
+
+=head1 LICENÇA
+
+Este programa é software livre: você pode redistribuirlo e/ou o modificar
+conforme aos termos da Licença Pública General de GNU publicada pela
+Free Software Foundation, já seja a versão 3 da Licença, ou (em sua
+opção) qualquer versão posterior.
+
+Este programa distribui-se com o desejo de que lhe resulte útil, mas
+SEM GARANTIAS DE NENHUM TIPO; nem sequer com as garantias implícitas
+de COMERCIABILIDAD ou APTIDÃO PARA UM PROPOSITO DETERMINADO. Para mais
+informação, consulte a Licença Pública General de GNU.
+
+Você deve ter recebido uma cópia da Licença Pública General de GNU
+junto com este programa. Se não, ver E<lt>http://www.gnu.org/licenses/E<gt>.
