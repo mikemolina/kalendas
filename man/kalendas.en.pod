@@ -1,0 +1,281 @@
+=head1 NAME
+
+kalendas - Calendar Calculations
+
+=head1 SYNOPSIS
+
+B<kalendas> [I<option>] [I<arguments>]
+
+=head1 ABSTRACT
+
+kalendas is a perl script to make calendar calculations. The
+computations are developed on three systems of dating: the Julian
+calendar, the Gregorian calendar and the system of numbering of
+Julian day/date.
+
+ Keywords:
+   Julian Calendar, Gregorian calendar, Julian date.
+
+=head1 DESCRIPTION
+
+The Julian and Gregorian calendars are dating systems used by the
+Western or Christian Culture: the Julian calendar, introduced by
+the triumvirate Julius Caesar in the 46 b.C., was used until 1582
+A.D., epoch which was corrected through reform ordered by Pope
+Gregory XIII and who gave origin to the Gregorian calendar,
+calendar of use common in the present time. Both calendars
+considered the same months and days, but they differ in the
+counting of leap years. The system of numbering of Julian days
+consists in to count the days (including fractions of day) since a
+reference date until a specified date and its use is common in
+astronomy and chronology.
+
+The computations have by objective to convert dates among the
+three dating systems mentioned above. Most algorithms implemented
+using the function module (the remainder of the division between
+two integers numbers) in order to handle integer variables along
+of the calculation, since the calendars handle integers numbers,
+except the system numbering of Julian day/date that contains part
+decimal because of the fraction of day.
+
+=head1 OPTIONS
+
+=head2 I. Arguments
+
+B<Note>: Writing quotes (C<"">) is obligatory for input of arguments.
+
+=over 6
+
+=item 'era'
+
+Is the position of the year in the Christian scale. With 'C<aC>' denotes
+ante Christium or before Christ; 'C<AD>', Anno Domini or common era.
+
+=item 'yy'
+
+The year with a number greater than zero. The year zero or a year negative
+does not exist in the Christian scale.
+
+=item 'mm'
+
+The month with numerical value: Jan-E<gt>1, Feb-E<gt>2, ...
+
+=item 'dd'
+
+The day of the month.
+
+=item 'tt'
+
+The solar time, has two options of entrance: writing the time
+universal (UT) in format 'C<hh:mm:ss>', or 'C<md>' that is the
+hour to noon of Greenwich (12:00:00 UT).
+
+=item 'fj'
+
+The Julian date. The integer and decimal parts the 'C<fj>'
+represent the Julian day number and Julian day fraction
+respectively. With five numbers decimals the time is
+obtained with precision of 1 second. 'C<fj>' can be a negative
+number.
+
+=back
+
+=head2 II. Functions
+
+=over 4
+
+=item --calc2FJ "(era,yy,mm,dd,tt)"
+
+Calculation of Julian date from a calendar date used in the
+Christian or Western culture. This function assumes the calendars
+used in Western culture: the Gregorian calendar, currently used
+for civil purposes, and its predecessor, the Julian calendar, used
+by the old Roman Empire with use until end of century XVI.
+Therefore, for a date previous to the 5 of October of 1582 the
+Julian calendar is assumed, whereas for a date later to the 14 of
+October of 1582 the Gregorian calendar is assumed.
+
+=item --jul2FJ "(era,yy,mm,dd,tt)"
+
+Calculation of Julian date from a Julian calendar date.
+The function assumes only the Julian calendar.
+
+=item --greg2FJ "(era,yy,mm,dd,tt)"
+
+Calculation of Julian date from a Gregorian calendar date.
+The function assumes only the Gregorian calendar.
+
+=item --FJ2jul "(fj)"
+
+Calculation of a Julian calendar date, time and day of the week
+from a Julian date. It gives the date with format day of week,
+era, year, month, day and time UT.
+
+=item --FJ2greg "(fj)"
+
+Calculation of a Gregorian calendar date, time and day of the week
+from a Julian date. It gives the date with format day of week,
+era, year, month, day and time UT.
+
+=item --convcal "(era,yy,mm,dd,cal1,cal2)"
+
+Conversion between calendar date 'C<cal1>' to calendar date 'C<cal2>'.
+The conversion is made between Julian 'C<jul>' and Gregorian 'C<greg>'
+calendars or vice versa. It gives the date with format era, year,
+month and day.
+
+=item --mas fun
+
+Show additional information about function 'C<fun>', where 'C<fun>' is
+one of the options:
+
+ 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg'
+
+The option 'C<arg>' shows additional information on the arguments.
+
+=item -h, --help
+
+Show summary of functions and arguments.
+
+=item -v, --version
+
+Show program version.
+
+=back
+
+If parameters do not exist in the command line, it evaluates the
+Julian date from the PC clock.
+
+=head1 EXAMPLES
+
+In the following examples, write function and arguments in the
+same form as found.
+
+=over 6
+
+=item *
+
+Various astronomical applications refer to the time J2000, defined
+as the Julian date of 1 January of the 2000 A.D. a noon of Greenwich
+(12:00:00 UT). Julian date for this moment is:
+
+      kalendas --calc2FJ "(AD,2000,1,1,md)"
+      FJ = 2451545.00000
+
+=item *
+
+The Julian date of 15 March of the 44 a.C. to 5:45:35 UT is:
+
+      kalendas --calc2FJ "(aC,44,3,15,5:45:35)"
+      FJ = 1705425.73999
+
+=item *
+
+The Julian date of day 3 of September of 1752 A.D. (Julian
+calendar) at midnight of Greenwich (00:00:00 UT) is:
+
+      kalendas --jul2FJ "(AD,1752,09,03,00:00:00)"
+      FJ = 2361221.50000
+
+the Julian date of day 14 of September of 1752 A.D. (Gregorian
+calendar) at midnight of Greenwich (00:00:00 UT) is:
+
+      kalendas --greg2FJ "(AD,1752,09,14,00:00:00)"
+      FJ = 2361221.50000
+
+It is observed that both calendars agree with the same Julian date.
+Of fact, in this date Great Britain and its colonies adopted the
+Gregorian calendar.
+
+=item *
+
+N. Armstrong walked onto the lunar ground in Julian date
+2440421.62278. The respective dates Julian and Gregorian
+calendar of historic moment are:
+
+      kalendas --FJ2jul "(2440421.62278)"
+      Fecha: Sabado, AD 1969-7-6, 02:56:48 UT
+      kalendas --FJ2greg "(2440421.62278)"
+      Fecha: Sabado, AD 1969-7-19, 02:56:48 UT
+
+=item *
+
+Convert the date 1 January of the 1 A.D. Julian calendar to
+Gregorian calendar
+
+      kalendas --convcal "(AD,1,1,1,jul,greg)"
+      Fecha: (aC,1,12,30)
+
+of course the inverse operation retrieves the starting date
+
+      kalendas --convcal "(aC,1,12,30,greg,jul)"
+      Fecha: (AD,1,1,1)
+
+=item *
+
+To calculate the current Julian date from the PC clock
+
+      kalendas
+
+=back
+
+=head1 DIAGNOSTICS
+
+kalendas returns one of the following messages, with
+interruption of the program, by incorrect input of arguments.
+
+=over 4
+
+=item 'Many arguments!'
+
+The option required has more of an argument or the quotes were omitted.
+Strings separated by spaces or commas (C<--fun arg1 arg2,arg3 ...>)
+are considered as arguments; therefore each option requires an
+argument in quotes. View Examples.
+
+=item 'Bad input date!'
+
+The arguments entered by command line do not adjust the format
+required by the function. Each argument must be enclosed in
+parentheses. For Julian date calculations the argument 'C<era>' only
+supports strings 'C<aC>' or 'C<AD>', 'C<yy,mm,dd>' admit only positive
+integers numbers, the time 'C<tt>' admits the string 'C<md>' or time
+format UT 'C<hh:mm:ss>' with positive integers numbers. For calendar
+date calculations 'C<fj>' is a positive or negative real number.
+View Examples.
+
+=item 'Conversion between calendars equals!!!'
+
+The option C<--convcal> only converts between calendars Julian and/or
+Gregorian. Obviously, there is not nothing else to comment!
+
+=item 'There is not information for: argx'
+
+The argument 'C<argx>' does not correspond to the functions of
+kalendas. In order to remember the functions of the program,
+write 'C<--help>'.
+
+=back
+
+=head1 AUTHOR
+
+  Miguel Molina <mmolina.unphysics@gmail.com>
+
+=head1 VERSION
+
+C<kalendas>, version 1.0.0, $Date: 2013/09/12 23:20:35 $
+
+=head1 LICENSE
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see E<lt>http://www.gnu.org/licenses/E<gt>.
