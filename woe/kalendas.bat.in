@@ -1,0 +1,3 @@
+@echo off
+set LANG=@localelang@
+perl "%~dpn0" %*
