@@ -1,0 +1,475 @@
+\input texinfo @c -*- Texinfo -*- 
+@comment ===================
+@comment Parte 1: Encabezado
+@comment ===================
+@c %**start  of  header
+@setfilename kalendas.info
+@include version.texi
+@include encoding.texi
+@settitle Kalendas
+@setchapternewpage on
+@documentlanguage es
+@ifinfo
+@documentencoding @value{DOCENCODING}
+@end ifinfo
+@c %**end of header
+
+@comment ==============================================================
+@comment Parte 2: Descripcion del sumario y derechos de Autor para info
+@comment ==============================================================
+@copying
+Este es el manual de kalendas (versi@'on @value{VERSION}, @value{UPDATED}),
+C@'alculos de Calendario.
+
+Copyright @copyright{} 2013 Miguel Molina
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts. A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+@dircategory Science
+@direntry
+* Kalendas: (kalendas).         C@'alculos de Calendario.
+@end direntry
+
+@comment ====================================================
+@comment Parte 3: Titulo de pagina y Derechos de autor en TeX
+@comment ====================================================
+
+@titlepage
+@title Kalendas
+@subtitle C@'alculos de Calendario
+@sp 2
+@subtitle kalendas versi@'on @value{VERSION}
+@subtitle @value{UPDATED}
+@author Miguel Molina
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@comment Definicion indice de opciones
+@defcodeindex op
+@syncodeindex op cp
+
+@comment Definicion citas bibliograficas
+@macro xcite{ref}
+(\ref\)
+@end macro
+
+@comment ===========================================
+@comment Parte 4: nodo superior (top) y menu maestro
+@comment ===========================================
+@c node-name, next, previous, up
+@ifnottex
+@node Top
+@top kalendas: c@'alculos de calendario
+
+@insertcopying
+@end ifnottex
+
+@menu
+* Resumen::                         Informaci@'on preliminar
+* Introducci@'on::                    Acerca de @command{kalendas}
+* Usando kalendas::                 Como ejecutar @command{kalendas}
+* Diagn@'ostico de errores::          Mensajes de error
+* Copying::                         GNU General Public License
+* GNU Free Documentation License::  Licencia para copiar este manual
+* Referencias::                     Bibliograf@'{@dotless{i}}a
+* Concept index::                   @'Indice de conceptos.
+@end menu
+
+@comment =============================
+@comment Parte 5: Cuerpo del documento
+@comment =============================
+@c ***** Resumen *****
+@node Resumen, Introducci@'on, Top, Top
+@chapter Resumen
+@cindex Informaci@'on preliminar
+
+@command{kalendas} es un perl script para realizar c@'alculos de
+calendario. Los c@'omputos est@'an desarrollados sobre tres sistemas de
+dataci@'on: el calendario Juliano, el calendario Gregoriano y el sistema
+de numeraci@'on de d@'{@dotless{i}}a/fecha Juliana.
+
+@noindent
+@command{kalendas} es un aplicaci@'on inform@'atica que permite calcular
+diferentes conversiones entre calendarios Juliano, Gregoriano y Fecha
+Juliana, usados comunmente en c@'omputos astron@'omicos y cronol@'ogicos.
+
+@c ***** Introduccion *****
+@node Introducci@'on, Usando kalendas, Resumen, Top
+@chapter Introducci@'on
+@cindex Acerca de @command{kalendas}
+@cindex Calendario
+@cindex Fecha Juliana
+Los calendarios Juliano y Gregoriano son sistemas de dataci@'on usados
+por la Cultura Occidental o Cristiana: el calendario Juliano,
+introducido por el triunviro Julio C@'esar en el a@~no 46 a.C., fue
+usado hasta el a@~n0 1582 A.D. @xcite{Grafton, 1994}, @'epoca donde
+fue corregido a trav@'es de la reforma ordenada por el Papa Gregorio
+XIII y que dio origen al calendario Gregoriano, calendario de uso
+com@'un en la actualidad @xcite{Archivo Secreto Vaticano, 1582}. Ambos
+calendarios consideran los mismos meses y d@'{@dotless{i}}as, pero
+difieren en el conteo de los a@~nos bisiestos. El sistema de
+numeraci@'on de d@'{@dotless{i}}as Julianos consiste en contar los
+d@'{@dotless{i}}as (incluyendo fracciones de d@'{@dotless{i}}a) desde
+una fecha de referencia hasta una fecha dada y su uso es com@'un en
+astronom@'{@dotless{i}}a y cronolog@'{@dotless{i}}a @xcite{Portilla,
+2009}.
+
+@noindent
+Los c@'omputos tienen por objetivo la conversi@'on de fechas entre los
+tres sistemas de dataci@'on mencionados anteriormente. La
+mayor@'{@dotless{i}}a de algoritmos implementados usan la funci@'on
+m@'odulo (el residuo de la divisi@'on entre dos n@'umeros enteros) con
+el prop@'osito de manejar variables enteras a lo largo del c@'omputo,
+ya que los calendarios manejan n@'umeros enteros, con excepci@'on del
+sistema de numeraci@'on de d@'{@dotless{i}}a/fecha Juliana que
+contiene una parte decimal a causa de la fracci@'on de
+d@'{@dotless{i}}a.
+
+@noindent
+La aplicaci@'on es desarrollada en lenguaje
+@acronym{Perl}@footnote{Acr@'onimo en ingl@'es de Practical Extraction
+and Report Language.} y funciona a trav@'es de la interfaz de
+l@'{@dotless{i}}nea de comandos (@acronym{CLI})@footnote{Acr@'onimo en
+ingl@'es de Command Line Interface.}. Puesto que @acronym{Perl} es
+software libre, @'el se encuentra disponible en una variedad de sistemas
+operativos (UNIX, Mac, Woe@footnote{Acr@'onimo en ingl@'es Windows
+Operating Environment}) de modo que, para ejecutar la aplicaci@'on
+s@'olo es requisito tener instalado @acronym{Perl} con una versi@'on
+igual o superior a la 5. La aplicaci@'on ofrece los siguientes computos:
+
+@itemize @bullet{}
+@item
+C@'alculo de la Fecha Juliana desde una fecha del Calendario Occidental
+o Calendario Juliano o Calendario Gregoriano.
+@item
+C@'alculo de la fecha de Calendario Juliano o Calendario Gregoriano
+desde una Fecha Juliana.
+@item
+Conversion de fechas entre los calendarios Juliano y Gregoriano o
+viceversa.
+@end itemize
+
+@cindex D@'{@dotless{i}}gitos de precisi@'on
+
+@noindent
+Para la Fecha Juliana, el resultado num@'erico en la parte decimal se
+expresa con 5 d@'{@dotless{i}}gitos de precisi@'on, que en segundos
+equivale a 1 segundo.
+
+@c ***** Usando el programa *****
+@node Usando kalendas, Diagn@'ostico de errores, Introducci@'on, Top
+@chapter Usando kalendas
+@cindex Como ejecutar @command{kalendas}
+
+A continuaci@'on se explican las opciones de c@'omputo y ejemplos de
+uso de la aplicaci@'on.
+
+@menu
+* Invocando kalendas::      Argumentos y funciones
+* Ejemplos::                Instrucciones de uso
+@end menu
+
+@c ----- Usando kalendas
+@node Invocando kalendas, Ejemplos, Usando kalendas, Usando kalendas
+@section Invocando kalendas
+@cindex Argumentos y funciones
+
+@subsection Argumentos
+@cindex Ingreso de argumentos
+@b{Nota:} escritura de comillas (") es obligatoria para ingreso de
+argumentos.
+
+@table @code
+@item @b{era}
+Es la posici@'on del a@~no en la escala cristiana. Con @command{aC}
+denota @i{ante Christium} o antes de Cristo; @command{AD}, @i{Anno
+Domini} o despu@'es de Cristo.
+
+@item @b{yy}
+El a@~no con un n@'umero mayor que cero. El a@~no cero o un a@~no
+negativo no existe en la escala cristiana.
+
+@item @b{mm}
+El mes con valor num@'erico: Ene@math{->}1, Feb@math{->}2, @dots{}
+
+@item @b{dd}
+El d@'{@dotless{i}}a del mes.
+
+@item @b{tt}
+La hora solar, tiene dos opciones de ingreso: escribiendo el tiempo
+universal (UT) en formato @command{hh:mm:ss}, o @command{md} que es la
+hora a mediod@'{@dotless{i}}a de Greenwich (12:00:00 UT).
+
+@item @b{fj}
+La fecha Juliana. Las partes entera y decimal de @command{fj}
+representan el n@'umero de d@'{@dotless{i}}a Juliano y la fracci@'on de
+d@'{@dotless{i}}a Juliano respectivamente.@* Con cinco cifras
+decimales se obtiene la hora solar con una precisi@'on de 1 segundo;
+@command{fj} puede ser un n@'umero negativo.
+@end table
+
+@subsection Funciones
+@cindex G@'{@dotless{i}}ua de comandos
+@table @code
+@item --calc2FJ "(era,yy,mm,dd,tt)"
+@opindex @option{--calc2FJ}
+C@'alculo de fecha Juliana a partir de una fecha del calendario usado
+en la cultura Cristiana o Occidental. Esta funci@'on asume los
+calendarios usados en la cultura Occidental: el calendario Gregoriano,
+usado actualmente para fines civiles, y su antecesor, el calendario
+Juliano, usado por el antiguo Imperio Romano con vigencia hasta
+finales del siglo XVI. Por tanto, para una fecha anterior al 5 de
+Octubre de 1582 se asume el calendario Juliano, mientras que para una
+fecha posterior al 14 de Octubre de 1582 se asume el calendario
+Gregoriano.
+
+@item --jul2FJ "(era,yy,mm,dd,tt)"
+@opindex @option{--jul2FJ}
+C@'alculo de fecha Juliana a partir de una fecha del calendario
+Juliano. La funci@'on asume @'unicamente el calendario Juliano.
+
+@item --greg2FJ "(era,yy,mm,dd,tt)"
+@opindex @option{--greg2FJ}
+C@'alculo de fecha Juliana a partir de una fecha del calendario
+Gregoriano. La funci@'on asume @'unicamente el calendario Gregoriano.
+
+@item  --FJ2jul "(fj)"
+@opindex @option{--FJ2jul}
+C@'alculo de una fecha del calendario Juliano, hora y
+d@'{@dotless{i}}a de la semana a partir de una fecha Juliana. Entrega
+la fecha con formato d@'{@dotless{i}}a de la semana, era, a@~no, mes,
+d@'{@dotless{i}}a y hora UT.
+
+@item --FJ2greg "(fj)"
+@opindex @option{--FJ2greg}
+C@'alculo de una fecha del calendario Gregoriano, hora y
+d@'{@dotless{i}}a de la semana a partir de una fecha Juliana. Entrega
+la fecha con formato d@'{@dotless{i}}a de la semana, era, a@~no, mes,
+d@'{@dotless{i}}a y hora UT.
+
+@item --convcal "(era,yy,mm,dd,cal1,cal2)"
+@opindex @option{--convcal}
+Conversi@'on entre fecha del calendario @command{cal1} a fecha del
+calendario @command{cal2}. La conversi@'on se realiza entre
+calendarios Juliano @command{jul} y Gregoriano @command{greg} o
+viceversa. Entrega la fecha con formato era, a@~no, mes y
+d@'{@dotless{i}}a.
+
+@item --mas fun
+@opindex @option{--mas fun}
+Muestra informaci@'on adicional sobre funci@'on @command{fun}, donde
+@command{fun} es una de las opciones
+@example
+ calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg
+@end example
+@noindent
+La opci@'on @command{arg} muestra informaci@'on adicional de los
+argumentos.
+
+@item -h, --help
+@opindex @option{-h, --help}
+Muestra resumen de funciones y argumentos.
+
+@item -v, --version
+@opindex @option{-v, --version}
+Muestra versi@'on del programa.
+@end table
+
+@noindent
+Si no hay alg@'un par@'ametro en la l@'{@dotless{i}}nea de comandos,
+se eval@'ua la Fecha Juliana desde el reloj del PC.
+
+@c ----- Ejemplos
+@node Ejemplos, , Invocando kalendas, Usando kalendas
+@section Ejemplos
+@cindex Instrucciones de uso
+@cindex Ejemplos
+
+Para ejecutar el perl script escribir en un terminal
+@example
+ kalendas [opci@'on] [argumentos]
+@end example
+
+@noindent
+Tambi@'en puede ejecutarse a partir del interprete perl (opci@'on
+valida para cualquier plataforma) escribiendo
+@example
+ perl kalendas [opci@'on] [argumentos]
+@end example
+
+@noindent
+En los siguientes ejemplos, escribir funci@'on y argumentos en la
+misma forma como se encuentra.
+
+@itemize @bullet{}
+@item
+En diversas aplicaciones astron@'omicas se hace referencia a la
+@'epoca J2000, entendida como la fecha Juliana del 1 de Enero del 2000
+A.D. a mediod@'{@dotless{i}}a de Greenwich (12:00:00 UT). La fecha
+Juliana para tal instante es:
+@example
+ kalendas --calc2FJ "(AD,2000,1,1,md)"
+ FJ = 2451545.00000
+@end example
+
+@item
+La fecha Juliana del d@'{@dotless{i}}a 15 de Marzo del 44 a.C. a las
+5:45:35 UT es:
+@example
+ kalendas --calc2FJ "(aC,44,3,15,5:45:35)"
+ FJ = 1705425.73999
+@end example
+
+@item
+La fecha Juliana del d@'{@dotless{i}}a 3 de Septiembre de 1752
+A.D. (calendario Juliano) a media noche de Greenwich (00:00:00 UT) es:
+@example
+ kalendas --jul2FJ "(AD,1752,09,03,00:00:00)"
+ FJ = 2361221.50000
+@end example
+
+@noindent
+La fecha Juliana del d@'{@dotless{i}}a 14 de Septiembre de 1752
+A.D. (calendario Gregoriano) a media noche de Greenwich (00:00:00 UT)
+es:
+@example
+ kalendas --greg2FJ "(AD,1752,09,14,00:00:00)"
+ FJ = 2361221.50000
+@end example
+
+@noindent
+Se observa que ambos calendarios coinciden con la misma fecha
+Juliana. De hecho, en esta fecha Gran Breta@~na y sus colonias
+adoptaron el calendario Gregoriano.
+
+@item
+N. Armstrong pis@'o el suelo lunar en la fecha Juliana
+2440421.62278. Las respectivas fechas calendario Juliano y Gregoriano
+del hist@'orico momento son:
+@example
+ kalendas --FJ2jul "(2440421.62278)"
+ Fecha: Sabado, AD 1969-7-6, 02:56:48 UT
+ kalendas --FJ2greg "(2440421.62278)"
+ Fecha: Sabado, AD 1969-7-19, 02:56:48 UT
+@end example
+
+@item
+Convertir la fecha 1 enero del 1 A.D. calendario Juliano a calendario
+Gregoriano
+@example
+ kalendas --convcal "(AD,1,1,1,jul,greg)"
+ Fecha: (aC,1,12,30)
+@end example
+
+@noindent
+por supuesto la operaci@'on inversa recupera la fecha inicial
+@example
+ kalendas --convcal "(aC,1,12,30,greg,jul)"
+ Fecha: (AD,1,1,1)
+@end example
+
+@item
+Para calcular la fecha Juliana actual desde el reloj del PC
+@example
+ kalendas
+@end example
+@end itemize
+
+@c ----- Diagnostico de errores
+@node Diagn@'ostico de errores, Copying, Usando kalendas, Top
+@chapter Diagn@'ostico de errores
+@cindex Mensajes de error
+Durante la ejecuci@'on del programa pueden presentarse algunos
+errores, causando la terminaci@'on inmediata de la aplicaci@'on. En lo
+que sigue se explican los mensajes de error de la aplicaci@'on,
+teniendo en cuenta que su origen puede deberse a la redacci@'on de
+argumentos y/o opciones; la discusi@'on no profundiza en errores de
+compilaci@'on o de ejecuci@'on sobre un sistema operativo.@*
+@command{kalendas} retorna uno de los siguientes mensajes, con
+interrupci@'on de la aplicaci@'on, por ingreso incorrecto de argumentos.
+
+@table @code
+@item Muchos argumentos!
+La opci@'on requerida tiene m@'as de un argumento o las comillas
+fueron omitidas. Cadenas de caracteres separados por espacios o comas
+(@command{--fun arg1 arg2, arg3 @dots{}}) son considerados como
+argumentos; por tanto, cada opci@'on requiere un argumento entre
+comillas. Ver Ejemplos.
+
+@item Ingreso incorrecto de fecha!
+Los argumentos ingresados por l@'{@dotless{i}}nea de comandos no se
+ajustan al formato requerido por la funci@'on. Cada argumento debe
+estar entre par@'entesis. Para c@'alculos de fecha Juliana el
+argumento @command{era} admite @'unicamente las cadenas @command{aC} o
+@command{AD}, @command{yy,mm,dd} admiten @'unicamente n@'umeros enteros
+positivos, el tiempo @command{tt} admite la cadena @command{md} o la
+hora UT en formato @command{hh:mm:ss} con n@'umeros enteros
+positivos. Para c@'alculos de fecha de calendario @command{fj} es un
+n@'umero real positivo o negativo. Ver Ejemplos.
+
+@item Conversion entre calendarios iguales!!!
+La opci@'on @command{--convcal} realiza conversiones @'unicamente entre
+los calendarios Juliano y/o Gregoriano. Obviamente, no hay nada mas
+que comentar!
+
+@item No existe informacion para: argx
+El argumento @command{argx} no corresponde a las funciones de
+kalendas. Para recordar las funciones del programa, escribir
+@command{--help}.
+@end table
+
+@c ***** GPL *****
+@node Copying, GNU Free Documentation License, Diagn@'ostico de errores, Top
+@appendix GNU General Public License
+@cindex GNU General Public License
+@include gpl.texi
+
+@c ***** FDL *****
+@node GNU Free Documentation License, Referencias, Copying, Top
+@appendix GNU Free Documentation License
+@cindex FDL, GNU Free Documentation License
+@cindex Licencia para copiar este manual
+@include fdl.texi
+
+@c ***** Referencias *****
+@node Referencias, Concept index, GNU Free Documentation License, Top
+@unnumbered Referencias
+@cindex Bibliograf@'{@dotless{i}}a
+
+@itemize @w{}
+@item
+Grafton, A. (1994). @emph{Joseph Scaliger. A study in the history of
+clasical scholarship. (Vol. 2, Historical chronology)}. Oxford,
+Inglaterra: Oxford University Press.
+@item
+Portilla, J. G. (2009). @emph{Elementos de astronom@'{@dotless{i}}a de
+posici@'on}. Bogot@'a, Colombia: Universidad Nacional de Colombia,
+Facultad de Ciencias, Observatorio Astron@'omico Nacional.
+@item
+Archivo Secreto Vaticano. (1582). @emph{<<LUNARIO NOVO>> de 1582: la
+Reforma Gregoriana del calendario}. Recuperado de
+@url{http://web.archive.org/web/http://asv.vatican.va/es/doc/1582.htm}
+@end itemize
+
+@comment ==========================
+@comment Parte 6: Fin del documento
+@comment ==========================
+@node Concept index
+@unnumbered Concept Index
+
+@printindex cp
+@contents
+
+@c GNU Software Evaluation: http://www.gnu.org/help/evaluation.html
+
+@bye
