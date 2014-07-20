@@ -1,0 +1,6 @@
+kalendas - 1.0.0 (2013-09-14 14:42:31)
+
+ * Include native language support for output messages in languages
+   in languages english, spanish and portuguese.
+ * Documentation of the application in spanish (info format).
+ * Added page man in language portuguese.
