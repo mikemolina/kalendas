@@ -1,0 +1,106 @@
+
+  kalendas - Cálculos de calendario
+
+-----------
+DESCRIPCIÓN
+-----------
+  kalendas es un perl script para realizar cálculos de calendario.
+  Los cómputos están desarrollados sobre tres sistemas de datación:
+  el calendario Juliano, el calendario Gregoriano y el sistema de
+  numeración de día/fecha Juliana.
+
+----------
+REQUISITOS
+----------
+  kalendas requiere perl 5 o posterior. Para el soporte en lenguaje
+  nativo se recomienda el módulo Locale::TextDomain incluido en el
+  paquete libintl-perl. Ver el archivo DEPENDENCES.
+
+-----------
+INSTALACIÓN
+-----------
+  1. Muchas distribuciones UNIX/Linux tienen instalado Perl; para
+  obtener su ubicación, escribir en una consola
+    which perl
+  que mostrara el camino (path) del ejecutable. Similarmente en
+  plataformas Windows escribiendo "PATH" en una consola MS-DOS o
+  en símbolo de sistema también debe mostrar la ubicación de perl,
+  por ejemplo: "C:\Perl\bin".
+
+  2. Si usted quiere instalar kalendas desde un repositorio git (como GitHub),
+  primero asegúrese de tener instalado GNU Autoconf, GNU Automake, GNU libiconv,
+  GNU gettext y Texinfo; en algunas distribuciones UNIX/Linux algunas dependencias
+  de construcción están instaladas por defecto. Para construir e instalar el
+  paquete, ejecutar los comandos
+    $ git clone https://github.com/mikemolina/kalendas.git
+    $ cd kalendas
+    $ ./autogen.sh
+    $ ./configure --prefix=/ruta/a/instalar
+    $ make
+    $ make install
+
+  3. En plataformas UNIX/Linux y entornos similares, como MSYS para
+  entornos operativos Windows (Woe), extraer e instalar el paquete
+  en la forma usual
+    $ gunzip -c kalendas-1.0.0.tar.gz | tar -xvf -
+    $ cd kalendas-1.0.0/
+    $ ./configure --prefix=/ruta/a/instalar
+    $ make
+    $ make install
+  Para mejorar la codificación de caracteres en Woe/MSYS, reconstruir
+  el paquete, ejecutando
+    $ ./configure
+    $ make maintainer-clean
+    $ ./configure --prefix=/ruta/a/instalar --with-libintl-prefix=/ruta/a/libintl
+    $ make
+    $ make install
+  Para reconstruir el paquete son necesarias las herramientas GNU libiconv,
+  GNU gettext, Texinfo y pod2man (incluido en su distribución Perl).
+
+  En plataformas Woe, la instalación puede realizarse usando GNU Make
+  (incluida en la distribución Strawberry Perl).
+  Luego de extraer el paquete, editar el archivo woe/Makefile.mgw para
+  modificar la ruta de instalación por defecto y en el símbolo de sistema
+  escribir
+    > cd kalendas-1.0.0
+    > copy woe/Makefile.mgw .
+    > gmake -f Makefile.mgw
+
+  4. Después de la instalación, ejecutar el perl script
+    $ cd /ruta/a/instalar/bin
+    $ kalendas
+  o también desde el interprete perl
+    $ perl kalendas
+  esta opción debería funcionar correctamente desde cualquier plataforma.
+
+  Para la traducción de los mensajes de salida, usted puede probar el perl
+  script cambiando la variable de entorno LANG según los idiomas incluidos
+  en el paquete. En Woe/MSYS escribir
+    $ env LANGUAGE=es kalendas
+  o en el símbolo de sistema
+    > set LANG=es
+    > kalendas
+
+  Para información más detallada de funciones e instrucciones, ver
+    ./doc/kalendas.htm
+
+-------
+VERSIÓN
+-------
+  kalendas, versión 1.0.0, $Date: 2014/07/19 12:36:09 $
+
+--------
+LICENCIA
+--------
+  Este programa es software libre y está distribuido conforme a los
+  términos de la Licencia Pública General de GNU (GNU GPL), la cual
+  se encuentra incluida en esta distribución en el archivo COPYING.
+  Para comprender la licencia, el archivo LICENCIA.txt contiene una
+  traducción no-oficial la Licencia Pública General de GNU (GNU GPL)
+  al español.
+
+
+Si encuentra útil este software, envíe
+sus comentarios y sugerencias al autor:
+Miguel Molina, e-mail: mmolina.unphysics@gmail.com
+Buena Suerte!
