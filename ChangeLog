@@ -1,0 +1,12 @@
+2013-09-14 Miguel Molina <mmolina.unphysics@gmail.com>
+	* Version 1.0.0.
+	* First revision, packaged with autotools.
+	* Adaptation of the source code for internationalization (i18n).
+	* Output messages localized (l10n) to languages english, spanish
+	  and portuguese.
+	* Documentation of the application in format info (in spanish).
+	* Added page man in language portuguese.
+2009-12-01 Miguel Molina <mmolina.unphysics@gmail.com>
+	* Version 0.1.0.
+	* Original Source code unpublished.
+	* Pages man translated in language spanish and english.
