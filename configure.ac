@@ -12,7 +12,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_PREFIX_DEFAULT($HOME/kalendas)
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE([-Wall])
+AM_INIT_AUTOMAKE([-Wall foreign])
 AC_MSG_CHECKING([target operating system])
 case "$target_os" in
    linux* )
