@@ -1,5 +1,5 @@
 
-  kalendas - Cálculos de calendario
+  kalendas - Cálculos de calendario y Fecha Juliana
 
 -----------
 DESCRIPCIÓN
@@ -21,61 +21,60 @@ INSTALACIÓN
 -----------
   1. Muchas distribuciones UNIX/Linux tienen instalado Perl; para
   obtener su ubicación, escribir en una consola
-    which perl
+    $ which perl
   que mostrara el camino (path) del ejecutable. Similarmente en
   plataformas Windows escribiendo "PATH" en una consola MS-DOS o
   en símbolo de sistema también debe mostrar la ubicación de perl,
   por ejemplo: "C:\Perl\bin".
 
-  2. Si usted quiere instalar kalendas desde un repositorio git (como GitHub),
-  primero asegúrese de tener instalado GNU Autoconf, GNU Automake, GNU libiconv,
-  GNU gettext y Texinfo; en algunas distribuciones UNIX/Linux algunas dependencias
-  de construcción están instaladas por defecto. Para construir e instalar el
-  paquete, ejecutar los comandos
+  2. Si usted quiere instalar kalendas desde un repositorio git
+  (como GitHub), primero asegúrese de tener instalado GNU Autoconf,
+  GNU Automake, GNU libiconv, GNU gettext, Texinfo y pod2man (incluido
+  en su distribución Perl); en algunas distribuciones UNIX/Linux
+  algunas dependencias de construcción están instaladas por defecto.
+  Para construir e instalar el paquete en plataformas UNIX/Linux y
+  entornos similares, como MSYS en entornos operativos Windows (Woe),
+  ejecutar los comandos
     $ git clone https://github.com/mikemolina/kalendas.git
     $ cd kalendas
     $ ./autogen.sh
     $ ./configure --prefix=/ruta/a/instalar
     $ make
     $ make install
+  Si usted tiene la libreria libintl (incluido en GNU gettext) en una
+  ruta diferente a la ruta por defecto agregue la opción
+    --with-libintl-prefix=/ruta/a/libintl
+  al script configure.
 
-  3. En plataformas UNIX/Linux y entornos similares, como MSYS para
-  entornos operativos Windows (Woe), extraer e instalar el paquete
-  en la forma usual
-    $ gunzip -c kalendas-1.0.0.tar.gz | tar -xvf -
-    $ cd kalendas-1.0.0/
-    $ ./configure --prefix=/ruta/a/instalar
-    $ make
-    $ make install
-  Para mejorar la codificación de caracteres en Woe/MSYS, reconstruir
-  el paquete, ejecutando
-    $ ./configure
-    $ make maintainer-clean
-    $ ./configure --prefix=/ruta/a/instalar --with-libintl-prefix=/ruta/a/libintl
-    $ make
-    $ make install
-  Para reconstruir el paquete son necesarias las herramientas GNU libiconv,
-  GNU gettext, Texinfo y pod2man (incluido en su distribución Perl).
-
-  En plataformas Woe, la instalación puede realizarse usando GNU Make
-  (incluida en la distribución Strawberry Perl).
-  Luego de extraer el paquete, editar el archivo woe/Makefile.mgw para
-  modificar la ruta de instalación por defecto y en el símbolo de sistema
-  escribir
-    > cd kalendas-1.0.0
+  En plataformas Woe, después de construir el paquete la instalación
+  también es posible desde el símbolo del sistema usando GNU Make
+  (incluido en la distribución Strawberry Perl). Editar el archivo
+  woe/Makefile.mgw para modificar la ruta de instalación por defecto
+  y en el símbolo de sistema escribir
     > copy woe/Makefile.mgw .
     > gmake -f Makefile.mgw
 
-  4. Después de la instalación, ejecutar el perl script
+---------------
+USANDO KALENDAS
+---------------
+  Después de la instalación, ejecutar el perl script
     $ cd /ruta/a/instalar/bin
     $ kalendas
   o también desde el interprete perl
     $ perl kalendas
   esta opción debería funcionar correctamente desde cualquier plataforma.
 
-  Para la traducción de los mensajes de salida, usted puede probar el perl
-  script cambiando la variable de entorno LANG según los idiomas incluidos
-  en el paquete. En Woe/MSYS escribir
+  Ahora un ejemplo. En diversas aplicaciones astronómicas se hace
+  referencia a la época J2000, entendida como la fecha Juliana del 1
+  de Enero del 2000 A.D. a mediodía de Greenwich (12:00:00 UT). Con
+  kalendas, la fecha Juliana para tal instante es
+    $ kalendas --calc2FJ "(AD,2000,1,1,md)"
+    FJ = 2451545.00000
+
+  Para la traducción de los mensajes de salida, usted puede probar
+  el perl script cambiando la variable de entorno LANGUAGE y/o LANG
+  según los idiomas incluidos en el paquete. En plataformas UNIX/Linux
+  y Woe/MSYS escribir
     $ env LANGUAGE=es kalendas
   o en el símbolo de sistema
     > set LANG=es
@@ -83,11 +82,12 @@ INSTALACIÓN
 
   Para información más detallada de funciones e instrucciones, ver
     ./doc/kalendas.htm
+  generado después de construir el paquete.
 
 -------
 VERSIÓN
 -------
-  kalendas, versión 1.0.0, $Date: 2014/07/19 12:36:09 $
+  kalendas, versión 1.0.0, $Date: 2014/07/26 09:55:22 $
 
 --------
 LICENCIA
