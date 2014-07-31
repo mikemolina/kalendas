@@ -12,7 +12,9 @@ REQUIREMENTS
 ------------
   **kalendas** requires perl 5 or later. For native language support is
   recommended the module Locale::TextDomain included in the package
-  libintl-perl. See *DEPENDENCES* file.
+  libintl-perl. See *DEPENDENCIES* file.
+
+  A translation in Spanish of this README is in LEAME file.
 
 INSTALLATION
 ------------
@@ -20,17 +22,59 @@ INSTALLATION
   location, type into a console
 
         $ which perl
-  that showed the way (path) of the executable. Similarly platforms
-  Windows writing "PATH" in a console MS-DOS or symbol of system
-  must also show the location of perl, e.g.: "C:\Perl\bin".
+  that showed the path of the executable. Similarly in Windows
+  operating environment (Woe) writing in the symbol of system
 
-  2. If you want install program from a repository git (as *GitHub*),
+        > perl -v
+  will be show that perl is installed.
+
+  2. Installation of **kalendas** in distros Linux based in Debian
+  and Ubuntu is easy and fast. In a terminal run
+
+        $ sudo add-apt-repository ppa:mymolina/kalendas-pkg
+        $ sudo apt-get update
+        $ sudo apt-get install kalendas
+
+  3. You can also install **kalendas** from the source code of the stable
+  version available in [launchpad](https://launchpad.net/kalendas),
+  whose package can download [here](https://launchpad.net/kalendas/trunk/1.0.0/+download/kalendas-1.0.0.tar.gz).
+  In UNIX/Linux, Woe/MSYS platforms and like environments, extract
+  and install the package in the usual form
+
+        $ tar -xvzf kalendas-1.0.0.tar.gz
+        $ cd kalendas-1.0.0
+        $ ./configure --prefix=/ruta/a/instalar
+        $ make
+        $ make install
+  For improve the encoding characters in Woe/MSYS, rebuild package
+  maybe necessary, then running
+
+        $ ./configure
+        $ make maintainer-clean
+        $ ./configure --prefix=/path/to/install
+        $ make
+        $ make install
+  If libintl library (included in GNU gettext) is in a different
+  location to path by default, add the option to the configure script
+
+        --with-libintl-prefix=/ruta/a/libintl
+  Optionally, in Woe platforms the installation also can be achieved
+  from the symbol system using *GNU Make* (included in the
+  [Strawberry Perl](http://strawberryperl.com/) distribution). Edit
+  woe/Makefile.mgw file for to modify the path installation by default
+  and run
+
+        > cd kalendas-1.0.0
+        > copy woe/Makefile.mgw .
+        > make -f Makefile.mgw
+
+  4. If you want install program from a repository git (as *GitHub*),
   first make sure have installed *GNU Autoconf*, *GNU Automake*, 
   *GNU libiconv*, *GNU gettext*, *Texinfo* and *pod2man* (included in your
   distribution Perl); in some distros UNIX/Linux some build
   dependencies are installed by default. For build and install the
-  package in UNIX/Linux platforms and like environments as MSYS for
-  Windows operating environment (Woe), run the commands
+  package in UNIX/Linux, Woe/MSYS and like environments as run the
+  commands
 
         $ git clone https://github.com/mikemolina/kalendas.git
         $ cd kalendas
@@ -38,18 +82,6 @@ INSTALLATION
         $ ./configure --prefix=/path/to/install
         $ make
         $ make install
-  If you have installed the libintl library (included in *GNU gettext*)
-  in a path different to default path add the option
-
-        --with-libintl-prefix=/path/to/libintl
-  in the configure script.
-  In platforms Woe, later build the installation also can be achieved
-  using *GNU Make* (included in the *Strawberry Perl* distribution).
-  Edit woe/Makefile.mgw file for to modify the path installation by
-  default and in the symbol's system write
-
-        > copy woe/Makefile.mgw .
-        > make -f Makefile.mgw
 
 USING KALENDAS
 --------------
@@ -88,11 +120,9 @@ USING KALENDAS
 
         ./doc/kalendas.htm
 
-  generated later build the package.
-
 VERSION
 -------
-  **kalendas**, version 1.0.0, $Date: 2014/07/26 09:55:22 $
+  **kalendas**, version 1.0.0, $Date: 2014/07/30 16:05:21 $
 
 LICENSE
 -------
@@ -102,11 +132,5 @@ LICENSE
   understand the license, the LICENCIA file contains a not-official
   translation the GNU General Public License (GNU GPL) in Spanish.
 
-
-If you find this software useful, please send
-your comments and suggestions to the author:
-Miguel Molina, e-mail: <mmolina.unphysics@gmail.com>
-
 Good Luck!
 
-A translation in Spanish of this README is in LEAME file.
