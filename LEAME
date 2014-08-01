@@ -33,7 +33,7 @@ INSTALACIÓN
     $ sudo apt-get update
     $ sudo apt-get install kalendas
 
-  3. Usted también puede instalar kalendas desde el código funete de
+  3. Usted también puede instalar kalendas desde el código fuente de
   la versión estable disponible en launchpad (https://launchpad.net/kalendas),
   cuyo paquete puede descargarse aquí 
   https://launchpad.net/kalendas/trunk/1.0.0/+download/kalendas-1.0.0.tar.gz
