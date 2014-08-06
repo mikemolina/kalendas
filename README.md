@@ -18,8 +18,8 @@ REQUIREMENTS
 
 INSTALLATION
 ------------
-  1. Many UNIX/Linux distributions have installed Perl; to get your
-  location, type into a console
+  1. Many UNIX/Linux or Mac OS X distributions have installed Perl;
+  to get your location, type into a terminal
 
         $ which perl
   that showed the path of the executable. Similarly in Windows
@@ -28,22 +28,23 @@ INSTALLATION
         > perl -v
   will be show that perl is installed.
 
-  2. Installation of **kalendas** in distros Linux based in Debian
-  and Ubuntu is easy and fast. In a terminal run
+  2. Installation of **kalendas** in Ubuntu is easy and fast. In a
+  terminal run
 
         $ sudo add-apt-repository ppa:mymolina/kalendas-pkg
         $ sudo apt-get update
         $ sudo apt-get install kalendas
+  For distros Linux based in Debian visit the [PPA](https://launchpad.net/~mymolina/+archive/ubuntu/kalendas-pkg).
 
   3. You can also install **kalendas** from the source code of the stable
   version available in [launchpad](https://launchpad.net/kalendas),
   whose package can download [here](https://launchpad.net/kalendas/trunk/1.0.0/+download/kalendas-1.0.0.tar.gz).
-  In UNIX/Linux, Woe/MSYS platforms and like environments, extract
-  and install the package in the usual form
+  In UNIX platforms (Linux, Mac OS X, including Woe/MSYS and like
+  environments), extract and install the package in the usual form
 
         $ tar -xvzf kalendas-1.0.0.tar.gz
         $ cd kalendas-1.0.0
-        $ ./configure --prefix=/ruta/a/instalar
+        $ ./configure --prefix=/path/to/install
         $ make
         $ make install
   For improve the encoding characters in Woe/MSYS, rebuild package
@@ -67,8 +68,16 @@ INSTALLATION
         > cd kalendas-1.0.0
         > copy woe/Makefile.mgw .
         > make -f Makefile.mgw
+  
+  4. If you not have root privileges to install the dependencies, you
+  can install **kalendas** locally. Follow the steps in section 3 running
+  the configure script so
 
-  4. If you want install program from a repository git (as *GitHub*),
+        $ ./configure --disable-nls
+  the perlscript will be installed in ~/kalendas/bin showing messages
+  in spanish.
+
+  5. If you want install program from a repository git (as *GitHub*),
   first make sure have installed *GNU Autoconf*, *GNU Automake*, 
   *GNU libiconv*, *GNU gettext*, *Texinfo* and *pod2man* (included in your
   distribution Perl); in some distros UNIX/Linux some build
@@ -116,9 +125,8 @@ USING KALENDAS
         > set LANG=es
         > kalendas
 
-  For more detailed information of functions and instructions, see 
-
-        ./doc/kalendas.htm
+  For more detailed information of functions and instructions, see the
+  documentation in [https://launchpad.net/kalendas](https://launchpad.net/kalendas). 
 
 VERSION
 -------
