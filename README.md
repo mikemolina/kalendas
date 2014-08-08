@@ -1,6 +1,8 @@
 kalendas - Calculations of Calendar and Julian Date
 ===================================================
 
+![Screenshot](https://github.com/mikemolina/kalendas/wiki/images/Captura_de_pantalla.png)
+
 DESCRIPTION
 -----------
   **kalendas** is a perl script to make calendar calculations. The
