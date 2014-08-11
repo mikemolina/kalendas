@@ -1,7 +1,7 @@
 kalendas - Calculations of Calendar and Julian Date
 ===================================================
 
-![Screenshot](https://github.com/mikemolina/kalendas/wiki/images/Captura_de_pantalla.png)
+![Screenshot](https://github.com/mikemolina/kalendas/wiki/images/01_gterm.png)
 
 DESCRIPTION
 -----------
@@ -39,7 +39,7 @@ INSTALLATION
   For distros Linux based in Debian visit the [PPA](https://launchpad.net/~mymolina/+archive/ubuntu/kalendas-pkg).
 
   3. You can also install **kalendas** from the source code of the stable
-  version available in [launchpad](https://launchpad.net/kalendas),
+  version available in [Launchpad](https://launchpad.net/kalendas),
   whose package can download [here](https://launchpad.net/kalendas/trunk/1.0.0/+download/kalendas-1.0.0.tar.gz).
   In UNIX platforms (Linux, Mac OS X, including Woe/MSYS and like
   environments), extract and install the package in the usual form
@@ -62,14 +62,14 @@ INSTALLATION
 
         --with-libintl-prefix=/ruta/a/libintl
   Optionally, in Woe platforms the installation also can be achieved
-  from the symbol system using *GNU Make* (included in the
+  from the command prompt using *GNU Make* (included in the
   [Strawberry Perl](http://strawberryperl.com/) distribution). Edit
   woe/Makefile.mgw file for to modify the path installation by default
   and run
 
         > cd kalendas-1.0.0
         > copy woe/Makefile.mgw .
-        > make -f Makefile.mgw
+        > gmake -f Makefile.mgw
   
   4. If you not have root privileges to install the dependencies, you
   can install **kalendas** locally. Follow the steps in section 3 running
@@ -79,13 +79,12 @@ INSTALLATION
   the perlscript will be installed in ~/kalendas/bin showing messages
   in spanish.
 
-  5. If you want install program from a repository git (as *GitHub*),
+  5. If you want install program from the repository git in *GitHub*,
   first make sure have installed *GNU Autoconf*, *GNU Automake*, 
   *GNU libiconv*, *GNU gettext*, *Texinfo* and *pod2man* (included in your
-  distribution Perl); in some distros UNIX/Linux some build
-  dependencies are installed by default. For build and install the
-  package in UNIX/Linux, Woe/MSYS and like environments as run the
-  commands
+  distribution Perl); in some distros UNIX some build dependencies are
+  installed by default. For build and install the package in UNIX
+  environments run the commands
 
         $ git clone https://github.com/mikemolina/kalendas.git
         $ cd kalendas

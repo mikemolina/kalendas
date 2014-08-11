@@ -36,7 +36,7 @@ INSTALACIÓN
   https://launchpad.net/~mymolina/+archive/ubuntu/kalendas-pkg.
 
   3. Usted también puede instalar kalendas desde el código fuente de
-  la versión estable disponible en launchpad (https://launchpad.net/kalendas),
+  la versión estable disponible en Launchpad (https://launchpad.net/kalendas),
   cuyo paquete puede descargarse aquí 
   https://launchpad.net/kalendas/trunk/1.0.0/+download/kalendas-1.0.0.tar.gz
   En plataformas UNIX (Linux, Mac OS X, incluso Woe/MSYS y similares),
@@ -57,7 +57,6 @@ INSTALACIÓN
   diferente a la ruta por defecto, agregar al script configure la
   opción
     --with-libintl-prefix=/ruta/a/libintl
-
   Opcionalmente, en entornos Woe la instalación puede lograrse desde
   el símbolo de sistema usando GNU Make (incluida en la distribución
   Strawberry Perl, http://strawberryperl.com). Editar el archivo
@@ -65,7 +64,7 @@ INSTALACIÓN
   y ejecutar
     > cd kalendas-1.0.0
     > copy woe/Makefile.mgw .
-    > make -f Makefile.mgw
+    > gmake -f Makefile.mgw
 
   4. Si no tiene permisos de root para instalar las dependencias, aún
   puede instalar kalendas de forma local. Siga los pasos del numeral
@@ -74,13 +73,13 @@ INSTALACIÓN
   el perlscript estara instalado en ~/kalendas/bin mostrando los mensajes
   en español.
 
-  5. Si usted quiere instalar kalendas desde un repositorio git
-  (como GitHub), primero asegúrese de tener instalado GNU Autoconf,
+  5. Si usted quiere instalar kalendas desde el repositorio git
+  en GitHub, primero asegúrese de tener instalado GNU Autoconf,
   GNU Automake, GNU libiconv, GNU gettext, Texinfo y pod2man (incluido
-  en su distribución Perl); en algunas distribuciones UNIX/Linux
-  algunas dependencias de construcción están instaladas por defecto.
-  Para construir e instalar el paquete en plataformas UNIX/Linux,
-  Woe/MSYS y entornos similares ejecutar los comandos
+  en su distribución Perl); en algunas distribuciones UNIX algunas
+  dependencias de construcción están instaladas por defecto.
+  Para construir e instalar el paquete en plataformas UNIX ejecutar los
+  comandos
     $ git clone https://github.com/mikemolina/kalendas.git
     $ cd kalendas
     $ ./autogen.sh
