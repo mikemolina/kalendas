@@ -260,7 +260,7 @@ recordar las funciones del programa, escribir 'C<--help>'.
 
 =head1 VERSIÓN
 
-C<kalendas>, versión 1.0.0, $Date: 2013/09/12 23:20:35 $
+C<kalendas>, versión 1.0.1, $Date: 2013/09/12 23:20:35 $
 
 =head1 LICENCIA
 
