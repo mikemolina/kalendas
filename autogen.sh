@@ -32,9 +32,8 @@ poupdate() {
     tup=`cat $1 | grep 'PO-Revision-Date:' | sed -e s/\"//g | sed -e 's/.*: \(.*\)[\]n/\1/'`
     rm $1
     cp ../$1 tmp
-    tpot=`cat tmp | grep 'POT-Creation-Date:' | sed -e s/\"//g | sed -e 's/.*: \(.*\)[\]n/\1/'`
     tpo=`cat tmp | grep 'PO-Revision-Date:' | sed -e s/\"//g | sed -e s'/.*: \(.*\)[\]n/\1/'`
-    sed -e "s/${tpo}/${tup}/g" -e "s/${tpot}/${tup}/g" tmp > $1
+    sed -e "s/${tpo}/${tup}/g" tmp > $1
     rm tmp
 }
 
@@ -90,6 +89,16 @@ echo "bin/kalendas.in" >> po/POTFILES.in
 # Pre-construccion
 ./configure --prefix=`pwd`/tmp $addopt
 make
+echo "Creating po template..."
+file="kalendas.pot"
+if [ "-f $file" ] && [ -f "po/$file" ]
+then
+   rm -f po/$file
+   mv $file po/$file
+else
+   echo "No such: $file"
+   fin 1
+fi
 
 # i18n - l10n
 echo "Creating po-files..."

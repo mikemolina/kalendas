@@ -8,10 +8,19 @@ podowndate() {
     rm $1
     # Fecha ultima actualizacion archivos po
     tdown='2014-07-19 21:22-0500'
-    tpot=`cat tmp | grep 'POT-Creation-Date:' | sed -e s/\"//g | sed -e 's/.*: \(.*\)[\]n/\1/'`
     tpo=`cat tmp | grep 'PO-Revision-Date:' | sed -e s/\"//g | sed -e s'/.*: \(.*\)[\]n/\1/'`
-    sed -e "s/${tpo}/${tdown}/g" -e "s/${tpot}/${tdown}/g" tmp > $1
+    sed -e "s/${tpo}/${tdown}/g" tmp > $1
     rm tmp
+}
+
+# Funcion para verificar codificacion UTF-8 en *.po
+verifypoenc() {
+   if ! grep 'charset=UTF-8' $1 1>/dev/null
+   then
+      msgconv -t UTF-8 -o $1.t $1
+      rm $1
+      mv $1.t $1
+   fi
 }
 
 test ! -f Makefile || make maintainer-clean
@@ -21,10 +30,12 @@ rm -fR autom4te.cache
 rm -fR build-aux
 rm -fR m4
 if [ -d po ]; then
+   cp -f po/*.pot .
    cp -f po/*.po .
    for lang in `ls *.po`
    do
-      podowndate $lang; 
+      verifypoenc $lang
+      podowndate $lang
    done
 fi
 rm -fR po

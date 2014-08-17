@@ -7,3 +7,14 @@ DISTCLEANFILES = DIST_REVISION
 dist-hook:
 	@echo $(DATE) > DIST_REVISION
 	cp DIST_REVISION $(distdir)/
+
+maintainer-clean-local:
+	@langlist=`ls po/*.po`; \
+	for lang in $$langlist; do \
+	  if ! grep 'charset=UTF-8' $$lang 1>/dev/null; then \
+	    $(MSGCONV) -t UTF-8 -o $$lang.t $$lang; \
+	    rm $$lang; \
+	    mv $$lang.t $$lang; \
+	  fi; \
+	done
+

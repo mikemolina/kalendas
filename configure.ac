@@ -1,13 +1,13 @@
 # -*- Autoconf -*-
 #
-# configure.ac - kalendas 1.0.0
-# Copyright (C) 2013
+# configure.ac - kalendas 1.0.1
+# Copyright (C) 2014
 
 #-------
 # Inicio
 #-------
 AC_PREREQ([2.67])
-AC_INIT([kalendas], [1.0.0], [mmolina.unphysics@gmail.com])
+AC_INIT([kalendas], [1.0.1], [mmolina.unphysics@gmail.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_PREFIX_DEFAULT($HOME/kalendas)
@@ -30,7 +30,6 @@ case "$target_os" in
    * )
       AC_MSG_RESULT([UNIX (unix variant?)]) ;;
 esac
-AM_CONDITIONAL([MINGW32], [test "$TARGET_OS" = mingw32])
 
 # Habilitar el modo silencioso por defecto en la compilacion.
 # Para modo detallado usar "make V=1". Desde el configure usar
@@ -85,8 +84,11 @@ else
    fi
 fi
 
+AC_PATH_PROG([ICONV], [iconv], [no])
+AC_PATH_PROG([MSGCONV], [msgconv], [no])
+
 # Variable para evitar revision de modulos
-AC_ARG_ENABLE(pkgonly,[AC_HELP_STRING([--enable-pkgonly],[Skip all checking])])
+AC_ARG_ENABLE(pkgonly,[AS_HELP_STRING([--enable-pkgonly],[skip all checking])])
 AC_SUBST(enable_pkgonly)
 
 # Revision modulos de Perl
@@ -107,13 +109,52 @@ fi
 #--------------------------------
 # Codificacion de SO (info y man)
 #--------------------------------
-AC_SUBST([OSENCODING],[UTF-8])
-if test "$TARGET_OS" = mingw32
+# Funcion para remover archivos de un directorio
+rmdirfiles() {
+   for i in $2
+   do
+      if test -f ./$1/$i
+      then
+         rm -f ./$1/$i
+      fi
+   done
+}
+
+# TODO: Automatizar la codificacion de caracteres
+AC_ARG_ENABLE(charset,
+              [AS_HELP_STRING([--enable-charset],[selection character set: utf8|latin1 (default utf8)])],
+              [CHARSET="$enableval"],[CHARSET="utf8"])
+# Codificacion UNIX
+if test "x$CHARSET" = "xutf8"
 then
-   AC_SUBST([OSENCODING],[ISO-8859-1])
+   AC_SUBST([OSENCODING],[UTF-8])
+# Codificacion Woe
+elif test "x$CHARSET" = "xlatin1"
+then
+   if test "x$MSGCONV" = "xno" && test "x$ICONV" = "xno"
+   then
+      AC_MSG_WARN([*** Missing programs iconv and/or msgconv. Character])
+      AC_MSG_WARN([*** encoding latin1 is not possible; by default it will])
+      AC_MSG_WARN([*** use encoding UTF-8.])
+      AC_SUBST([OSENCODING],[UTF-8])
+   else
+      AC_SUBST([OSENCODING],[ISO-8859-1])
+      MAINTAINERDOC="kalendas.htm kalendas.info version.texi stamp-vti"
+      MAINTAINERMAN="kalendas.1 kalendas.es.1 kalendas.pt_BR.1"
+      MAINTAINERPO="es.gmo pt_BR.gmo stamp-po"
+      rmdirfiles doc "$MAINTAINERDOC"
+      rmdirfiles man "$MAINTAINERMAN"
+      rmdirfiles po "$MAINTAINERPO"
+      for lang in `ls po/*.po`
+      do
+         msgconv -t ISO-8859-1 -o $lang.t $lang
+         rm $lang
+         mv $lang.t $lang
+      done
+   fi
 fi
-AM_SUBST_NOTMAKE(OSENCODING)
 AM_CONDITIONAL([MANENCODING], [test $OSENCODING = UTF-8])
+AM_SUBST_NOTMAKE(OSENCODING)
 
 #------------
 # i18n - l10n
