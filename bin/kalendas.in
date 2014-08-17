@@ -58,7 +58,7 @@ $so = "windows" if -e 'nul';
 #-----------------------------
 # < Informacion del programa >
 #-----------------------------
-my $idrcs = '$Id: kalendas,v 1.0.0 2013/09/12 23:20:35 ymmike Exp $ ';
+my $idrcs = '$Id: kalendas,v 1.0.1 2013/09/12 23:20:35 ymmike Exp $ ';
 my $autor = "Miguel Molina";
 my ($nombre, $verno, $data) = ( $idrcs =~ /: (\D+),v ([\d.]+) (\d+\/\d+\/\d+)/ );
 my $InfoId = "$nombre - $verno (SO: $so)";
