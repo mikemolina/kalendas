@@ -13,9 +13,9 @@ MANNAME = @PESOS_SIGN@(shell echo "$(PACKAGE)" | tr '[:lower:]' '[:upper:]')
 POD2MANFLAGS = --name='$(MANNAME)' --section=1 --release '$(PACKAGE_STRING)' --date='2013-09-12'
 # Nota: la opcion '--utf8' en pod2man requiere perl version 5.8.8 o superior
 if MANENCODING
-ENCODINGFLAG = --utf8
-else
 ENCODINGFLAG =
+else
+ENCODINGFLAG = | $(ICONV) -f UTF-8 -t ISO-8859-1
 endif
 
 all: $(man_trad)
@@ -24,13 +24,13 @@ kalendas.1: kalendas.en.pod
 	$(POD2MAN) $(POD2MANFLAGS) --center=$(HEAD) $< > $@
 
 kalendas.es.1: kalendas.es.pod
-	$(POD2MAN) $(POD2MANFLAGS) --center=$(HEADes) $(ENCODINGFLAG) $< > $@
+	$(POD2MAN) $(POD2MANFLAGS) --center=$(HEADes) --utf8 $< $(ENCODINGFLAG) > $@
 
 kalendas.pt_BR.1: kalendas.pt_BR.pod
-	$(POD2MAN) $(POD2MANFLAGS) --center=$(HEADpt_BR) $(ENCODINGFLAG) $< > $@
+	$(POD2MAN) $(POD2MANFLAGS) --center=$(HEADpt_BR) --utf8 $< $(ENCODINGFLAG) > $@
 
 #kalendas.lang.1: kalendas.lang.pod
-#	$(POD2MAN) $(POD2MANFLAGS) --center=$(HEADlang) $(ENCODINGFLAG)? $< > $@
+#	$(POD2MAN) $(POD2MANFLAGS) --center=$(HEADlang) --utf8 $< $(ENCODINGFLAG) > $@
 
 install-data-hook:
 	@manfile='kalendas.1'; \
