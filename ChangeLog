@@ -1,3 +1,10 @@
+2014-08-16 Miguel Molina <mmolina.unphysics@gmail.com>
+	* Version 1.0.1
+	* Improvement of the character encoding for Windows operating
+	  systems.
+	* Release of the project on the web through a version control
+	  system.
+	* Added po template at control version system.
 2013-09-14 Miguel Molina <mmolina.unphysics@gmail.com>
 	* Version 1.0.0.
 	* First revision, packaged with autotools.
