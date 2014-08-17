@@ -1,5 +1,5 @@
 @echo off
-rem kalendas.bat - Batchscript para asignar codificacion y lenguaje
+rem kalendas.bat - BatchScript para asignar codificacion y lenguaje
 rem Copyright (C) 2014  Miguel Molina
 
 rem Codificacion de caracteres ISO-8859-1
