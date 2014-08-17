@@ -40,34 +40,31 @@ INSTALLATION
 
   3. You can also install **kalendas** from the source code of the stable
   version available in [Launchpad](https://launchpad.net/kalendas),
-  whose package can download [here](https://launchpad.net/kalendas/trunk/1.0.0/+download/kalendas-1.0.0.tar.gz).
+  whose package can download [here](https://launchpad.net/kalendas/trunk/1.0.1/+download/kalendas-1.0.1.tar.gz).
   In UNIX platforms (Linux, Mac OS X, including Woe/MSYS and like
   environments), extract and install the package in the usual form
 
-        $ tar -xvzf kalendas-1.0.0.tar.gz
-        $ cd kalendas-1.0.0
+        $ tar -xvzf kalendas-1.0.1.tar.gz
+        $ cd kalendas-1.0.1
         $ ./configure --prefix=/path/to/install
         $ make
         $ make install
-  For improve the encoding characters in Woe/MSYS, rebuild package
-  maybe necessary, then running
+  For improve the encoding characters in Woe/MSYS, run
 
-        $ ./configure
-        $ make maintainer-clean
-        $ ./configure --prefix=/path/to/install
+        $ ./configure --enable-charset=latin1 --prefix=/path/to/install
         $ make
         $ make install
   If libintl library (included in GNU gettext) is in a different
   location to path by default, add the option to the configure script
 
-        --with-libintl-prefix=/ruta/a/libintl
+        --with-libintl-prefix=/path/to/libintl
   Optionally, in Woe platforms the installation also can be achieved
   from the command prompt using *GNU Make* (included in the
   [Strawberry Perl](http://strawberryperl.com/) distribution). Edit
   woe/Makefile.mgw file for to modify the path installation by default
   and run
 
-        > cd kalendas-1.0.0
+        > cd kalendas-1.0.1
         > copy woe/Makefile.mgw .
         > gmake -f Makefile.mgw
   
@@ -116,12 +113,11 @@ USING KALENDAS
 
   For the translation of output messages, you can test the perl script
   setting the environment variable LANGUAGE and/or LANG according to
-  the idioms included in the package. In UNIX/Linux platforms and
-  Woe/MSYS write
+  the idioms included in the package. In UNIX environments write
 
         $ env LANGUAGE=es kalendas
 
-  or in the symbol's system
+  or in the command prompt of Woe
 
         > set LANG=es
         > kalendas
@@ -131,7 +127,7 @@ USING KALENDAS
 
 VERSION
 -------
-  **kalendas**, version 1.0.0, $Date: 2014/07/30 16:05:21 $
+  **kalendas**, version 1.0.1, $Date: 2014/08/17 12:00:07 $
 
 LICENSE
 -------

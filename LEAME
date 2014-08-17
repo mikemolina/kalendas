@@ -38,19 +38,16 @@ INSTALACIÓN
   3. Usted también puede instalar kalendas desde el código fuente de
   la versión estable disponible en Launchpad (https://launchpad.net/kalendas),
   cuyo paquete puede descargarse aquí 
-  https://launchpad.net/kalendas/trunk/1.0.0/+download/kalendas-1.0.0.tar.gz
+  https://launchpad.net/kalendas/trunk/1.0.1/+download/kalendas-1.0.1.tar.gz
   En plataformas UNIX (Linux, Mac OS X, incluso Woe/MSYS y similares),
   extraer e instalar el paquete en la forma usual
-    $ tar -xvzf kalendas-1.0.0.tar.gz
-    $ cd kalendas-1.0.0
+    $ tar -xvzf kalendas-1.0.1.tar.gz
+    $ cd kalendas-1.0.1
     $ ./configure --prefix=/ruta/a/instalar
     $ make
     $ make install
-  Para mejorar la codificación de carácteres en Woe/MSYS, puede ser
-  necesario reconstruir el paquete ejecutando
-    $ ./configure
-    $ make maintainer-clean
-    $ ./configure --prefix=/ruta/a/instalar
+  Para mejorar la codificación de carácteres en Woe/MSYS, ejecutar
+    $ ./configure --enable-charset=latin1 --prefix=/ruta/a/instalar
     $ make
     $ make install
   Si la librería libintl (incluida en GNU gettext) está en una ruta
@@ -62,7 +59,7 @@ INSTALACIÓN
   Strawberry Perl, http://strawberryperl.com). Editar el archivo
   woe/Makefile.mgw para modificar la ruta de instalación por defecto
   y ejecutar
-    > cd kalendas-1.0.0
+    > cd kalendas-1.0.1
     > copy woe/Makefile.mgw .
     > gmake -f Makefile.mgw
 
@@ -106,10 +103,9 @@ USANDO KALENDAS
 
   Para la traducción de los mensajes de salida, usted puede probar
   el perl script cambiando la variable de entorno LANGUAGE y/o LANG
-  según los idiomas incluidos en el paquete. En plataformas UNIX/Linux
-  y Woe/MSYS escribir
+  según los idiomas incluidos en el paquete. En plataformas UNIX escribir
     $ env LANGUAGE=es kalendas
-  o en el símbolo de sistema
+  o en el símbolo de sistema en Woe
     > set LANG=es
     > kalendas
 
@@ -119,7 +115,7 @@ USANDO KALENDAS
 -------
 VERSIÓN
 -------
-  kalendas, versión 1.0.0, $Date: 2014/07/30 16:05:21 $
+  kalendas, versión 1.0.1, $Date: 2014/08/17 12:00:08 $
 
 --------
 LICENCIA
