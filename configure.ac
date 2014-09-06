@@ -99,7 +99,7 @@ then
       AC_MSG_CHECKING([for perl module '$module'])
       if ${PERL} -e 'use '$module 2>/dev/null
       then
-         AC_MSG_RESULT([Ok])
+         AC_MSG_RESULT([yes])
       else
          AC_MSG_ERROR([Failed]);
       fi
@@ -172,7 +172,7 @@ then
          AC_MSG_CHECKING([for perl module '$module'])
          if ${PERL} -e 'use '$module 2>/dev/null
          then
-            AC_MSG_RESULT([Ok])
+            AC_MSG_RESULT([yes])
          else
             AC_MSG_ERROR([Failed.
 *** This package requires 'libintl-perl' for native language support.
