@@ -112,7 +112,7 @@ Juliana, usados comunmente en c@'omputos astron@'omicos y cronol@'ogicos.
 Los calendarios Juliano y Gregoriano son sistemas de dataci@'on usados
 por la Cultura Occidental o Cristiana: el calendario Juliano,
 introducido por el triunviro Julio C@'esar en el a@~no 46 a.C., fue
-usado hasta el a@~n0 1582 A.D. @xcite{Grafton, 1994}, @'epoca donde
+usado hasta el a@~no 1582 A.D. @xcite{Grafton, 1994}, @'epoca donde
 fue corregido a trav@'es de la reforma ordenada por el Papa Gregorio
 XIII y que dio origen al calendario Gregoriano, calendario de uso
 com@'un en la actualidad @xcite{Archivo Secreto Vaticano, 1582}. Ambos
