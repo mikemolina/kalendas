@@ -15,7 +15,7 @@ Los siguientes paquetes se deben instalar cuando se instala "kalendas"
      http://git.guido-flohr.net/projects/libintl-perl/
    + Instalación: El paquete está disponible para diferentes sistemas operativos.
      > Distribuciones Linux
-     Distribuciones con base en RPM: rpm -Uvh perl-libintl-perl
+     Distribuciones con base en RPM: yum install perl-libintl
      Distribuciones con base en Debian: apt-get install libintl-perl
      > Sistemas operativos Windows (Woe), MSYS-MinGW
      Desde la línea de comandos: perl -MCPAN -e "install Locale::TextDomain"
@@ -38,7 +38,7 @@ The following packages should be installed when "kalendas" is installed
      http://git.guido-flohr.net/projects/libintl-perl/
    + Install: The package are available for different operating systems.
      > Linux Distros
-     RPM based distributions: rpm -Uvh perl-libintl-perl
+     RPM based distributions: yum install perl-libintl
      Debian based distributions: apt-get install libintl-perl
      > Windows Operating systems (Woe), MSYS-MinGW
      From command line: perl -MCPAN -e "install Locale::TextDomain"
