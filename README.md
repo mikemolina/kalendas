@@ -38,7 +38,16 @@ INSTALLATION
         $ sudo apt-get install kalendas
   For distros Linux based in Debian visit the [PPA](https://launchpad.net/~mymolina/+archive/ubuntu/kalendas-pkg).
 
-  3. You can also install **kalendas** from the source code of the stable
+  3. On Mac OS X, add this tap repository to your *Homebrew* installation
+
+        $ brew tap mikemolina/kalendas
+  Now you can install **kalendas** simply
+
+        $ brew install kalendas
+  Follow the same steps for install kalendas on *Linuxbrew*. More info
+  in the [wiki](https://github.com/mikemolina/kalendas/wiki/kalendas-on-homebrew).
+
+  4. You can also install **kalendas** from the source code of the stable
   version available in [Launchpad](https://launchpad.net/kalendas),
   whose package can download [here](https://launchpad.net/kalendas/trunk/1.0.1/+download/kalendas-1.0.1.tar.gz).
   In UNIX platforms (Linux, Mac OS X, including Woe/MSYS and like
@@ -68,7 +77,7 @@ INSTALLATION
         > copy woe/Makefile.mgw .
         > gmake -f Makefile.mgw
   
-  4. If you not have root privileges to install the dependencies, you
+  5. If you not have root privileges to install the dependencies, you
   can install **kalendas** locally. Follow the steps in section 3 running
   the configure script so
 
@@ -76,7 +85,7 @@ INSTALLATION
   the perlscript will be installed in ~/kalendas/bin showing messages
   in spanish.
 
-  5. If you want install program from the repository git in *GitHub*,
+  6. If you want install program from the repository git in *GitHub*,
   first make sure have installed *GNU Autoconf*, *GNU Automake*, 
   *GNU libiconv*, *GNU gettext*, *Texinfo* and *pod2man* (included in your
   distribution Perl); in some distros UNIX some build dependencies are

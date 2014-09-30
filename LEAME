@@ -35,7 +35,16 @@ INSTALACIÓN
   Para distribuciones Linux basadas en Debian visite el PPA
   https://launchpad.net/~mymolina/+archive/ubuntu/kalendas-pkg.
 
-  3. Usted también puede instalar kalendas desde el código fuente de
+  3. Sobre Mac OS X, agregar el repositorio tap en su instalación
+  Homebrew
+    $ brew tap mikemolina/kalendas
+  Ahora puede instalar kalendas simplemente con
+    $ brew install kalendas
+  Seguir los mismos pasos para instalar kalendas sobre Linuxbrew.
+  Para más información visitar el wiki
+  https://github.com/mikemolina/kalendas/wiki/kalendas-on-homebrew
+
+  4. Usted también puede instalar kalendas desde el código fuente de
   la versión estable disponible en Launchpad (https://launchpad.net/kalendas),
   cuyo paquete puede descargarse aquí 
   https://launchpad.net/kalendas/trunk/1.0.1/+download/kalendas-1.0.1.tar.gz
@@ -63,14 +72,14 @@ INSTALACIÓN
     > copy woe/Makefile.mgw .
     > gmake -f Makefile.mgw
 
-  4. Si no tiene permisos de root para instalar las dependencias, aún
+  5. Si no tiene permisos de root para instalar las dependencias, aún
   puede instalar kalendas de forma local. Siga los pasos del numeral
   3 ejecutando el script configure asi
     $ ./configure --disable-nls
   el perlscript estara instalado en ~/kalendas/bin mostrando los mensajes
   en español.
 
-  5. Si usted quiere instalar kalendas desde el repositorio git
+  6. Si usted quiere instalar kalendas desde el repositorio git
   en GitHub, primero asegúrese de tener instalado GNU Autoconf,
   GNU Automake, GNU libiconv, GNU gettext, Texinfo y pod2man (incluido
   en su distribución Perl); en algunas distribuciones UNIX algunas
