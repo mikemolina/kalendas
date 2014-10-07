@@ -1,4 +1,4 @@
-kalendas - 1.0.1 (2014-08-16 10:18:44)
+kalendas - 1.0.2 (2014-10-06 18:21:57)
 
- * Improvement of the character encoding for Windows operating systems.
- * Release of the project on the web.
+ * Package available for different platforms through their package manager:
+   APT on Debian/Ubuntu, RPM on Fedora/CentOS and Homebrew on Mac OS X.
