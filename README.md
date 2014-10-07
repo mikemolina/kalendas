@@ -3,6 +3,22 @@ kalendas - Calculations of Calendar and Julian Date
 
 ![Screenshot](https://github.com/mikemolina/kalendas/wiki/images/01_gterm.png)
 
+#### Table of Content
+* [DESCRIPTION](#description)
+* [REQUIREMENTS](#require)
+* [INSTALLATION](#install)
+  1. [Ubuntu](#debian)
+  2. [Fedora and CentOS](#rhel)
+  3. [Mac OS X](#mac)
+  4. [Windows](#win)
+  5. [Generic](#unix)
+  6. [No root](#noroot)
+  7. [Devel](#dev)
+* [USING KALENDAS](#use)
+* [VERSION](#version)
+* [LICENSE](#license)
+
+<a name="description"/>
 DESCRIPTION
 -----------
   **kalendas** is a perl script to make calendar calculations. The
@@ -10,17 +26,20 @@ DESCRIPTION
   calendar, the Gregorian calendar and the system of numbering of
   Julian day/date.
 
+  Este README se encuentra en *castellano* en el archivo LEAME o en
+  el [wiki](https://github.com/mikemolina/kalendas/wiki/kalendas-en-castellano).
+
+<a name="require"/>
 REQUIREMENTS
 ------------
   **kalendas** requires perl 5 or later. For native language support is
   recommended the module Locale::TextDomain included in the package
   libintl-perl. See *DEPENDENCIES* file.
 
-  A translation in Spanish of this README is in LEAME file.
-
+<a name="install"/>
 INSTALLATION
 ------------
-  1. Many UNIX/Linux or Mac OS X distributions have installed Perl;
+  Many UNIX/Linux or Mac OS X distributions have installed Perl;
   to get your location, type into a terminal
 
         $ which perl
@@ -30,7 +49,8 @@ INSTALLATION
         > perl -v
   will be show that perl is installed.
 
-  2. Installation of **kalendas** in Ubuntu is easy and fast. In a
+  <a name="debian"/>
+  1. Installation of **kalendas** in Ubuntu is easy and fast. In a
   terminal run
 
         $ sudo add-apt-repository ppa:mymolina/kalendas-pkg
@@ -38,6 +58,19 @@ INSTALLATION
         $ sudo apt-get install kalendas
   For distros Linux based in Debian visit the [PPA](https://launchpad.net/~mymolina/+archive/ubuntu/kalendas-pkg).
 
+  <a name="rhel"/>
+  2. Installation in Fedora and CentOS takes a few seconds. For
+  Fedora run in a terminal
+
+        $ sudo yum install http://mikemolina.github.com/kalendas-rpm/kalendas-fedora-release-1.0-1.noarch.rpm
+        $ sudo yum install kalendas
+  and in CentOS
+
+        $ sudo yum install http://mikemolina.github.com/kalendas-rpm/kalendas-centos-release-1.0-1.noarch.rpm
+        $ sudo yum install kalendas
+  More info in the [wiki](https://github.com/mikemolina/kalendas/wiki/RPM-based-packages).
+
+  <a name="mac"/>
   3. On Mac OS X, add this tap repository to your *Homebrew* installation
 
         $ brew tap mikemolina/kalendas
@@ -47,14 +80,26 @@ INSTALLATION
   Follow the same steps for install kalendas on *Linuxbrew*. More info
   in the [wiki](https://github.com/mikemolina/kalendas/wiki/kalendas-on-homebrew).
 
-  4. You can also install **kalendas** from the source code of the stable
+  <a name="win"/>
+  4. In Woe platforms the installation can be achieved
+  from the command prompt using *GNU Make* (included in the
+  [Strawberry Perl](http://strawberryperl.com/) distribution). Edit
+  woe/Makefile.mgw file for to modify the path installation by default
+  and run
+
+        > cd kalendas-1.0.2
+        > copy woe/Makefile.mgw .
+        > gmake -f Makefile.mgw
+
+  <a name="unix"/>
+  5. You can also install **kalendas** from the source code of the stable
   version available in [Launchpad](https://launchpad.net/kalendas),
-  whose package can download [here](https://launchpad.net/kalendas/trunk/1.0.1/+download/kalendas-1.0.1.tar.gz).
+  whose package can download [here](https://launchpad.net/kalendas/trunk/1.0.2/+download/kalendas-1.0.2.tar.gz).
   In UNIX platforms (Linux, Mac OS X, including Woe/MSYS and like
   environments), extract and install the package in the usual form
 
-        $ tar -xvzf kalendas-1.0.1.tar.gz
-        $ cd kalendas-1.0.1
+        $ tar -xvzf kalendas-1.0.2.tar.gz
+        $ cd kalendas-1.0.2
         $ ./configure --prefix=/path/to/install
         $ make
         $ make install
@@ -67,17 +112,9 @@ INSTALLATION
   location to path by default, add the option to the configure script
 
         --with-libintl-prefix=/path/to/libintl
-  Optionally, in Woe platforms the installation also can be achieved
-  from the command prompt using *GNU Make* (included in the
-  [Strawberry Perl](http://strawberryperl.com/) distribution). Edit
-  woe/Makefile.mgw file for to modify the path installation by default
-  and run
 
-        > cd kalendas-1.0.1
-        > copy woe/Makefile.mgw .
-        > gmake -f Makefile.mgw
-  
-  5. If you not have root privileges to install the dependencies, you
+  <a name="noroot"/>
+  6. If you not have root privileges to install the dependencies, you
   can install **kalendas** locally. Follow the steps in section 3 running
   the configure script so
 
@@ -85,7 +122,8 @@ INSTALLATION
   the perlscript will be installed in ~/kalendas/bin showing messages
   in spanish.
 
-  6. If you want install program from the repository git in *GitHub*,
+  <a name="dev"/>
+  7. If you want install program from the repository git in *GitHub*,
   first make sure have installed *GNU Autoconf*, *GNU Automake*, 
   *GNU libiconv*, *GNU gettext*, *Texinfo* and *pod2man* (included in your
   distribution Perl); in some distros UNIX some build dependencies are
@@ -99,6 +137,7 @@ INSTALLATION
         $ make
         $ make install
 
+<a name="use"/>
 USING KALENDAS
 --------------
   Later of install, run the perl script
@@ -120,9 +159,15 @@ USING KALENDAS
         $ kalendas --calc2FJ "(AD,2000,1,1,md)"
         FJ = 2451545.00000
 
-  For the translation of output messages, you can test the perl script
-  setting the environment variable LANGUAGE and/or LANG according to
-  the idioms included in the package. In UNIX environments write
+  A brief functions list is shown running *kalendas -h*; can extend the
+  information through man page with *man kalendas*. For more detailed
+  information of functions and instructions run *info kalendas* or see
+  the documentation online [here](https://launchpad.net/kalendas/trunk/1.0.2/+download/kalendas-doc.pdf).
+
+  At present, **kalendas** have translation support of output messages
+  for languages: english, spanish and portuguese (BR). You can test the
+  perl script setting the environment variable LANGUAGE and/or LANG. In
+  UNIX environments write
 
         $ env LANGUAGE=es kalendas
 
@@ -131,20 +176,18 @@ USING KALENDAS
         > set LANG=es
         > kalendas
 
-  For more detailed information of functions and instructions, see the
-  documentation in [https://launchpad.net/kalendas](https://launchpad.net/kalendas). 
+  Contributions in other languages are Welcome!
 
+<a name="version"/>
 VERSION
 -------
-  **kalendas**, version 1.0.1, $Date: 2014/08/17 12:00:07 $
+  **kalendas**, version 1.0.2, $Date: 2014/10/06 18:21:57 $
 
+<a name="license"/>
 LICENSE
 -------
   This program is free software and is distributed under the terms of
   the *GNU General Public License (GNU GPL)*, which is included in this
-  distribution in the file COPYING. For Hispanic public, in order to
-  understand the license, the LICENCIA file contains a not-official
-  translation the GNU General Public License (GNU GPL) in Spanish.
+  distribution in the file COPYING.
 
-Good Luck!
-
+**Good Luck!**
