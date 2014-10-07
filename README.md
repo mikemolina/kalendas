@@ -68,7 +68,7 @@ INSTALLATION
 
         $ sudo yum install http://mikemolina.github.com/kalendas-rpm/kalendas-centos-release-1.0-1.noarch.rpm
         $ sudo yum install kalendas
-  More info in the [wiki](https://github.com/mikemolina/kalendas/wiki/RPM-based-packages).
+  More info in the [repository](http://mikemolina.github.io/kalendas-rpm/).
 
   <a name="mac"/>
   3. On Mac OS X, add this tap repository to your *Homebrew* installation

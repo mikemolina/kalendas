@@ -65,7 +65,7 @@ y en CentOS
 
         $ sudo yum install http://mikemolina.github.com/kalendas-rpm/kalendas-centos-release-1.0-1.noarch.rpm
         $ sudo yum install kalendas
-Más info en el [wiki](https://github.com/mikemolina/kalendas/wiki/RPM-based-packages).
+Más info en el [repositorio](http://mikemolina.github.io/kalendas-rpm/).
 
 <a name="mac"/>
 3. Sobre Mac OS X, agregar el repositorio tap en su instalación *Homebrew*
