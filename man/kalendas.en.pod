@@ -263,7 +263,7 @@ write 'C<--help>'.
 
 =head1 VERSION
 
-C<kalendas>, version 1.0.1, $Date: 2013/09/12 23:20:35 $
+C<kalendas>, version 1.0.2, $Date: 2013/09/12 23:20:35 $
 
 =head1 LICENSE
 
