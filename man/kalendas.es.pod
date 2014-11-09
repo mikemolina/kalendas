@@ -193,9 +193,9 @@ respectivas fechas calendario Juliano y Gregoriano del histórico momento
 son:
 
       kalendas --FJ2jul "(2440421.62278)"
-      Fecha: Sabado, AD 1969-7-6, 02:56:48 UT
+      Fecha: Sábado, AD 1969-7-6, 02:56:48 UT
       kalendas --FJ2greg "(2440421.62278)"
-      Fecha: Sabado, AD 1969-7-19, 02:56:48 UT
+      Fecha: Sábado, AD 1969-7-19, 02:56:48 UT
 
 =item *
 
@@ -247,7 +247,7 @@ número real positivo o negativo. Ver Ejemplos.
 La opción C<--convcal> realiza conversiones únicamente entre los calendarios
 Juliano y/o Gregoriano. Obviamente, no hay nada mas que comentar!
 
-=item 'No existe informacion para: argx'
+=item 'No existe información para: argx'
 
 El argumento 'C<argx>' no corresponde a las funciones de kalendas. Para
 recordar las funciones del programa, escribir 'C<--help>'.
@@ -260,7 +260,7 @@ recordar las funciones del programa, escribir 'C<--help>'.
 
 =head1 VERSIÓN
 
-C<kalendas>, versión 1.0.2, $Date: 2013/09/12 23:20:35 $
+C<kalendas>, versión 1.0.2, $Date: 2014/11/09 10:19:09 $
 
 =head1 LICENCIA
 
@@ -271,7 +271,7 @@ opción) cualquier versión posterior.
 
 Este programa se distribuye con el deseo de que le resulte útil, pero
 SIN GARANTÍAS DE NINGÚN TIPO; ni siquiera con las garantías implícitas
-de COMERCIABILIDAD o APTITUD PARA UN PROPOSITO DETERMINADO. Para más
+de COMERCIABILIDAD o APTITUD PARA UN PROPÓSITO DETERMINADO. Para más
 información, consulte la Licencia Pública General de GNU.
 
 Usted debe haber recibido una copia de la Licencia Pública General de GNU
