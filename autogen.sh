@@ -33,7 +33,7 @@ poupdate() {
     rm $1
     cp ../$1 tmp
     tpo=`cat tmp | grep 'PO-Revision-Date:' | sed -e s/\"//g | sed -e s'/.*: \(.*\)[\]n/\1/'`
-    sed -e "s/${tpo}/${tup}/g" tmp > $1
+    sed -e "s/PO-Revision-Date: ${tpo}/PO-Revision-Date: ${tup}/g" tmp > $1
     rm tmp
 }
 
