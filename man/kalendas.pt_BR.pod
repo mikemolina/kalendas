@@ -4,15 +4,15 @@
 
 kalendas - Cálculos do calendário
 
-=head1 SINOPSIS
+=head1 SINOPSE
 
 B<kalendas> [I<opção>] [I<argumentos>]
 
 =head1 RESUMO
 
 kalendas é um perl script para realizar cálculos de calendário. Os
-cómputos estão desenvolvidos sobre três sistemas de datación: o calendário
-Juliano, o calendário Gregoriano e o sistema de numeración de dia/data 
+cômpitos estão desenvolvidos sobre três sistemas de datação: o calendário
+Juliano, o calendário Gregoriano e o sistema de numeração de dia/data 
 Juliana.
 
  Palavras finque;
@@ -20,23 +20,23 @@ Juliana.
 
 =head1 DESCRIÇÃO
 
-Os calendários Juliano e Gregoriano são sistemas de datación usados
+Os calendários Juliano e Gregoriano são sistemas de datação usados
 pela Cultura Ocidental ou Cristã: o calendário Juliano, introduzido
-pelo triunviro Julio César no 46 a.C., foi usado até o 1582 A.D.,
+pelo triúnviro Julio César no 46 a.C., foi usado até o 1582 A.D.,
 época onde foi corrigido através da reforma ordenada pelo Papa Gregorio
 XIII e que deu origem ao calendário Gregoriano, calendário de uso comum
 na atualidade. Ambos calendários consideram nos mesmos meses e dias, mas
-difieren no conteo dos anos bisiestos. O sistema de numeración de dias
+diferem no contagem dos anos bissextos. O sistema de numeração de dias
 Julianos consiste em contar nos dias (incluindo frações de dia) desde
 uma data de referência até uma data dada e seu uso é comum em astronomia
-e cronología. 
+e cronologia. 
 
-Os cómputos têm por objetivo a conversão de datas entre os três
-sistemas de datación mencionados anteriormente. A maioria de algoritmos
-implementados usam a função modulo (o residuo da divisão entre dois
-números inteiros) com o propósito de manejar variables inteiras ao longo
-do cómputo, já que os calendários manejam números inteiros, com exceção
-do sistema de numeración de dia/data Juliana que contém parte decimal
+Os cômputos têm por objetivo a conversão de datas entre os três
+sistemas de datação mencionados anteriormente. A maioria de algoritmos
+implementados usam a função modulo (o resíduo da divisão entre dois
+números inteiros) com o propósito de manejar variáveis inteiras ao longo
+do computo, já que os calendários manejam números inteiros, com exceção
+do sistema de numeração de dia/data Juliana que contém parte decimal
 por causa da fração de dia.
 
 =head1 OPÇÕES
@@ -75,7 +75,7 @@ Greenwich (12:00:00 UT).
 
 A data Juliana. As partes inteira e decimal de 'C<fj>' representam o
 número de dia Juliano e a fração de dia Juliano respectivamente.
-Com cinco cifras decimales obtém-se a hora com uma precisão de 1
+Com cinco cifras decimais obtém-se a hora com uma precisão de 1
 segundo. 'C<fj>' pode ser um número negativo.
 
 =back
@@ -142,7 +142,7 @@ Mostra versão do programa.
 
 =back 
 
-Se não há algum parámetro na linha de comandos, se avalia a data Juliana
+Se não há algum parâmetro na linha de comandos, se avalia a data Juliana
 desde o relógio do PC.
 
 =head1 EXEMPLOS
@@ -154,7 +154,7 @@ como se encontra.
 
 =item *
 
-Em diversas aplicações astronómicas faz-se referência à época J2000,
+Em diversas aplicações astronômicas faz-se referência à época J2000,
 entendida como a data Juliana do 1 de Janeiro do 2000 A.D. a meio dia
 de Greenwich (12:00:00 UT). A data Juliana para tal instante é:
 
@@ -192,9 +192,9 @@ respectivas datas calendário Juliano e Gregoriano do histórico momento
 são:
 
       kalendas --FJ2jul "(2440421.62278)"
-      Fecha: Sabado, AD 1969-7-6, 02:56:48 UT
+      Fecha: Sábado, AD 1969-7-6, 02:56:48 UT
       kalendas --FJ2greg "(2440421.62278)" 
-      Fecha: Sabado, AD 1969-7-19, 02:56:48 UT
+      Fecha: Sábado, AD 1969-7-19, 02:56:48 UT
 
 =item *
 
@@ -220,21 +220,21 @@ Para calcular a data Juliana atual desde o relógio do PC
 =head1 DIAGNÓSTICO
 
 kalendas retorna um das seguintes mensagens, com interrupção do
-programa, por rendimento incorrecto de argumentos.
+programa, por rendimento incorreto de argumentos.
 
 =over 4
 
 =item 'Muitos argumentos!'
 
-A opção requerida tem mais de um argumento ou as comillas foram
-omitidas. Correntes de carateres separados por espaços ou comas
+A opção requerida tem mais de um argumento ou as aspas foram
+omitidas. Cadeias de carateres separados por espaços ou comas
 (C<--fun arg1 arg2,arg3...>) são considerados como argumentos; por
-tanto, a cada opção requer um argumento entre comillas. Ver Exemplos.
+tanto, a cada opção requer um argumento entre aspas. Ver Exemplos.
 
 =item 'Entrada de data incorreta!'
 
 Os argumentos ingressados por linha de comandos não se ajustam ao formato
-requerido pela função. A cada argumento deve estar entre paréntesis. Para
+requerido pela função. A cada argumento deve estar entre parênteses. Para
 cálculos de data Juliana o argumento 'C<era>' admite unicamente as correntes
 'C<aC>' ou 'C<AD>', 'C<yy,mm,dd>' admitem unicamente números inteiros
 positivos, o tempo 'C<tt>' admite a corrente 'C<md>' ou a hora UT em
@@ -263,14 +263,14 @@ C<kalendas>, versão 1.0.2, $Date: 2013/09/13 21:22:26 $
 
 =head1 LICENÇA
 
-Este programa é software livre: você pode redistribuirlo e/ou o modificar
+Este programa é software livre: você pode redistribuir lo e/ou o modificar
 conforme aos termos da Licença Pública General de GNU publicada pela
 Free Software Foundation, já seja a versão 3 da Licença, ou (em sua
 opção) qualquer versão posterior.
 
 Este programa distribui-se com o desejo de que lhe resulte útil, mas
 SEM GARANTIAS DE NENHUM TIPO; nem sequer com as garantias implícitas
-de COMERCIABILIDAD ou APTIDÃO PARA UM PROPOSITO DETERMINADO. Para mais
+de COMERCIABILIDADE ou APTIDÃO PARA UM PROPOSITO DETERMINADO. Para mais
 informação, consulte a Licença Pública General de GNU.
 
 Você deve ter recebido uma cópia da Licença Pública General de GNU
