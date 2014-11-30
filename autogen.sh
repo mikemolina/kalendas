@@ -29,12 +29,10 @@ fin() {
 
 # Funcion para actualizar fecha en archivos po
 poupdate() {
-    tup=`cat $1 | grep 'PO-Revision-Date:' | sed -e s/\"//g | sed -e 's/.*: \(.*\)[\]n/\1/'`
     rm $1
-    cp ../$1 tmp
-    tpo=`cat tmp | grep 'PO-Revision-Date:' | sed -e s/\"//g | sed -e s'/.*: \(.*\)[\]n/\1/'`
-    sed -e "s/PO-Revision-Date: ${tpo}/PO-Revision-Date: ${tup}/g" tmp > $1
-    rm tmp
+    cp ../$1 $1
+    tpo=`cat $1 | grep 'PO-Revision-Date:' | sed -e s/\"//g | sed -e s'/.*: \(.*\)[\]n/\1/'`
+    echo "Fecha ultima revision: ${tpo}"
 }
 
 # Directorio para correr autotools
