@@ -1,4 +1,6 @@
-kalendas - 1.0.2 (2014-10-06 18:21:57)
+kalendas - 1.1.0 (2014-12-23 18:20:48 UT)
 
- * Package available for different platforms through their package manager:
-   APT on Debian/Ubuntu, RPM on Fedora/CentOS and Homebrew on Mac OS X.
+ * Calculation of the modified Julian date from date of the Western calendar.
+ * Conversion from modified Julian date to date of the Western calendar for
+   any era (a.C. or A.D.).
+ * Documentation about the modified Julian date.

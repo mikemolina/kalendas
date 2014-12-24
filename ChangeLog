@@ -1,3 +1,9 @@
+2014-12-23 Miguel Molina <mmolina.unphysics@gmail.com>
+	* Version 1.1.0
+	* Computation of the modified Julian date from Western calendar
+	  date or vice versa.
+	* Update documentation and translations to calculate the Julian
+	  date modified.
 2014-10-06 Miguel Molina <mmolina.unphysics@gmail.com>
 	* Version 1.0.2
 	* Package available for Linux distributions based on Debian and
@@ -12,7 +18,7 @@
 	  system.
 	* Added po template at control version system.
 2013-09-14 Miguel Molina <mmolina.unphysics@gmail.com>
-	* Version 1.0.0.
+	* Version 1.0.0
 	* First revision, packaged with autotools.
 	* Adaptation of the source code for internationalization (i18n).
 	* Output messages localized (l10n) to languages english, spanish
@@ -20,6 +26,6 @@
 	* Documentation of the application in format info (in spanish).
 	* Added page man in language portuguese.
 2009-12-01 Miguel Molina <mmolina.unphysics@gmail.com>
-	* Version 0.1.0.
+	* Version 0.1.0
 	* Original Source code unpublished.
 	* Pages man translated in language spanish and english.

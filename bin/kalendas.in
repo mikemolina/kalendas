@@ -3,7 +3,7 @@
 #
 #    kalendas - Calculos de calendario.
 #
-#    Copyright (C) 2013  Miguel Molina
+#    Copyright (C) 2013-2014  Miguel Molina
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -50,15 +50,12 @@ binmode STDOUT, ':raw';      # Needed to make it work in UTF-8 locales in Perl-5
 #------------------------------
 my $PROG  = "kalendas";
 $] > 5 or die __x ("{PROG} requires Perl 5.\n", PROG => $PROG);
-$so = "";
-$so = "macos" if -e 'Dev:Null';
-$so = "unix"  if -e '/dev/null';
-$so = "windows" if -e 'nul';
+$so = $^O;
 
 #-----------------------------
 # < Informacion del programa >
 #-----------------------------
-my $idrcs = '$Id: kalendas,v 1.0.2 2013/09/12 23:20:35 ymmike Exp $ ';
+my $idrcs = '$Id: kalendas,v 1.1.0 2014/12/19 13:57:27 ymmike Exp $ ';
 my $autor = "Miguel Molina";
 my ($nombre, $verno, $data) = ( $idrcs =~ /: (\D+),v ([\d.]+) (\d+\/\d+\/\d+)/ );
 my $InfoId = "$nombre - $verno (SO: $so)";
@@ -74,6 +71,8 @@ $opt_jul2FJ  = 0;
 $opt_greg2FJ = 0;
 $opt_FJ2jul  = 0;
 $opt_FJ2greg = 0;
+$opt_calc2FJM = 0;
+$opt_FJM2calc = 0;
 $opt_convcal = 0;
 $opt_mas     = "";
 
@@ -84,6 +83,8 @@ GetOptions("help|h",
 	   "greg2FJ",
 	   "FJ2jul",
 	   "FJ2greg",
+	   "calc2FJM",
+	   "FJM2calc",
 	   "convcal",
 	   "mas=s"
 	   );
@@ -186,6 +187,37 @@ if( $opt_FJ2jul ){
 # Conversion dia Juliano -> fecha calendario Gregoriano
 if( $opt_FJ2greg ){
     ($era,$y,$m,$d,$dsem) = &DJ2CalGregor($ndj);
+    ($h,$mn,$s) = &fd2hora($fdj);
+    print __x (" Data: {dsem}, {era} {y}-{m}-{d},", 'dsem' => $NDSem{$dsem}, 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
+    printf " %02d:%02d:%02d UT\n", $h, $mn, $s;
+    exit(0);
+}
+
+# Conversion dia calendario civil -> fecha juliana modificada
+if( $opt_calc2FJM ){
+    $FJ=&DJ($y,$m,$d);
+    $FJ+=($h+($mn+$s/60)/60)/24-0.5;
+    $FJ-=2400000.5;
+    printf " MJD = %.5f\n", $FJ;
+    exit(0);
+}
+
+# Conversion fecha juliana modificada -> dia calendario civil
+if( $opt_FJM2calc ){
+#   Si fdj >= 0 ? hora a.m. del dia : hora p.m. del otro dia 
+    if( $fdj >= 0 ){
+	$ndj+=2400001;
+	$fdj-=0.5;
+    }else{
+	$ndj+=2400000;
+	$fdj+=0.5;
+    }
+#   Reforma Gregoriana de 1582
+    if( $ndj >= 2299160.5 ){
+	($era,$y,$m,$d,$dsem) = &DJ2CalGregor($ndj);
+    }else{
+	($era,$y,$m,$d,$dsem) = &DJ2CalJul($ndj);
+    }
     ($h,$mn,$s) = &fd2hora($fdj);
     print __x (" Data: {dsem}, {era} {y}-{m}-{d},", 'dsem' => $NDSem{$dsem}, 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
     printf " %02d:%02d:%02d UT\n", $h, $mn, $s;
@@ -426,6 +458,7 @@ sub MasInfo{
         the Julian day number and Julian day fraction respectively. With
         five numbers decimals the time is obtained with precision of 1
         second. 'jd' can be a negative number.
+ 'mjd':= The modified Julian date; argument similarly to jd.
 END_INFO
     last INFO;
       }
@@ -477,6 +510,23 @@ END_INFO
 END_INFO
     last INFO;
       }
+      if( $arg =~ /^calc2FJM$/ ){
+	  print __ <<"END_INFO";
+  --calc2FJM "(era,yy,mm,dd,tt)"
+ Calculation of modified Julian date from a Western calendar date.
+ This function is valid for any era.
+END_INFO
+    last INFO;
+      }
+      if( $arg =~ /^FJM2calc$/ ){
+	  print __ <<"END_INFO";
+  --FJM2calc "(mjd)"
+ Calculation of a Western calendar date, time and day of the week
+ from a modified Julian date. It gives the date with format day of
+ week, era, year, month, day and time UT.
+END_INFO
+    last INFO;
+      }
       if( $arg =~ /^convcal$/ ){
 	  print __ <<"END_INFO";
   --convcal "(era,yy,mm,dd,cal1,cal2)"
@@ -490,10 +540,10 @@ END_INFO
 	  print __ <<"END_INFO";
   --mas 'fun'
  Show additional information about function 'fun', where 'fun' is one of
- the options: 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg'.
- The option 'arg' shows additional information on the arguments.
- For calculate Julian date present, from PC clock, write kalendas without
- arguments.
+ the options: 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|
+ convcal|mas|arg'. The option 'arg' shows additional information on the
+ arguments. For calculate Julian date present, from PC clock, write
+ kalendas without arguments.
 END_INFO
     last INFO;
       }
@@ -508,7 +558,7 @@ END_INFO
 #-----------------------------------------------------------------------------
 sub vtxt{
     print "$InfoId\n";
-    print "Copyright (C) 2013 $autor\n";
+    print "Copyright (C) 2013-2014 $autor\n";
     print __ <<"END_VERSION";
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
 This program comes with ABSOLUTELY NO WARRANTY; This is free software, and you
@@ -525,7 +575,8 @@ sub usotxt{
     print __ <<"END_KALENDAS";
  Arguments: 'era' is the position of the year in the Christian scale: 'aC|AD',
              'yy' year, 'mm' month (1-12) and 'dd' day, 'tt' hour in UT
-             or noon of Greenwich: 'hh:mm:ss|md'. 'jd' is the Julian date.
+             or noon of Greenwich: 'hh:mm:ss|md'. 'jd' is the Julian date,
+             'mjd' is the modified Julian date.
  Functions:
  --calc2FJ "(era,yy,mm,dd,tt)"
    Calculation Julian date from a calendar date used in the Western culture.
@@ -537,10 +588,15 @@ sub usotxt{
    Calculation of a Julian calendar date from a Julian date.
  --FJ2greg "(jd)"
    Calculation of a Gregorian calendar date from a Julian date.
+ --calc2FJM "(era,yy,mm,dd,tt)"
+   Calculation of modified Julian date from date calendar Western.
+ --FJM2calc "(mjd)"
+   Calculation of date calendar Western from modified Julian date.
  --convcal "(era,yy,mm,dd,cal1,cal2)",  cal_=jul|greg
    Conversion between calendar date 'cal1' to calendar date 'cal2'. The
    conversion is made between Julian and Gregorian calendars or vice versa.
- --mas fun, fun=calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg
+ --mas fun,
+ fun=calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|convcal|mas|arg
    Show additional information about function fun; arg show arguments.
  -h,--help    Show this help.       -v,--version    Show version.
  JD present!  For calculate Julian date present, from PC clock, write

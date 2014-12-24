@@ -7,7 +7,7 @@ podowndate() {
     cp $1 tmp
     rm $1
     # Fecha ultima actualizacion archivos po
-    tdown='2014-11-09 09:48-0500'
+    tdown='2014-12-23 11:06-0500'
     tpo=`cat tmp | grep 'PO-Revision-Date:' | sed -e s/\"//g | sed -e s'/.*: \(.*\)[\]n/\1/'`
     sed -e "s/PO-Revision-Date: ${tpo}/PO-Revision-Date: ${tdown}/g" tmp > $1
     rm tmp

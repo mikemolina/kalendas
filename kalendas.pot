@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: kalendas 1.0.2\n"
+"Project-Id-Version: kalendas 1.1.0\n"
 "Report-Msgid-Bugs-To: mmolina.unphysics@gmail.com\n"
-"POT-Creation-Date: 2014-10-06 23:00-0500\n"
+"POT-Creation-Date: 2014-12-23 09:00-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,85 +22,85 @@ msgstr ""
 msgid "{PROG} requires Perl 5.\n"
 msgstr ""
 
-#: bin/kalendas.in:65
+#: bin/kalendas.in:62
 #, perl-brace-format
 msgid "Written by {autor}, {data}, <mmolina.unphysics@gmail.com>."
 msgstr ""
 
-#: bin/kalendas.in:91
+#: bin/kalendas.in:92
 msgid "Monday"
 msgstr ""
 
-#: bin/kalendas.in:91
+#: bin/kalendas.in:92
 msgid "Tuesday"
 msgstr ""
 
-#: bin/kalendas.in:91
+#: bin/kalendas.in:92
 msgid "Wednesday"
 msgstr ""
 
-#: bin/kalendas.in:91
+#: bin/kalendas.in:92
 msgid "Thursday"
 msgstr ""
 
-#: bin/kalendas.in:91
+#: bin/kalendas.in:92
 msgid "Friday"
 msgstr ""
 
-#: bin/kalendas.in:91
+#: bin/kalendas.in:92
 msgid "Saturday"
 msgstr ""
 
-#: bin/kalendas.in:91
+#: bin/kalendas.in:92
 msgid "Sunday"
 msgstr ""
 
-#: bin/kalendas.in:93
+#: bin/kalendas.in:94
 msgid "Many arguments!\n"
 msgstr ""
 
-#: bin/kalendas.in:111 bin/kalendas.in:121
+#: bin/kalendas.in:112 bin/kalendas.in:122
 #, perl-brace-format
 msgid "Year {y} no found in the scale Christian.\n"
 msgstr ""
 
-#: bin/kalendas.in:120
+#: bin/kalendas.in:121
 msgid "Conversion between calendars equals!!!\n"
 msgstr ""
 
-#: bin/kalendas.in:135
+#: bin/kalendas.in:136
 msgid "Bad input date!\n"
 msgstr ""
 
-#: bin/kalendas.in:145
+#: bin/kalendas.in:146
 #, perl-brace-format
 msgid " Date present: {dsem}, {y}-{m}-{d},"
 msgstr ""
 
-#: bin/kalendas.in:150
+#: bin/kalendas.in:151
 #, perl-brace-format
 msgid " For more information: {PROG} --help\n"
 msgstr ""
 
-#: bin/kalendas.in:181 bin/kalendas.in:190
+#: bin/kalendas.in:182 bin/kalendas.in:191 bin/kalendas.in:222
 #, perl-brace-format
 msgid " Data: {dsem}, {era} {y}-{m}-{d},"
 msgstr ""
 
-#: bin/kalendas.in:201 bin/kalendas.in:208
+#: bin/kalendas.in:233 bin/kalendas.in:240
 #, perl-brace-format
 msgid " Data: ({era},{y},{m},{d})\n"
 msgstr ""
 
-#: bin/kalendas.in:313
+#: bin/kalendas.in:345
 msgid " Dates between 5 and 14 of October of 1582 no\n"
 msgstr ""
 
-#: bin/kalendas.in:314
+#: bin/kalendas.in:346
 msgid " exist for calculus of the Julian Day.\n"
 msgstr ""
 
-#: bin/kalendas.in:414
+#: bin/kalendas.in:446
 msgid ""
 "  Arguments\n"
 " Note: writing quotes (\"\") is obligatory for input of arguments.\n"
@@ -117,9 +117,10 @@ msgid ""
 "        the Julian day number and Julian day fraction respectively. With\n"
 "        five numbers decimals the time is obtained with precision of 1\n"
 "        second. 'jd' can be a negative number.\n"
+" 'mjd':= The modified Julian date; argument similarly to jd.\n"
 msgstr ""
 
-#: bin/kalendas.in:434
+#: bin/kalendas.in:467
 msgid ""
 "  --calc2FJ \"(era,yy,mm,dd,tt)\"\n"
 " Calculation of Julian date from a calendar date used in the\n"
@@ -132,21 +133,21 @@ msgid ""
 " October of 1582 the Gregorian calendar is assumed.\n"
 msgstr ""
 
-#: bin/kalendas.in:448
+#: bin/kalendas.in:481
 msgid ""
 "  --jul2FJ \"(era,yy,mm,dd,tt)\"\n"
 " Calculation of Julian date from a Julian calendar date.\n"
 " The function assumes only the Julian calendar.\n"
 msgstr ""
 
-#: bin/kalendas.in:456
+#: bin/kalendas.in:489
 msgid ""
 "  --greg2FJ \"(era,yy,mm,dd,tt)\"\n"
 " Calculation of Julian date from a Gregorian calendar date.\n"
 " The function assumes only the Gregorian calendar.\n"
 msgstr ""
 
-#: bin/kalendas.in:464
+#: bin/kalendas.in:497
 msgid ""
 "  --FJ2jul \"(jd)\"\n"
 " Calculation of a Julian calendar date, time and day of the week\n"
@@ -154,7 +155,7 @@ msgid ""
 " era, year, month, day and time UT.\n"
 msgstr ""
 
-#: bin/kalendas.in:473
+#: bin/kalendas.in:506
 msgid ""
 "  --FJ2greg \"(jd)\"\n"
 " Calculation of a Gregorian calendar date, time and day of the week\n"
@@ -162,7 +163,22 @@ msgid ""
 " era, year, month, day and time UT.\n"
 msgstr ""
 
-#: bin/kalendas.in:482
+#: bin/kalendas.in:515
+msgid ""
+"  --calc2FJM \"(era,yy,mm,dd,tt)\"\n"
+" Calculation of modified Julian date from a Western calendar date.\n"
+" This function is valid for any era.\n"
+msgstr ""
+
+#: bin/kalendas.in:523
+msgid ""
+"  --FJM2calc \"(mjd)\"\n"
+" Calculation of a Western calendar date, time and day of the week\n"
+" from a modified Julian date. It gives the date with format day of\n"
+" week, era, year, month, day and time UT.\n"
+msgstr ""
+
+#: bin/kalendas.in:532
 msgid ""
 "  --convcal \"(era,yy,mm,dd,cal1,cal2)\"\n"
 " Conversion between calendar date 'cal1' to calendar date 'cal2'. The\n"
@@ -170,22 +186,22 @@ msgid ""
 " or vice versa. It gives the date with format era, year, month and day.\n"
 msgstr ""
 
-#: bin/kalendas.in:491
+#: bin/kalendas.in:541
 msgid ""
 "  --mas 'fun'\n"
 " Show additional information about function 'fun', where 'fun' is one of\n"
-" the options: 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg'.\n"
-" The option 'arg' shows additional information on the arguments.\n"
-" For calculate Julian date present, from PC clock, write kalendas without\n"
-" arguments.\n"
+" the options: 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|\n"
+" convcal|mas|arg'. The option 'arg' shows additional information on the\n"
+" arguments. For calculate Julian date present, from PC clock, write\n"
+" kalendas without arguments.\n"
 msgstr ""
 
-#: bin/kalendas.in:501
+#: bin/kalendas.in:551
 #, perl-brace-format
 msgid "There is not information for: '{arg}'\n"
 msgstr ""
 
-#: bin/kalendas.in:513
+#: bin/kalendas.in:563
 msgid ""
 "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl."
 "html>.\n"
@@ -194,17 +210,18 @@ msgid ""
 "are welcome to redistribute it under certain conditions.\n"
 msgstr ""
 
-#: bin/kalendas.in:524
+#: bin/kalendas.in:574
 #, perl-brace-format
 msgid "Use: {PROG} --Function \"Arguments\"\n"
 msgstr ""
 
-#: bin/kalendas.in:526
+#: bin/kalendas.in:576
 msgid ""
 " Arguments: 'era' is the position of the year in the Christian scale: 'aC|"
 "AD',\n"
 "             'yy' year, 'mm' month (1-12) and 'dd' day, 'tt' hour in UT\n"
-"             or noon of Greenwich: 'hh:mm:ss|md'. 'jd' is the Julian date.\n"
+"             or noon of Greenwich: 'hh:mm:ss|md'. 'jd' is the Julian date,\n"
+"             'mjd' is the modified Julian date.\n"
 " Functions:\n"
 " --calc2FJ \"(era,yy,mm,dd,tt)\"\n"
 "   Calculation Julian date from a calendar date used in the Western "
@@ -217,16 +234,22 @@ msgid ""
 "   Calculation of a Julian calendar date from a Julian date.\n"
 " --FJ2greg \"(jd)\"\n"
 "   Calculation of a Gregorian calendar date from a Julian date.\n"
+" --calc2FJM \"(era,yy,mm,dd,tt)\"\n"
+"   Calculation of modified Julian date from date calendar Western.\n"
+" --FJM2calc \"(mjd)\"\n"
+"   Calculation of date calendar Western from modified Julian date.\n"
 " --convcal \"(era,yy,mm,dd,cal1,cal2)\",  cal_=jul|greg\n"
 "   Conversion between calendar date 'cal1' to calendar date 'cal2'. The\n"
 "   conversion is made between Julian and Gregorian calendars or vice versa.\n"
-" --mas fun, fun=calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg\n"
+" --mas fun,\n"
+" fun=calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|convcal|mas|"
+"arg\n"
 "   Show additional information about function fun; arg show arguments.\n"
 " -h,--help    Show this help.       -v,--version    Show version.\n"
 " JD present!  For calculate Julian date present, from PC clock, write\n"
 msgstr ""
 
-#: bin/kalendas.in:548
+#: bin/kalendas.in:604
 #, perl-brace-format
 msgid "              {PROG} without arguments.\n"
 msgstr ""

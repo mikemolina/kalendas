@@ -6,6 +6,7 @@ kalendas - Cálculos de calendario y Fecha Juliana
 #### Tabla de Contenido
 * [DESCRIPCIÓN](#description)
 * [REQUISITOS](#require)
+* [¡NUEVO!](#news)
 * [INSTALACIÓN](#install)
   1. [Ubuntu](#debian)
   2. [Fedora and CentOS](#rhel)
@@ -32,6 +33,15 @@ REQUISITOS
 **kalendas** requiere perl 5 o posterior. Para el soporte en lenguaje
 nativo se recomienda el módulo Locale::TextDomain incluido en el
 paquete libintl-perl. Ver el archivo *DEPENDENCIES*.
+
+<a name="news"/>
+¡NUEVO!
+-------
+* Cálculo de la fecha Juliana modificada desde una fecha del calendario
+Occidental.
+* Conversión desde fecha Juliana modificada hacia fecha del calendario
+Occidental para cualquier era (a.C. o A.D.).
+* Documentación acerca de la fecha Juliana modificada.
 
 <a name="install"/>
 INSTALACIÓN
@@ -84,19 +94,19 @@ el símbolo de sistema usando GNU Make (incluida en la distribución
 woe/Makefile.mgw para modificar la ruta de instalación por defecto
 y ejecutar
 
-        > cd kalendas-1.0.2
+        > cd kalendas-1.1.0
         > copy woe/Makefile.mgw .
         > gmake -f Makefile.mgw
 
 <a name="unix"/>
 5. Usted también puede instalar **kalendas** desde el código fuente de
 la versión estable disponible en [Launchpad](https://launchpad.net/kalendas),
-cuyo paquete puede descargarse [aquí](https://launchpad.net/kalendas/trunk/1.0.2/+download/kalendas-1.0.2.tar.gz).
+cuyo paquete puede descargarse [aquí](https://launchpad.net/kalendas/trunk/1.1.0/+download/kalendas-1.1.0.tar.gz).
 En plataformas UNIX (Linux, Mac OS X, incluso Woe/MSYS y similares),
 extraer e instalar el paquete en la forma usual
 
-        $ tar -xvzf kalendas-1.0.2.tar.gz
-        $ cd kalendas-1.0.2
+        $ tar -xvzf kalendas-1.1.0.tar.gz
+        $ cd kalendas-1.1.0
         $ ./configure --prefix=/ruta/a/instalar
         $ make
         $ make install
@@ -158,7 +168,7 @@ kalendas, la fecha Juliana para tal instante es
 Un breve listado de funciones es mostrado ejecutando *kalendas -h*; puede
 ampliar la información a través de la página manual con *man kalendas*.
 Para información más detallada de funciones e instrucciones de **kalendas**
-ejecutar *info kalendas* o ver la documentación en línea [aquí](https://launchpad.net/kalendas/trunk/1.0.2/+download/kalendas-doc.pdf).
+ejecutar *info kalendas* o ver la documentación en línea [aquí](https://launchpad.net/kalendas/trunk/1.1.0/+download/kalendas-doc.pdf).
 
 Actualmente, **kalendas** tiene soporte de traducción en los mensajes de
 salida para lenguajes: inglés, español y portugués (BR). Usted puede probar
@@ -175,7 +185,7 @@ Contribuciones para otras lenguas son Bienvenidas!
 <a name="version"/>
 VERSIÓN
 -------
-**kalendas**, versión 1.0.2, $Date: 2014/10/06 18:21:57 $
+**kalendas**, versión 1.1.0, $Date: 2014/12/23 12:26:21 $
 
 <a name="license"/>
 LICENCIA

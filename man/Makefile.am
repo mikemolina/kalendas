@@ -21,13 +21,13 @@ endif
 all: $(man_trad)
 
 kalendas.1: kalendas.en.pod
-	$(POD2MAN) $(POD2MANFLAGS) --date='2013-09-12' --center=$(HEAD) $< > $@
+	$(POD2MAN) $(POD2MANFLAGS) --date='2014-12-23' --center=$(HEAD) $< > $@
 
 kalendas.es.1: kalendas.es.pod
-	$(POD2MAN) $(POD2MANFLAGS) --date='2014-11-09' --center=$(HEADes) --utf8 $< $(ENCODINGFLAG) > $@
+	$(POD2MAN) $(POD2MANFLAGS) --date='2014-12-23' --center=$(HEADes) --utf8 $< $(ENCODINGFLAG) > $@
 
 kalendas.pt_BR.1: kalendas.pt_BR.pod
-	$(POD2MAN) $(POD2MANFLAGS) --date='2014-11-09' --center=$(HEADpt_BR) --utf8 $< $(ENCODINGFLAG) > $@
+	$(POD2MAN) $(POD2MANFLAGS) --date='2014-12-23' --center=$(HEADpt_BR) --utf8 $< $(ENCODINGFLAG) > $@
 
 #kalendas.lang.1: kalendas.lang.pod
 #	$(POD2MAN) $(POD2MANFLAGS) --date='AAAA-MM-DD' --center=$(HEADlang) --utf8 $< $(ENCODINGFLAG) > $@

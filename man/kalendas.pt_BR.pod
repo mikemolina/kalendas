@@ -59,7 +59,7 @@ não existe na escala cristã.
 
 =item 'mm'
 
-No mês com valor numérico: Ene-E<gt>1, Feb-E<gt>2, ..
+No mês com valor numérico: Jan-E<gt>1, Fev-E<gt>2, ..
 
 =item 'dd'
 
@@ -71,12 +71,20 @@ A hora solar, tem duas opções de rendimento: escrevendo o tempo universal
 (UT) em formato 'C<hh:mm:ss>', ou 'C<md>' que é a hora a meio dia de
 Greenwich (12:00:00 UT).
 
-=item 'fj'
+=item 'dj'
 
-A data Juliana. As partes inteira e decimal de 'C<fj>' representam o
+A data Juliana. As partes inteira e decimal de 'C<dj>' representam o
 número de dia Juliano e a fração de dia Juliano respectivamente.
 Com cinco cifras decimais obtém-se a hora com uma precisão de 1
-segundo. 'C<fj>' pode ser um número negativo.
+segundo. 'C<dj>' pode ser um número negativo.
+
+=item 'djm'
+
+A data Juliana modificada. As partes inteira e decimal de 'C<djm>'
+representam o número de dia Juliano modificado e a fração de dia
+Juliano modificado respectivamente. Com cinco cifras decimais obtém-se
+a hora com uma precisão de 1 segundo. 'C<djm>' pode ser um número
+negativo.
 
 =back
 
@@ -105,17 +113,28 @@ A função assume unicamente o calendário Juliano.
 Cálculo de data Juliana a partir de uma data do calendário Gregoriano.
 A função assume unicamente o calendário Gregoriano.
 
-=item --FJ2jul "(fj)"
+=item --FJ2jul "(dj)"
 
 Cálculo de uma data do calendário Juliano, hora e dia da semana a partir
 de uma data Juliana. Entrega a data com formato dia da semana, era, ano,
 mês, dia e hora UT.
 
-=item --FJ2greg "(fj)"
+=item --FJ2greg "(dj)"
 
 Cálculo de uma data do calendário Gregoriano, hora e dia da semana a partir
 de uma data Juliana. Entrega a data com formato dia da semana, era, ano,
 mês, dia e hora UT.
+
+=item --calc2FJM "(era,yy,mm,dd,tt)"
+
+Cálculo de data Juliana modificado a partir de uma data do calendário
+Ocidental. Esta função é válida para qualquer era.
+
+=item --FJM2calc "(djm)"
+
+Cálculo de uma data do calendário Ocidental, hora e dia da semana a
+partir de uma data Juliana modificada. Entrega a data com formato dia
+da semana, era, ano, mês, dia e hora UT.
 
 =item --convcal "(era,yy,mm,dd,cal1,cal2)"
 
@@ -128,7 +147,7 @@ A conversão realiza-se entre calendários Juliano 'C<jul>' e Gregoriano
 Mostra informação adicional sobre função 'C<fun>', onde 'C<fun>' é uma
 das opções
 
- 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg'
+ 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|convcal|mas|arg'
 
 A opção 'C<arg>' mostra informação adicional dos argumentos.
 
@@ -192,9 +211,21 @@ respectivas datas calendário Juliano e Gregoriano do histórico momento
 são:
 
       kalendas --FJ2jul "(2440421.62278)"
-      Fecha: Sábado, AD 1969-7-6, 02:56:48 UT
+      Data: Sábado, AD 1969-7-6, 02:56:48 UT
       kalendas --FJ2greg "(2440421.62278)" 
-      Fecha: Sábado, AD 1969-7-19, 02:56:48 UT
+      Data: Sábado, AD 1969-7-19, 02:56:48 UT
+
+=item *
+
+A data Juliana modificada do dia 19 de Dezembro do 2014 às 18:57:27 UT é:
+
+      kalendas --calc2FJM "(AD,2014,12,19,18:57:27)"
+      MJD = 57010.78990
+
+operação inversa recupera a data inicial
+
+      kalendas --FJM2calc "(57010.78990)"
+      Data: Sexta-feira, AD 2014-12-19, 18:57:27 UT
 
 =item *
 
@@ -202,12 +233,12 @@ Converter a data 1 janeiro do 1 A.D. calendário Juliano a calendário
 Gregoriano
 
       kalendas --convcal "(AD,1,1,1,jul,greg)"
-      Fecha: (aC,1,12,30) 
+      Data: (aC,1,12,30) 
 
 por suposto a operação inversa recupera a data inicial 
 
       kalendas --convcal "(aC,1,12,30,greg,jul)" 
-      Fecha: (AD,1,1,1) 
+      Data: (AD,1,1,1) 
 
 =item *
 
@@ -239,7 +270,7 @@ cálculos de data Juliana o argumento 'C<era>' admite unicamente as correntes
 'C<aC>' ou 'C<AD>', 'C<yy,mm,dd>' admitem unicamente números inteiros
 positivos, o tempo 'C<tt>' admite a corrente 'C<md>' ou a hora UT em
 formato 'C<hh:mm:ss>' com números inteiros positivos. Para cálculos de data
-de calendário 'C<fj>' é um número real positivo ou negativo. Ver Exemplos. 
+de calendário 'C<dj>' é um número real positivo ou negativo. Ver Exemplos. 
 
 =item 'Conversão entre mesmos calendários!!!'
 
@@ -259,7 +290,7 @@ recordar as funções do programa, escrever 'C<--help>'.
 
 =head1 VERSÃO
 
-C<kalendas>, versão 1.0.2, $Date: 2014/11/09 10:04:55 $
+C<kalendas>, versão 1.1.0, $Date: 2014/12/21 13:43:31 $
 
 =head1 LICENÇA
 

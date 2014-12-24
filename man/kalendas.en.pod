@@ -70,12 +70,20 @@ The solar time, has two options of entrance: writing the time
 universal (UT) in format 'C<hh:mm:ss>', or 'C<md>' that is the
 hour to noon of Greenwich (12:00:00 UT).
 
-=item 'fj'
+=item 'jd'
 
-The Julian date. The integer and decimal parts the 'C<fj>'
+The Julian date. The integer and decimal parts the 'C<jd>'
 represent the Julian day number and Julian day fraction
 respectively. With five numbers decimals the time is
-obtained with precision of 1 second. 'C<fj>' can be a negative
+obtained with precision of 1 second. 'C<jd>' can be a negative
+number.
+
+=item 'mjd'
+
+The modified Julian date. The integer and decimal parts the 'C<mjd>'
+represent the modified Julian day number and modified Julian day
+fraction respectively. With five numbers decimals the time is
+obtained with precision of 1 second. 'C<mjd>' can be a negative
 number.
 
 =back
@@ -105,17 +113,28 @@ The function assumes only the Julian calendar.
 Calculation of Julian date from a Gregorian calendar date.
 The function assumes only the Gregorian calendar.
 
-=item --FJ2jul "(fj)"
+=item --FJ2jul "(jd)"
 
 Calculation of a Julian calendar date, time and day of the week
 from a Julian date. It gives the date with format day of week,
 era, year, month, day and time UT.
 
-=item --FJ2greg "(fj)"
+=item --FJ2greg "(jd)"
 
 Calculation of a Gregorian calendar date, time and day of the week
 from a Julian date. It gives the date with format day of week,
 era, year, month, day and time UT.
+
+=item --calc2FJM "(era,yy,mm,dd,tt)"
+
+Calculation of modified Julian date from date calendar Western. The
+function is valid for any era.
+
+=item --FJM2calc "(mjd)"
+
+Calculation of a Western calendar date, time and day of the week
+from a modified Julian date. It gives the date with format day of
+week, era, year, month, day and time UT.
 
 =item --convcal "(era,yy,mm,dd,cal1,cal2)"
 
@@ -129,7 +148,7 @@ month and day.
 Show additional information about function 'C<fun>', where 'C<fun>' is
 one of the options:
 
- 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg'
+ 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|convcal|mas|arg'
 
 The option 'C<arg>' shows additional information on the arguments.
 
@@ -194,9 +213,22 @@ N. Armstrong walked onto the lunar ground in Julian date
 calendar of historic moment are:
 
       kalendas --FJ2jul "(2440421.62278)"
-      Fecha: Sabado, AD 1969-7-6, 02:56:48 UT
+      Data: Saturday, AD 1969-7-6, 02:56:48 UT
       kalendas --FJ2greg "(2440421.62278)"
-      Fecha: Sabado, AD 1969-7-19, 02:56:48 UT
+      Data: Saturday, AD 1969-7-19, 02:56:48 UT
+
+=item *
+
+The modified Julian date of day 19 of December of 2014 to
+18:57:27 UT is:
+
+      kalendas --calc2FJM "(AD,2014,12,19,18:57:27)"
+      MJD = 57010.78990
+
+inverse operation retrieves the starting date
+
+      kalendas --FJM2calc "(57010.78990)"
+      Data: Friday, AD 2014-12-19, 18:57:27 UT
 
 =item *
 
@@ -204,12 +236,12 @@ Convert the date 1 January of the 1 A.D. Julian calendar to
 Gregorian calendar
 
       kalendas --convcal "(AD,1,1,1,jul,greg)"
-      Fecha: (aC,1,12,30)
+      Data: (aC,1,12,30)
 
 of course the inverse operation retrieves the starting date
 
       kalendas --convcal "(aC,1,12,30,greg,jul)"
-      Fecha: (AD,1,1,1)
+      Data: (AD,1,1,1)
 
 =item *
 
@@ -241,7 +273,7 @@ parentheses. For Julian date calculations the argument 'C<era>' only
 supports strings 'C<aC>' or 'C<AD>', 'C<yy,mm,dd>' admit only positive
 integers numbers, the time 'C<tt>' admits the string 'C<md>' or time
 format UT 'C<hh:mm:ss>' with positive integers numbers. For calendar
-date calculations 'C<fj>' is a positive or negative real number.
+date calculations 'C<jd>' is a positive or negative real number.
 View Examples.
 
 =item 'Conversion between calendars equals!!!'
@@ -263,7 +295,7 @@ write 'C<--help>'.
 
 =head1 VERSION
 
-C<kalendas>, version 1.0.2, $Date: 2013/09/12 23:20:35 $
+C<kalendas>, version 1.1.0, $Date: 2014/12/21 12:24:08 $
 
 =head1 LICENSE
 

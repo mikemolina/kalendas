@@ -21,7 +21,7 @@
 Este es el manual de kalendas (versi@'on @value{VERSION}, @value{UPDATED}),
 C@'alculos de Calendario.
 
-Copyright @copyright{} 2013 Miguel Molina
+Copyright @copyright{} 2013-2014 Miguel Molina
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -101,7 +101,7 @@ de numeraci@'on de d@'{@dotless{i}}a/fecha Juliana.
 @noindent
 @command{kalendas} es un aplicaci@'on inform@'atica que permite calcular
 diferentes conversiones entre calendarios Juliano, Gregoriano y Fecha
-Juliana, usados comunmente en c@'omputos astron@'omicos y cronol@'ogicos.
+Juliana, usados com@'unmente en c@'omputos astron@'omicos y cronol@'ogicos.
 
 @c ***** Introduccion *****
 @node Introducci@'on, Usando kalendas, Resumen, Top
@@ -145,7 +145,7 @@ software libre, @'el se encuentra disponible en una variedad de sistemas
 operativos (UNIX, Mac, Woe@footnote{Acr@'onimo en ingl@'es Windows
 Operating Environment}) de modo que, para ejecutar la aplicaci@'on
 s@'olo es requisito tener instalado @acronym{Perl} con una versi@'on
-igual o superior a la 5. La aplicaci@'on ofrece los siguientes computos:
+igual o superior a la 5. La aplicaci@'on ofrece los siguientes c@'omputos:
 
 @itemize @bullet{}
 @item
@@ -155,7 +155,10 @@ o Calendario Juliano o Calendario Gregoriano.
 C@'alculo de la fecha de Calendario Juliano o Calendario Gregoriano
 desde una Fecha Juliana.
 @item
-Conversion de fechas entre los calendarios Juliano y Gregoriano o
+C@'alculo de la Fecha Juliana Modificada desde una fecha del
+Calendario Occidental o viceversa.
+@item
+Conversi@'on de fechas entre los calendarios Juliano y Gregoriano o
 viceversa.
 @end itemize
 
@@ -164,7 +167,8 @@ viceversa.
 @noindent
 Para la Fecha Juliana, el resultado num@'erico en la parte decimal se
 expresa con 5 d@'{@dotless{i}}gitos de precisi@'on, que en segundos
-equivale a 1 segundo.
+equivale a 1 segundo. Misma situaci@'on para la Fecha Juliana
+Modificada.
 
 @c ***** Usando el programa *****
 @node Usando kalendas, Diagn@'ostico de errores, Introducci@'on, Top
@@ -216,6 +220,18 @@ representan el n@'umero de d@'{@dotless{i}}a Juliano y la fracci@'on de
 d@'{@dotless{i}}a Juliano respectivamente.@* Con cinco cifras
 decimales se obtiene la hora solar con una precisi@'on de 1 segundo;
 @command{fj} puede ser un n@'umero negativo.
+
+@item @b{fjm}
+@cindex Fecha Juliana Modificada
+La fecha Juliana modificada, el cual es el n@'umero de
+d@'{@dotless{i}}as transcurridos desde la 0 horas UT del 17 de
+Noviembre de 1858. Las partes entera y decimal de @command{fjm}
+representan el n@'umero de d@'{@dotless{i}}a Juliano modificado y la
+fracci@'on de d@'{@dotless{i}}a Juliano modificado respectivamente.@*
+Con cinco cifras decimales se obtiene la hora solar con una
+precisi@'on de 1 segundo; @command{fjm} puede ser un n@'umero
+negativo.
+
 @end table
 
 @subsection Funciones
@@ -257,6 +273,18 @@ d@'{@dotless{i}}a de la semana a partir de una fecha Juliana. Entrega
 la fecha con formato d@'{@dotless{i}}a de la semana, era, a@~no, mes,
 d@'{@dotless{i}}a y hora UT.
 
+@item --calc2FJM "(era,yy,mm,dd,tt)"
+@opindex @option{--calc2FJM}
+C@'alculo de la fecha Juliana modificada a partir de una fecha del
+calendario Occidental. La funci@'on es valida para cualquier era.
+
+@item --FJM2calc "(fjm)"
+@opindex @option{--FJM2calc}
+C@'alculo de una fecha del calendario Occidental, hora y
+d@'{@dotless{i}}a de la semana a partir de una fecha Juliana
+modificada. Entrega la fecha con formato d@'{@dotless{i}}a de la
+semana, era, a@~no, mes, d@'{@dotless{i}}a y hora UT.
+
 @item --convcal "(era,yy,mm,dd,cal1,cal2)"
 @opindex @option{--convcal}
 Conversi@'on entre fecha del calendario @command{cal1} a fecha del
@@ -270,7 +298,8 @@ d@'{@dotless{i}}a.
 Muestra informaci@'on adicional sobre funci@'on @command{fun}, donde
 @command{fun} es una de las opciones
 @example
- calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|convcal|mas|arg
+ calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|
+ calc2FJM|FJM2calc|convcal|mas|arg
 @end example
 @noindent
 La opci@'on @command{arg} muestra informaci@'on adicional de los
@@ -358,9 +387,24 @@ N. Armstrong pis@'o el suelo lunar en la fecha Juliana
 del hist@'orico momento son:
 @example
  kalendas --FJ2jul "(2440421.62278)"
- Fecha: Sabado, AD 1969-7-6, 02:56:48 UT
+ Fecha: S@'abado, AD 1969-7-6, 02:56:48 UT
  kalendas --FJ2greg "(2440421.62278)"
- Fecha: Sabado, AD 1969-7-19, 02:56:48 UT
+ Fecha: S@'abado, AD 1969-7-19, 02:56:48 UT
+@end example
+
+@item
+La fecha Juliana modificada del d@'{@dotless{i}}a 19 de Diciembre del
+2014 a las 18:57:27 UT es:
+@example
+ kalendas --calc2FJM "(AD,2014,12,19,18:57:27)"
+ MJD = 57010.78990
+@end example
+
+@noindent
+la operaci@'on inversa recupera la fecha inicial
+@example
+ kalendas --FJM2calc "(57010.78990)"
+ Fecha: Viernes, AD 2014-12-19, 18:57:27 UT
 @end example
 
 @item
@@ -417,12 +461,12 @@ hora UT en formato @command{hh:mm:ss} con n@'umeros enteros
 positivos. Para c@'alculos de fecha de calendario @command{fj} es un
 n@'umero real positivo o negativo. Ver Ejemplos.
 
-@item Conversion entre calendarios iguales!!!
+@item Conversi@'on entre calendarios iguales!!!
 La opci@'on @command{--convcal} realiza conversiones @'unicamente entre
 los calendarios Juliano y/o Gregoriano. Obviamente, no hay nada mas
 que comentar!
 
-@item No existe informacion para: argx
+@item No existe informaci@'on para: argx
 El argumento @command{argx} no corresponde a las funciones de
 kalendas. Para recordar las funciones del programa, escribir
 @command{--help}.
