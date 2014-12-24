@@ -11,8 +11,6 @@ Los siguientes paquetes se deben instalar cuando se instala "kalendas"
      Si no se devuelve nada, Perl tiene instalado el módulo.
    + Descarga:
      http://search.cpan.org/~guido/libintl-perl-1.23/
-   + Homepage:
-     http://git.guido-flohr.net/projects/libintl-perl/
    + Instalación: El paquete está disponible para diferentes sistemas operativos.
      > Distribuciones Linux
      Distribuciones con base en RPM: yum install perl-libintl
@@ -34,8 +32,6 @@ The following packages should be installed when "kalendas" is installed
      If nothing is returned, Perl have installed the module.
    + Download:
      http://search.cpan.org/~guido/libintl-perl-1.23/
-   + Homepage:
-     http://git.guido-flohr.net/projects/libintl-perl/
    + Install: The package are available for different operating systems.
      > Linux Distros
      RPM based distributions: yum install perl-libintl
