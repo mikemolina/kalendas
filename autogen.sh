@@ -30,7 +30,7 @@ fin() {
 # Funcion para actualizar fecha en archivos po
 poupdate() {
     rm $1
-    cp ../$1 $1
+    mv ../$1 $1
     tpo=`cat $1 | grep 'PO-Revision-Date:' | sed -e s/\"//g | sed -e s'/.*: \(.*\)[\]n/\1/'`
     echo "Fecha ultima revision: ${tpo}"
 }
@@ -48,6 +48,7 @@ if [ -d po ]; then
 fi
 echo "running autoreconf..."
 autoreconf -i
+echo "autoreconf OK!"
 
 # Crer archivos gettext
 echo "Creating file Makevars"
@@ -101,7 +102,7 @@ fi
 # i18n - l10n
 echo "Creating po-files..."
 langlist="es pt_BR"
-cd po/
+cd po
 for lang in $langlist
 do
    file="../$lang.po"
@@ -116,13 +117,12 @@ do
       fin 1
    fi
 done
-cd ../
+cd ..
 
-# Construccion del paquete
+# Construccion del paquete; requiere distribucion LaTeX instalada.
 make maintainer-clean
 ./configure --prefix=`pwd`/tmp $addopt
-make dist
-rm *.po
+make distcheck
 
 echo "autogen OK!"
 
