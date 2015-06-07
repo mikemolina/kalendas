@@ -7,19 +7,13 @@ abs_BUILDDIR=$(pwd)
 CONFIG_AC_FILE="$BUILDDIR/configure.ac"
 
 # Estamos construyendo en Linux?
-so=`uname -o 2>/dev/null | tr [:upper:] [:lower:]`
-# Ruta prefix a libintl | Path prefix to libintl
-dirlibintl=
-case $so in
-   *linux) addopt='';;
-   *) if [ "x$dirlibintl" = "x" ]; then
-         echo "Please! Write the prefix path for libintl in the"
-         echo "variable dirlibintl (line 12) in autogen.sh"
-         exit 1
-      else
-         addopt="--with-libintl-prefix=$dirlibintl"
-      fi ;;
-esac
+# En entornos UNIX la libreria libintl para NLS se encuentra
+# instalada de forma predeterminada. Si esta instalada en un
+# lugar diferente conviene exportar las siguientes variables
+# para la construcción del paquete
+#    export CFLAGS="-I/ruta/a/include"
+#    export CXXFLAGS="-I/ruta/a/include"
+#    export LDFLAGS="-L/ruta/a/lib"
 
 # Funcion de terminacion para shell y subshell
 fin() {
@@ -86,7 +80,7 @@ echo "# List of source files which contain translatable strings" > po/POTFILES.i
 echo "bin/kalendas.in" >> po/POTFILES.in
 
 # Pre-construccion
-./configure --prefix=`pwd`/tmp $addopt
+./configure --prefix=`pwd`/tmp
 make
 echo "Creating po template..."
 file="kalendas.pot"
@@ -121,7 +115,7 @@ cd ..
 
 # Construccion del paquete; requiere distribucion LaTeX instalada.
 make maintainer-clean
-./configure --prefix=`pwd`/tmp $addopt
+./configure --prefix=`pwd`/tmp
 make distcheck
 
 echo "autogen OK!"
