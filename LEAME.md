@@ -12,9 +12,10 @@ kalendas - Cálculos de calendario y Fecha Juliana
   2. [Fedora and CentOS](#rhel)
   3. [Mac OS X](#mac)
   4. [Windows](#win)
-  5. [Genérica](#unix)
-  6. [Sin permiso root](#noroot)
-  7. [Desarrollo](#dev)
+  5. [FreeBSD/GhostBSD](#freebsd)
+  6. [Genérica](#unix)
+  7. [Sin permiso root](#noroot)
+  8. [Desarrollo](#dev)
 * [USANDO KALENDAS](#use)
 * [VERSIÓN](#version)
 * [LICENCIA](#license)
@@ -98,8 +99,18 @@ y ejecutar
         > copy woe/Makefile.mgw .
         > gmake -f Makefile.mgw
 
+<a name="freebsd"/>
+5. Instalación sobre FreeBSD/GhostBSD usando el *port*. Clonar el
+repositorio en la colección de ports
+
+        # cd /usr/ports/astro
+        # git clone https://github.com/mikemolina/kalendas-port.git kalendas
+        # cd kalendas
+        # make install clean
+Para más información visitar el [wiki](https://github.com/mikemolina/kalendas/wiki/kalendas-port).
+
 <a name="unix"/>
-5. Usted también puede instalar **kalendas** desde el código fuente de
+6. Usted también puede instalar **kalendas** desde el código fuente de
 la versión estable disponible en [Launchpad](https://launchpad.net/kalendas),
 cuyo paquete puede descargarse [aquí](https://launchpad.net/kalendas/trunk/1.1.0/+download/kalendas-1.1.0.tar.gz).
 En plataformas UNIX (Linux, Mac OS X, incluso Woe/MSYS y similares),
@@ -122,7 +133,7 @@ opción
         --with-libintl-prefix=/ruta/a/libintl
 
 <a name="noroot"/>
-6. Si no tiene permisos de root para instalar las dependencias, aún
+7. Si no tiene permisos de root para instalar las dependencias, aún
 puede instalar **kalendas** de forma local. Siga los pasos del numeral
 3 ejecutando el script configure asi
 
@@ -131,7 +142,7 @@ el perlscript estara instalado en ~/kalendas/bin mostrando los mensajes
 en español.
 
 <a name="dev"/>
-7. Si usted quiere instalar kalendas desde el repositorio git
+8. Si usted quiere instalar kalendas desde el repositorio git
 en *GitHub*, primero asegúrese de tener instalado *GNU Autoconf*,
 *GNU Automake*, *GNU libiconv*, *GNU gettext*, *Texinfo* y *pod2man* (incluido
 en su distribución Perl); en algunas distribuciones UNIX algunas

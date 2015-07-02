@@ -12,9 +12,10 @@ kalendas - Calculations of Calendar and Julian Date
   2. [Fedora and CentOS](#rhel)
   3. [Mac OS X](#mac)
   4. [Windows](#win)
-  5. [Generic](#unix)
-  6. [No root](#noroot)
-  7. [Devel](#dev)
+  5. [FreeBSD/GhostBSD](#freebsd)
+  6. [Generic](#unix)
+  7. [No root](#noroot)
+  8. [Devel](#dev)
 * [USING KALENDAS](#use)
 * [VERSION](#version)
 * [LICENSE](#license)
@@ -100,8 +101,18 @@ INSTALLATION
         > copy woe/Makefile.mgw .
         > gmake -f Makefile.mgw
 
+  <a name="freebsd"/>
+  5. Installation on FreeBSD/GhostBSD using the *port*. Clone the
+  repository to your ports collection
+
+        # cd /usr/ports/astro
+        # git clone https://github.com/mikemolina/kalendas-port.git kalendas
+        # cd kalendas
+        # make install clean
+  More info in the [wiki](https://github.com/mikemolina/kalendas/wiki/kalendas-port).
+
   <a name="unix"/>
-  5. You can also install **kalendas** from the source code of the stable
+  6. You can also install **kalendas** from the source code of the stable
   version available in [Launchpad](https://launchpad.net/kalendas),
   whose package can download [here](https://launchpad.net/kalendas/trunk/1.1.0/+download/kalendas-1.1.0.tar.gz).
   In UNIX platforms (Linux, Mac OS X, including Woe/MSYS and like
@@ -123,7 +134,7 @@ INSTALLATION
         --with-libintl-prefix=/path/to/libintl
 
   <a name="noroot"/>
-  6. If you not have root privileges to install the dependencies, you
+  7. If you not have root privileges to install the dependencies, you
   can install **kalendas** locally. Follow the steps in section 3 running
   the configure script so
 
@@ -132,7 +143,7 @@ INSTALLATION
   in spanish.
 
   <a name="dev"/>
-  7. If you want install program from the repository git in *GitHub*,
+  8. If you want install program from the repository git in *GitHub*,
   first make sure have installed *GNU Autoconf*, *GNU Automake*, 
   *GNU libiconv*, *GNU gettext*, *Texinfo* and *pod2man* (included in your
   distribution Perl); in some distros UNIX some build dependencies are
