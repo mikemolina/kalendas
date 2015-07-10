@@ -1,4 +1,6 @@
 kalendas - 1.2.0 (2014-07-10 00:34:40 UT)
 
- * TAB, TAB, TAB... Now included bash completion!
+ * <TAB>, <TAB>, <TAB>... Now included bash completion!
+   Pressing <TAB> to complete the current parameter, <TAB><TAB>
+   to get a list of valid things of the perl script.
  * Package available for FreeBSD distributions through a port.
