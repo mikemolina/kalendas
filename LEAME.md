@@ -38,11 +38,8 @@ paquete libintl-perl. Ver el archivo *DEPENDENCIES*.
 <a name="news"/>
 ¡NUEVO!
 -------
-* Cálculo de la fecha Juliana modificada desde una fecha del calendario
-Occidental.
-* Conversión desde fecha Juliana modificada hacia fecha del calendario
-Occidental para cualquier era (a.C. o A.D.).
-* Documentación acerca de la fecha Juliana modificada.
+* TAB, TAB, TAB... Ahora incluido un bash completion!
+* Paquete disponible para distribuciones FreeBSD por medio de un *port*.
 
 <a name="install"/>
 INSTALACIÓN
@@ -95,7 +92,7 @@ el símbolo de sistema usando GNU Make (incluida en la distribución
 woe/Makefile.mgw para modificar la ruta de instalación por defecto
 y ejecutar
 
-        > cd kalendas-1.1.0
+        > cd kalendas-1.2.0
         > copy woe/Makefile.mgw .
         > gmake -f Makefile.mgw
 
@@ -111,13 +108,13 @@ Para más información visitar el [wiki](https://github.com/mikemolina/kalendas/
 
 <a name="unix"/>
 6. Usted también puede instalar **kalendas** desde el código fuente de
-la versión estable disponible en [Launchpad](https://launchpad.net/kalendas),
-cuyo paquete puede descargarse [aquí](https://launchpad.net/kalendas/trunk/1.1.0/+download/kalendas-1.1.0.tar.gz).
+la versión estable disponible en el [sitio web](http://mikemolina.github.io/kalendas-home),
+cuyo paquete puede descargarse [aquí](https://launchpad.net/kalendas/trunk/1.2.0/+download/kalendas-1.2.0.tar.gz).
 En plataformas UNIX (Linux, Mac OS X, incluso Woe/MSYS y similares),
 extraer e instalar el paquete en la forma usual
 
-        $ tar -xvzf kalendas-1.1.0.tar.gz
-        $ cd kalendas-1.1.0
+        $ tar -xvzf kalendas-1.2.0.tar.gz
+        $ cd kalendas-1.2.0
         $ ./configure --prefix=/ruta/a/instalar
         $ make
         $ make install
@@ -144,9 +141,9 @@ en español.
 <a name="dev"/>
 8. Si usted quiere instalar kalendas desde el repositorio git
 en *GitHub*, primero asegúrese de tener instalado *GNU Autoconf*,
-*GNU Automake*, *GNU libiconv*, *GNU gettext*, *Texinfo* y *pod2man* (incluido
-en su distribución Perl); en algunas distribuciones UNIX algunas
-dependencias de construcción están instaladas por defecto.
+*GNU Automake*, *GNU libiconv*, *GNU gettext*, *Texinfo*, *pod2man* (incluido
+en su distribución Perl) y opcionalmente *LaTeX*; en algunas distribuciones
+UNIX algunas dependencias de construcción están instaladas por defecto.
 Para construir e instalar el paquete en plataformas UNIX ejecutar los
 comandos
 
@@ -179,7 +176,7 @@ kalendas, la fecha Juliana para tal instante es
 Un breve listado de funciones es mostrado ejecutando *kalendas -h*; puede
 ampliar la información a través de la página manual con *man kalendas*.
 Para información más detallada de funciones e instrucciones de **kalendas**
-ejecutar *info kalendas* o ver la documentación en línea [aquí](https://launchpad.net/kalendas/trunk/1.1.0/+download/kalendas-doc.pdf).
+ejecutar *info kalendas* o ver la documentación en línea [aquí](https://launchpad.net/kalendas/trunk/1.2.0/+download/kalendas-doc.pdf).
 
 Actualmente, **kalendas** tiene soporte de traducción en los mensajes de
 salida para lenguajes: inglés, español y portugués (BR). Usted puede probar
@@ -196,7 +193,7 @@ Contribuciones para otras lenguas son Bienvenidas!
 <a name="version"/>
 VERSIÓN
 -------
-**kalendas**, versión 1.1.0, $Date: 2014/12/23 12:26:21 $
+**kalendas**, versión 1.2.0, $Date: 2015/07/10 00:04:13 $
 
 <a name="license"/>
 LICENCIA

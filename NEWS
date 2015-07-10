@@ -1,6 +1,4 @@
-kalendas - 1.1.0 (2014-12-23 18:20:48 UT)
+kalendas - 1.2.0 (2014-07-10 00:34:40 UT)
 
- * Calculation of the modified Julian date from date of the Western calendar.
- * Conversion from modified Julian date to date of the Western calendar for
-   any era (a.C. or A.D.).
- * Documentation about the modified Julian date.
+ * TAB, TAB, TAB... Now included bash completion!
+ * Package available for FreeBSD distributions through a port.

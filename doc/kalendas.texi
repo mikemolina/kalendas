@@ -21,7 +21,7 @@
 Este es el manual de kalendas (versi@'on @value{VERSION}, @value{UPDATED}),
 C@'alculos de Calendario.
 
-Copyright @copyright{} 2013-2014 Miguel Molina
+Copyright @copyright{} 2013-2015 Miguel Molina
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
