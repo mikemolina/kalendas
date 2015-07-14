@@ -10,7 +10,7 @@ CONFIG_AC_FILE="$BUILDDIR/configure.ac"
 # En entornos UNIX la libreria libintl para NLS se encuentra
 # instalada de forma predeterminada. Si esta instalada en un
 # lugar diferente conviene exportar las siguientes variables
-# para la construcción del paquete
+# para la construccion del paquete
 #    export CFLAGS="-I/ruta/a/include"
 #    export CXXFLAGS="-I/ruta/a/include"
 #    export LDFLAGS="-L/ruta/a/lib"
@@ -38,6 +38,14 @@ fi
 # Ejecutar Autotools
 if [ -d po ]; then
    echo "First run: ./autoclean.sh"
+   fin 1
+fi
+mkdir m4
+if [ -f "./pkg-checkvar.m4" ]
+then
+   mv ./pkg-checkvar.m4 m4
+else
+   echo "No such: $file"
    fin 1
 fi
 echo "running autoreconf..."

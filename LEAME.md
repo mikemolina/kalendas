@@ -39,6 +39,8 @@ paquete libintl-perl. Ver el archivo *DEPENDENCIES*.
 ¡NUEVO!
 -------
 * TAB, TAB, TAB... Ahora incluido un bash completion!
+Con una implementación de "bash-completion" las ordenes de **kalendas**
+se agilizan con unas pocas pulsaciones de teclas.
 * Paquete disponible para distribuciones FreeBSD por medio de un *port*.
 
 <a name="install"/>
@@ -134,18 +136,18 @@ opción
 puede instalar **kalendas** de forma local. Siga los pasos del numeral
 3 ejecutando el script configure asi
 
-        $ ./configure --disable-nls
+        $ ./configure --disable-nls --without-bash-completion
 el perlscript estara instalado en ~/kalendas/bin mostrando los mensajes
 en español.
 
 <a name="dev"/>
-8. Si usted quiere instalar kalendas desde el repositorio git
-en *GitHub*, primero asegúrese de tener instalado *GNU Autoconf*,
-*GNU Automake*, *GNU libiconv*, *GNU gettext*, *Texinfo*, *pod2man* (incluido
-en su distribución Perl) y opcionalmente *LaTeX*; en algunas distribuciones
-UNIX algunas dependencias de construcción están instaladas por defecto.
-Para construir e instalar el paquete en plataformas UNIX ejecutar los
-comandos
+8. Si usted quiere instalar kalendas desde el repositorio git en *GitHub*,
+primero asegúrese de tener instalado *GNU Autoconf*, *GNU Automake*,
+*GNU libiconv*, *GNU gettext*, *Texinfo*, *pod2man* (incluido en su
+distribución Perl) y opcionalmente *LaTeX* y *pkg-config*; en algunas
+distribuciones UNIX algunas dependencias de construcción están instaladas
+por defecto. Para construir e instalar el paquete en plataformas UNIX
+ejecutar los comandos
 
         $ git clone https://github.com/mikemolina/kalendas.git
         $ cd kalendas

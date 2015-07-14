@@ -28,6 +28,10 @@ test ! -f Makefile || make maintainer-clean
 # Generados por autoconf
 rm -fR autom4te.cache
 rm -fR build-aux
+if [ -f ./m4/pkg-checkvar.m4 ]
+then
+   mv ./m4/pkg-checkvar.m4 .
+fi
 rm -fR m4
 if [ -d po ]; then
    cp -f po/*.pot .
@@ -50,11 +54,15 @@ rm -f bin/Makefile.in
 rm -f man/Makefile.in
 rm -f doc/Makefile.in
 rm -f woe/Makefile.in
+rm -f extra/Makefile.in
 rm -f ABOUT-NLS
 
 # Generados por make
 rm -f DIST_REVISION
 rm -f doc/*.htm doc/*.info doc/version.texi doc/stamp-vti
 rm -f man/*.1
+if [ -f kalendas-*.tar.gz ]; then
+   rm -f kalendas-*.tar.gz
+fi
 
 echo "Remove OK!"

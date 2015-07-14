@@ -1,8 +1,10 @@
-SUBDIRS = bin man po doc woe
+SUBDIRS = bin man po doc woe extra
 ACLOCAL_AMFLAGS = -I m4
 DATE = `date -u "+%Y-%m-%d %T %Z"`
-EXTRA_DIST = build-aux/config.rpath extra/nonls.diff autogen.sh autoclean.sh README.md LEAME.md LICENCIA DEPENDENCIES
+EXTRA_DIST = build-aux/config.rpath autogen.sh autoclean.sh README.md LEAME.md LICENCIA DEPENDENCIES
 DISTCLEANFILES = DIST_REVISION
+
+AM_DISTCHECK_CONFIGURE_FLAGS = --without-bash-completion
 
 dist-hook:
 	@echo $(DATE) > DIST_REVISION

@@ -42,6 +42,8 @@ libintl-perl. See *DEPENDENCIES* file.
 ¡NEW!
 -----
 * TAB, TAB, TAB... Now included bash completion!
+With a "bash-completion" implementation the **kalendas** commands
+they will write quickly with a few keystrokes.
 * Package available for FreeBSD distributions through a port.
 
 <a name="install"/>
@@ -136,7 +138,7 @@ location to path by default, add the option to the configure script
 can install **kalendas** locally. Follow the steps in section 3 running
 the configure script so
 
-        $ ./configure --disable-nls
+        $ ./configure --disable-nls --without-bash-completion
 the perlscript will be installed in ~/kalendas/bin showing messages
 in spanish.
 
@@ -144,9 +146,9 @@ in spanish.
 8. If you want install program from the repository git in *GitHub*,
 first make sure have installed *GNU Autoconf*, *GNU Automake*, 
 *GNU libiconv*, *GNU gettext*, *Texinfo*, *pod2man* (included in your
-distribution Perl) and optionaly *LaTeX*; in some distros UNIX some
-build dependencies are installed by default. For build and install
-the package in UNIX environments run the commands
+distribution Perl) and optionaly *LaTeX* and *pkg-config*; in some
+distros UNIX some build dependencies are installed by default. For
+build and install the package in UNIX environments run the commands
 
         $ git clone https://github.com/mikemolina/kalendas.git
         $ cd kalendas

@@ -12,7 +12,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_PREFIX_DEFAULT($HOME/kalendas)
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE([-Wall foreign])
+AM_INIT_AUTOMAKE([-Wall -Wno-obsolete foreign])
 AC_MSG_CHECKING([target operating system])
 case "$target_os" in
    linux* )
@@ -87,6 +87,14 @@ fi
 AC_PATH_PROG([ICONV], [iconv], [no])
 AC_PATH_PROG([MSGCONV], [msgconv], [no])
 
+m4_ifndef([PKG_PROG_PKG_CONFIG],
+   [m4_fatal([Could not locate the pkg-config autoconf macros.
+   These are usually located in /usr/share/aclocal/pkg.m4. If your macros
+   are in a different location, try setting the environment variable
+   export ACLOCAL="aclocal -I /other/macro/dir" before running autoreconf.])
+])
+PKG_PROG_PKG_CONFIG([0.18])
+
 # Variable para evitar revision de modulos
 AC_ARG_ENABLE(pkgonly,[AS_HELP_STRING([--enable-pkgonly],[skip all checking])])
 AC_SUBST(enable_pkgonly)
@@ -122,7 +130,7 @@ rmdirfiles() {
 
 # TODO: Automatizar la codificacion de caracteres
 AC_ARG_ENABLE(charset,
-              [AS_HELP_STRING([--enable-charset],[selection character set: utf8|latin1 (default utf8)])],
+              [AS_HELP_STRING([--enable-charset],[selection character set: utf8|latin1 @<:@default=utf8@:>@])],
               [CHARSET="$enableval"],[CHARSET="utf8"])
 # Codificacion UNIX
 if test "x$CHARSET" = "xutf8"
@@ -186,13 +194,49 @@ then
 fi
 AM_CONDITIONAL([NONLS], [test x${USE_NLS} = xno])
 
+#----------------
+# Bash completion
+#----------------
+AC_ARG_WITH([bash-completion],
+[AC_HELP_STRING([--with-bash-completion=DIR],[bash completion directory @<:@default=auto@:>@])]
+[AC_HELP_STRING([--without-bash-completion],[do not search bash completion directory])],
+            [with_bash_completion="$withval"],[with_bash_completion=auto])
+AC_MSG_CHECKING([for bash completions dir])
+AS_CASE([${with_bash_completion}],
+	[auto],[PKG_CHECK_VAR([bash_completions_dir], [bash-completion], [completionsdir], [],
+               [AS_ECHO_N(["Directory not found"])])],
+	[yes],[PKG_CHECK_VAR([bash_completions_dir], [bash-completion], [completionsdir], [],
+              [AS_ECHO_N(["WARNING: *** Directory not found"])])],
+	[no],[bash_completions_dir=],
+	[bash_completions_dir="$with_bash_completion"])
+AC_MSG_RESULT([${bash_completions_dir}])
+AS_IF([test -n "${bash_completions_dir}"],
+      [bash_completion_output="${bash_completions_dir}"],
+      [bash_completion_output="None. Bash completion not will be installed."])
+AM_CONDITIONAL([ENABLED_BASH_COMPLETIONS], [test -n "${bash_completions_dir}"])
+
 #-----------------
 # Generar archivos
 #-----------------
 AC_CONFIG_FILES([Makefile bin/Makefile man/Makefile po/Makefile.in])
 AC_CONFIG_FILES([doc/Makefile doc/encoding.texi])
 AC_CONFIG_FILES([woe/Makefile])
+AC_CONFIG_FILES([extra/Makefile])
 AC_CONFIG_FILES([extra/substvars.sh],[chmod +x extra/substvars.sh])
 AC_SUBST(VERSION)
 AC_SUBST([PESOS_SIGN],[$])
 AC_OUTPUT
+
+#-------------------------
+# Resumen de configuracion
+#-------------------------
+echo ""
+echo "  $PACKAGE $VERSION - Configuration summary"
+echo ""
+echo "  OS:                         ${target_os} ${target_cpu}"
+echo "  Installation prefix:        ${prefix}"
+echo "  Native Language Support:    ${USE_NLS}"
+echo "  Character set:              $CHARSET"
+echo "  Directory bash completions: ${bash_completion_output}"
+echo ""
+
