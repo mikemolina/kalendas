@@ -97,7 +97,7 @@ from the command prompt using *GNU Make* (included in the
 woe/Makefile.mgw file for to modify the path installation by default
 and run
 
-        > cd kalendas-1.2.0
+        > cd kalendas-1.3.0
         > copy woe/Makefile.mgw .
         > gmake -f Makefile.mgw
 
@@ -114,12 +114,12 @@ More info in the [wiki](https://github.com/mikemolina/kalendas/wiki/kalendas-por
 <a name="unix"/>
 6. You can also install **kalendas** from the source code of the stable
 version available in the [website](http://mikemolina.github.io/kalendas-home),
-whose package can download [here](https://launchpad.net/kalendas/trunk/1.2.0/+download/kalendas-1.2.0.tar.gz).
+whose package can download [here](https://launchpad.net/kalendas/trunk/1.3.0/+download/kalendas-1.3.0.tar.gz).
 In UNIX platforms (Linux, Mac OS X, including Woe/MSYS and like
 environments), extract and install the package in the usual form
 
-        $ tar -xvzf kalendas-1.2.0.tar.gz
-        $ cd kalendas-1.2.0
+        $ tar -xvzf kalendas-1.3.0.tar.gz
+        $ cd kalendas-1.3.0
         $ ./configure --prefix=/path/to/install
         $ make
         $ make install
@@ -182,7 +182,7 @@ time is
 A brief functions list is shown running *kalendas -h*; can extend the
 information through man page with *man kalendas*. For more detailed
 information of functions and instructions run *info kalendas* or see
-the documentation online [here](https://launchpad.net/kalendas/trunk/1.2.0/+download/kalendas-doc.pdf).
+the documentation online [here](https://launchpad.net/kalendas/trunk/1.3.0/+download/kalendas-doc.pdf).
 
 At present, **kalendas** have translation support of output messages
 for languages: english, spanish and portuguese (BR). You can test the
@@ -201,7 +201,7 @@ Contributions in other languages are Welcome!
 <a name="version"/>
 VERSION
 -------
-**kalendas**, version 1.2.0, $Date: 2015/07/10 00:06:39 $
+**kalendas**, version 1.3.0, $Date: 2015/12/27 19:37:31 $
 
 <a name="license"/>
 LICENSE

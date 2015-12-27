@@ -1,18 +1,18 @@
 # -*- Autoconf -*-
 #
-# configure.ac - kalendas 1.2.0
-# Copyright (C) 2014-2015 Miguel Molina
+# configure.ac - kalendas 1.3.0
+# Copyright (C) 2014-2016 Miguel Molina
 
 #-------
 # Inicio
 #-------
 AC_PREREQ([2.67])
-AC_INIT([kalendas], [1.2.0], [mmolina.unphysics@gmail.com])
+AC_INIT([kalendas], [1.3.0], [mmolina.unphysics@gmail.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_PREFIX_DEFAULT($HOME/kalendas)
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE([-Wall -Wno-obsolete foreign])
+AM_INIT_AUTOMAKE([-Wall -Wno-obsolete foreign color-tests])
 AC_MSG_CHECKING([target operating system])
 case "$target_os" in
    linux* )
@@ -223,6 +223,7 @@ AC_CONFIG_FILES([doc/Makefile doc/encoding.texi])
 AC_CONFIG_FILES([woe/Makefile])
 AC_CONFIG_FILES([extra/Makefile])
 AC_CONFIG_FILES([extra/substvars.sh],[chmod +x extra/substvars.sh])
+AC_CONFIG_FILES([tests/Makefile])
 AC_SUBST(VERSION)
 AC_SUBST([PESOS_SIGN],[$])
 AC_OUTPUT

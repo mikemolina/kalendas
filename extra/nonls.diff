@@ -335,14 +335,14 @@
  #-----------------------------------------------------------------------------
  sub vtxt{
 -    print "$InfoId\n";
--    print "Copyright (C) 2013-2015 $autor\n";
+-    print "Copyright (C) 2013-2016 $autor\n";
 -    print __ <<"END_VERSION";
 -License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
 -This program comes with ABSOLUTELY NO WARRANTY; This is free software, and you
 -are welcome to redistribute it under certain conditions.
 +    print STDOUT <<"END_VERSION";
 +$InfoId
-+Copyright (C) 2013-2015 $autor
++Copyright (C) 2013-2016 $autor
 +License GPLv3+: GNU GPL version 3 o posterior <http://gnu.org/licenses/gpl.html>.
 +Este programa se ofrece SIN GARANTIA ALGUNA. Es software libre, y usted puede
 +redistribuirlo bajo ciertas condiciones.

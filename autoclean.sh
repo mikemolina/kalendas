@@ -55,6 +55,7 @@ rm -f man/Makefile.in
 rm -f doc/Makefile.in
 rm -f woe/Makefile.in
 rm -f extra/Makefile.in
+rm -f tests/Makefile.in
 rm -f ABOUT-NLS
 
 # Generados por make

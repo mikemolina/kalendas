@@ -14,6 +14,11 @@ CONFIG_AC_FILE="$BUILDDIR/configure.ac"
 #    export CFLAGS="-I/ruta/a/include"
 #    export CXXFLAGS="-I/ruta/a/include"
 #    export LDFLAGS="-L/ruta/a/lib"
+#
+# Si las macros M4 estan instaladas en un lugar diferente a
+# la forma generica, conviene exportar la siguiente variable
+#    export ACLOCAL="aclocal -I /ruta/a/aclocal"
+#
 
 # Funcion de terminacion para shell y subshell
 fin() {

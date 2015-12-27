@@ -1,4 +1,4 @@
-SUBDIRS = bin man po doc woe extra
+SUBDIRS = bin man po doc woe extra tests
 ACLOCAL_AMFLAGS = -I m4
 DATE = `date -u "+%Y-%m-%d %T %Z"`
 EXTRA_DIST = build-aux/config.rpath autogen.sh autoclean.sh README.md LEAME.md LICENCIA DEPENDENCIES
