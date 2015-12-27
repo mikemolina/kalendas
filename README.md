@@ -41,10 +41,8 @@ libintl-perl. See *DEPENDENCIES* file.
 <a name="news"/>
 ¡NEW!
 -----
-* TAB, TAB, TAB... Now included bash completion!
-With a "bash-completion" implementation the **kalendas** commands
-they will write quickly with a few keystrokes.
-* Package available for FreeBSD distributions through a port.
+* Include tests for the proper functioning of the perl-script and its
+options.
 
 <a name="install"/>
 INSTALLATION

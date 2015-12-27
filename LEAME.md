@@ -38,10 +38,8 @@ paquete libintl-perl. Ver el archivo *DEPENDENCIES*.
 <a name="news"/>
 ¡NUEVO!
 -------
-* TAB, TAB, TAB... Ahora incluido un bash completion!
-Con una implementación de "bash-completion" las ordenes de **kalendas**
-se agilizan con unas pocas pulsaciones de teclas.
-* Paquete disponible para distribuciones FreeBSD por medio de un *port*.
+* Inclusión de pruebas para el correcto funcionamiento del perl-script
+y sus opciones.
 
 <a name="install"/>
 INSTALACIÓN
