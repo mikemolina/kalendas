@@ -70,8 +70,8 @@ For distros Linux based in Debian visit the [PPA](https://launchpad.net/~mymolin
 2. Installation in Fedora and CentOS takes a few seconds. For
 Fedora run in a terminal
 
-        $ sudo yum install http://mikemolina.github.com/kalendas-rpm/kalendas-fedora-release-1.0-1.noarch.rpm
-        $ sudo yum install kalendas
+        $ sudo dnf install http://mikemolina.github.com/kalendas-rpm/kalendas-fedora-release-1.0-1.noarch.rpm
+        $ sudo dnf install kalendas
 and in CentOS
 
         $ sudo yum install http://mikemolina.github.com/kalendas-rpm/kalendas-centos-release-1.0-1.noarch.rpm
