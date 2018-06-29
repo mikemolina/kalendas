@@ -4,46 +4,42 @@ kalendas - Cálculos de calendario y Fecha Juliana
 ![Screenshot](https://github.com/mikemolina/kalendas/wiki/images/01_gterm.png)
 
 #### Tabla de Contenido
-* [DESCRIPCIÓN](#description)
-* [REQUISITOS](#require)
-* [¡NUEVO!](#news)
-* [INSTALACIÓN](#install)
-  1. [Ubuntu](#debian)
-  2. [Fedora and CentOS](#rhel)
-  3. [Mac OS X](#mac)
-  4. [Windows](#win)
-  5. [FreeBSD/GhostBSD](#freebsd)
-  6. [Genérica](#unix)
-  7. [Sin permiso root](#noroot)
-  8. [Desarrollo](#dev)
-* [USANDO KALENDAS](#use)
+* [DESCRIPCIÓN](#descripcion)
+* [REQUISITOS](#requisitos)
+* [NUEVO](#nuevo)
+* [INSTALACIÓN](#instalacion)
+  1. Ubuntu
+  2. Fedora and CentOS
+  3. Mac OS X
+  4. Windows
+  5. FreeBSD
+  6. Genérica
+  7. Sin permiso root
+  8. Desarrollo
+* [USANDO KALENDAS](#usando-kalendas)
 * [VERSIÓN](#version)
-* [LICENCIA](#license)
+* [LICENCIA](#licencia)
 
-<a name="description"/>
-DESCRIPCIÓN
------------
+#### DESCRIPCIÓN
+----------------
 **kalendas** es un perl script para realizar cálculos de calendario.
 Los cómputos están desarrollados sobre tres sistemas de datación:
 el calendario Juliano, el calendario Gregoriano y el sistema de
 numeración de día/fecha Juliana.
 
-<a name="require"/>
-REQUISITOS
-----------
+#### REQUISITOS
+---------------
 **kalendas** requiere perl 5 o posterior. Para el soporte en lenguaje
 nativo se recomienda el módulo Locale::TextDomain incluido en el
 paquete libintl-perl. Ver el archivo *DEPENDENCIES*.
 
-<a name="news"/>
-¡NUEVO!
--------
+#### NUEVO
+----------
 * Inclusión de pruebas para el correcto funcionamiento del perl-script
 y sus opciones.
 
-<a name="install"/>
-INSTALACIÓN
------------
+#### INSTALACIÓN
+----------------
 Muchas distribuciones UNIX/Linux o Mac OS X tienen instalado Perl;
 para obtener su ubicación, escribir en una terminal
 
@@ -54,38 +50,34 @@ operativos Windows (Woe), escribir en el símbolo de sistema
         > perl -v
 el cual mostrara que perl está instalado.
 
-<a name="debian"/>
 1. La instalación de **kalendas** en Ubuntu es fácil y rápida. En una
 terminal escribir
 
         $ sudo add-apt-repository ppa:mymolina/kalendas-pkg
         $ sudo apt-get update
         $ sudo apt-get install kalendas
-Para distribuciones Linux basadas en Debian visite el [PPA](https://launchpad.net/~mymolina/+archive/ubuntu/kalendas-pkg).
+	Para distribuciones Linux basadas en Debian visite el [PPA](https://launchpad.net/~mymolina/+archive/ubuntu/kalendas-pkg).
 
-<a name="rhel"/>
 2. Instalación en Fedora y CentOS toma unos pocos segundos. Para
 Fedora ejecutar en la terminal
 
         $ sudo dnf install http://mikemolina.github.com/kalendas-rpm/kalendas-fedora-release-1.0-1.noarch.rpm
         $ sudo dnf install kalendas
-y en CentOS
+	y en CentOS
 
         $ sudo yum install http://mikemolina.github.com/kalendas-rpm/kalendas-centos-release-1.0-1.noarch.rpm
         $ sudo yum install kalendas
-Más info en el [repositorio](http://mikemolina.github.io/kalendas-rpm/).
+	Más info en el [repositorio](http://mikemolina.github.io/kalendas-rpm/).
 
-<a name="mac"/>
 3. Sobre Mac OS X, agregar el repositorio tap en su instalación *Homebrew*
 
         $ brew tap mikemolina/kalendas
-Ahora puede instalar **kalendas** simplemente con
+	Ahora puede instalar **kalendas** simplemente con
 
         $ brew install kalendas
-Seguir los mismos pasos para instalar kalendas sobre *Linuxbrew*. Para más información visitar el
+	Seguir los mismos pasos para instalar kalendas sobre *Linuxbrew*. Para más información visitar el
 [wiki](https://github.com/mikemolina/kalendas/wiki/kalendas-on-homebrew).
 
-<a name="win"/>
 4. En entornos Woe la instalación puede lograrse desde
 el símbolo de sistema usando GNU Make (incluida en la distribución
 [Strawberry Perl](http://strawberryperl.com)). Editar el archivo
@@ -96,7 +88,6 @@ y ejecutar
         > copy woe/Makefile.mgw .
         > gmake -f Makefile.mgw
 
-<a name="freebsd"/>
 5. Instalación sobre FreeBSD/GhostBSD usando el *port*. Clonar el
 repositorio en la colección de ports
 
@@ -104,9 +95,8 @@ repositorio en la colección de ports
         # git clone https://github.com/mikemolina/kalendas-port.git kalendas
         # cd kalendas
         # make install clean
-Para más información visitar el [wiki](https://github.com/mikemolina/kalendas/wiki/kalendas-port).
+	Para más información visitar el [wiki](https://github.com/mikemolina/kalendas/wiki/kalendas-port).
 
-<a name="unix"/>
 6. Usted también puede instalar **kalendas** desde el código fuente de
 la versión estable disponible en el [sitio web](http://mikemolina.github.io/kalendas-home),
 cuyo paquete puede descargarse [aquí](https://launchpad.net/kalendas/trunk/1.3.0/+download/kalendas-1.3.0.tar.gz).
@@ -118,27 +108,25 @@ extraer e instalar el paquete en la forma usual
         $ ./configure --prefix=/ruta/a/instalar
         $ make
         $ make install
-Para mejorar la codificación de carácteres en Woe/MSYS, ejecutar
+	Para mejorar la codificación de carácteres en Woe/MSYS, ejecutar
 
         $ ./configure --enable-charset=latin1 --prefix=/ruta/a/instalar
         $ make
         $ make install
-Si la librería libintl (incluida en GNU gettext) está en una ruta
+	Si la librería libintl (incluida en GNU gettext) está en una ruta
 diferente a la ruta por defecto, agregar al script configure la
 opción
 
         --with-libintl-prefix=/ruta/a/libintl
 
-<a name="noroot"/>
 7. Si no tiene permisos de root para instalar las dependencias, aún
 puede instalar **kalendas** de forma local. Siga los pasos del numeral
 3 ejecutando el script configure asi
 
         $ ./configure --disable-nls --without-bash-completion
-el perlscript estara instalado en ~/kalendas/bin mostrando los mensajes
+	el perlscript estara instalado en ~/kalendas/bin mostrando los mensajes
 en español.
 
-<a name="dev"/>
 8. Si usted quiere instalar kalendas desde el repositorio git en *GitHub*,
 primero asegúrese de tener instalado *GNU Autoconf*, *GNU Automake*,
 *GNU libiconv*, *GNU gettext*, *Texinfo*, *pod2man* (incluido en su
@@ -154,9 +142,8 @@ ejecutar los comandos
         $ make
         $ make install
 
-<a name="use"/>
-USANDO KALENDAS
----------------
+#### USANDO KALENDAS
+--------------------
 Después de la instalación, ejecutar el perl script
 
         $ cd /ruta/a/instalar/bin
@@ -190,14 +177,12 @@ o en el símbolo de sistema en Woe
         > kalendas
 Contribuciones para otras lenguas son Bienvenidas!
 
-<a name="version"/>
-VERSIÓN
--------
+#### VERSIÓN
+------------
 **kalendas**, versión 1.3.0, $Date: 2015/12/27 19:37:31 $
 
-<a name="license"/>
-LICENCIA
---------
+#### LICENCIA
+-------------
 Este programa es software libre y está distribuido conforme a los
 términos de la *Licencia Pública General de GNU (GNU GPL)*, la cual
 se encuentra incluida en esta distribución en el archivo COPYING.
