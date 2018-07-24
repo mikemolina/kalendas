@@ -67,7 +67,7 @@ Fedora ejecutar en la terminal
 
         $ sudo yum install http://mikemolina.github.com/kalendas-rpm/kalendas-centos-release-1.0-1.noarch.rpm
         $ sudo yum install kalendas
-	Más info en el [repositorio](http://mikemolina.github.io/kalendas-rpm/).
+	Más info en el [repositorio](https://github.com/mikemolina/kalendas-rpm).
 
 3. Sobre Mac OS X, agregar el repositorio tap en su instalación *Homebrew*
 
@@ -88,7 +88,7 @@ y ejecutar
         > copy woe/Makefile.mgw .
         > gmake -f Makefile.mgw
 
-5. Instalación sobre FreeBSD/GhostBSD usando el *port*. Clonar el
+5. Instalación sobre FreeBSD usando el *port*. Clonar el
 repositorio en la colección de ports
 
         # cd /usr/ports/astro
