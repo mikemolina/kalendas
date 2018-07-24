@@ -1,13 +1,13 @@
 # -*- Autoconf -*-
 #
-# configure.ac - kalendas 1.3.0
-# Copyright (C) 2014-2016 Miguel Molina
+# configure.ac - kalendas 1.3.1
+# Copyright (C) 2014-2018 Miguel Molina
 
 #-------
 # Inicio
 #-------
 AC_PREREQ([2.67])
-AC_INIT([kalendas], [1.3.0], [mmolina.unphysics@gmail.com])
+AC_INIT([kalendas], [1.3.1], [mmolina.unphysics@gmail.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_PREFIX_DEFAULT($HOME/kalendas)

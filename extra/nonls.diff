@@ -1,21 +1,6 @@
---- kalendas.in	2014-12-23 11:35:28.000000000 -0500
-+++ kalendas.in.new	2014-12-23 15:24:19.000000000 -0500
-@@ -33,6 +33,14 @@
- #
- #    Usted debe haber recibido una copia de la Licencia Publica General de GNU
- #    junto con este programa. Si no, ver <http://www.gnu.org/licenses/>.
-+#
-+# NOTA:
-+#    Los mensajes mostrados en este codigo y por la salida estandar (STDOUT)
-+#    han sido intencionalmente escritos sin caracteres de acentuacion y sin
-+#    "enie" (letra "n" con tilde "~" encima).
-+#    Esto debido, a que algunas terminales distorsionan los caracteres latinos,
-+#    dejando una mala interpretacion de los mensajes mostrados. Asi, cuando
-+#    se muestra la palabra "an~o" se hace referencia al periodo de 12 meses.
- 
- 
- # __MAIN__
-@@ -41,15 +49,15 @@
+--- kalendas.in	2018-07-13 19:33:25.403852681 -0500
++++ kalendas.en	2018-07-13 22:55:59.184074524 -0500
+@@ -41,15 +41,15 @@
  use Getopt::Long;
  
  # --- ENABLE NLS ---
@@ -31,108 +16,108 @@
  #------------------------------
  my $PROG  = "kalendas";
 -$] > 5 or die __x ("{PROG} requires Perl 5.\n", PROG => $PROG);
-+$] > 5 or die "$PROG requiere Perl 5.\n";
++$] > 5 or die "$PROG requires Perl 5.\n";
  $so = $^O;
  
  #-----------------------------
-@@ -59,7 +67,7 @@
+@@ -59,7 +59,7 @@
  my $autor = "Miguel Molina";
  my ($nombre, $verno, $data) = ( $idrcs =~ /: (\D+),v ([\d.]+) (\d+\/\d+\/\d+)/ );
  my $InfoId = "$nombre - $verno (SO: $so)";
 -my $InfoAp = __x ("Written by {autor}, {data}, <mmolina.unphysics\@gmail.com>.", 'autor' => $autor, 'data' => $data);
-+my $InfoAp = "Escrito por $autor, $data, <mmolina.unphysics\@gmail.com>.";
++my $InfoAp = "Written by $autor, $data, <mmolina.unphysics\@gmail.com>.";
  
  #-----------------------------------
  # < Opciones por linea de comandos > 
-@@ -89,9 +97,9 @@
+@@ -89,9 +89,9 @@
  	   "mas=s"
  	   );
  
 -my %NDSem=(0, __"Monday", 1, __"Tuesday", 2, __"Wednesday", 3, __"Thursday", 4, __"Friday", 5, __"Saturday", 6, __"Sunday");
-+my %NDSem=(0, "Lunes", 1, "Martes", 2, "Miercoles", 3, "Jueves", 4, "Viernes", 5, "Sabado", 6, "Domingo");
++my %NDSem=(0, "Monday", 1, "Tuesday", 2, "Wednesday", 3, "Thursday", 4, "Friday", 5, "Saturday", 6, "Sunday");
  
 -@ARGV < 2 or die __"Many arguments!\n";
-+@ARGV < 2 or die "Muchos argumentos!\n";
++@ARGV < 2 or die "Many arguments!\n";
  if( $opt_mas ne "" ){
      MasInfo($opt_mas);
      exit(0);
-@@ -109,7 +117,7 @@
+@@ -109,7 +109,7 @@
  
  if( ($era,$y,$m,$d,$hora)
      = ( $fecha =~ /^\((aC|AD),([-0-9]+),(\d+),(\d+),((\d+):(\d+):(\d+)|md)\)$/ ) ){
 -    $y > 0 or die __x ("Year {y} no found in the scale Christian.\n", 'y' => $y);
-+    $y > 0 or die "An~o $y no existe en la escala cristiana.\n";
++    $y > 0 or die "Year $y no found in the scale Christian.\n";
      $y=1-$y if $era =~ /aC/;
      if( $hora =~ /md/ ){
  	($h, $mn, $s)=(12, 0, 0);
-@@ -118,8 +126,8 @@
+@@ -118,8 +118,8 @@
      }
  }elsif( ($era,$y,$m,$d,$cal0,$cal) 
         = ( $fecha =~ /^\((aC|AD),([-0-9]+),(\d+),(\d+),(jul|greg),(jul|greg)\)$/ ) ){
 -    $cal0 ne $cal or die __"Conversion between calendars equals!!!\n";
 -    $y > 0 or die __x ("Year {y} no found in the scale Christian.\n", 'y' => $y);
-+    $cal0 ne $cal or die "Conversion entre calendarios iguales!!!\n";
-+    $y > 0 or die "An~o $y no existe en la escala cristiana.\n";
++    $cal0 ne $cal or die "Conversion between calendars equals!!!\n";
++    $y > 0 or die "Year $y no found in the scale Christian.\n";
      $y=1-$y if $era =~ /aC/;
  }elsif( ($fecha) = ( $fecha =~ /^\(([-0-9]+(?:\.\d*|))\)$/ ) ){
  #   Parte entera y fraccional de FJ
-@@ -133,7 +141,7 @@
+@@ -133,7 +133,7 @@
      $ndj++ if $fdj >= 0.5;
      $fdj-- if $fdj >= 0.5;
  }else{
 -    die __"Bad input date!\n";
-+    die "Ingreso incorrecto de fecha!\n";
++    die "Bad input date!\n";
  }
  
  #-----------------------------------------------------------------------------
-@@ -143,12 +151,12 @@
+@@ -143,12 +143,12 @@
  sub Hoy2FJ{
      ($s,$mn,$h,$d,$m,$y,$dsem,@dti)=gmtime(time);
      $m++;  $y+=1900;  $dsem=($dsem+6)%7;  @dti=();
 -    print __x (" Date present: {dsem}, {y}-{m}-{d},", 'dsem' => $NDSem{$dsem}, 'y'=>$y, 'm'=>$m, 'd'=>$d);
-+    print " Fecha actual: $NDSem{$dsem}, $y-$m-$d,";
++    print " Date present: $NDSem{$dsem}, $y-$m-$d,";
      printf " %02d:%02d:%02d UT\n", $h, $mn, $s;
      $FJ=&DJ($y,$m,$d);
      $FJ+=($h+($mn+$s/60)/60)/24-0.5;
      printf " JD = %.5f\n", $FJ;
 -    print __x (" For more information: {PROG} --help\n", 'PROG' => $PROG);
-+    print " Para mas informacion: $PROG --help\n";
++    print " For more information: $PROG --help\n";
  }
  
  # Conversion fecha calendario civil -> fecha juliana
-@@ -179,7 +187,7 @@
+@@ -179,7 +179,7 @@
  if( $opt_FJ2jul ){
      ($era,$y,$m,$d,$dsem) = &DJ2CalJul($ndj);
      ($h,$mn,$s) = &fd2hora($fdj);
 -    print __x (" Data: {dsem}, {era} {y}-{m}-{d},", 'dsem' => $NDSem{$dsem}, 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
-+    print " Fecha: $NDSem{$dsem}, $era $y-$m-$d,";
++    print " Data: $NDSem{$dsem}, $era $y-$m-$d,";
      printf " %02d:%02d:%02d UT\n", $h, $mn, $s;   
      exit(0);
  }
-@@ -188,7 +196,7 @@
+@@ -188,7 +188,7 @@
  if( $opt_FJ2greg ){
      ($era,$y,$m,$d,$dsem) = &DJ2CalGregor($ndj);
      ($h,$mn,$s) = &fd2hora($fdj);
 -    print __x (" Data: {dsem}, {era} {y}-{m}-{d},", 'dsem' => $NDSem{$dsem}, 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
-+    print " Fecha: $NDSem{$dsem}, $era $y-$m-$d,";
++    print " Data: $NDSem{$dsem}, $era $y-$m-$d,";
      printf " %02d:%02d:%02d UT\n", $h, $mn, $s;
      exit(0);
  }
-@@ -219,7 +227,7 @@
+@@ -219,7 +219,7 @@
  	($era,$y,$m,$d,$dsem) = &DJ2CalJul($ndj);
      }
      ($h,$mn,$s) = &fd2hora($fdj);
 -    print __x (" Data: {dsem}, {era} {y}-{m}-{d},", 'dsem' => $NDSem{$dsem}, 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
-+    print " Fecha: $NDSem{$dsem}, $era $y-$m-$d,";
++    print " Data: $NDSem{$dsem}, $era $y-$m-$d,";
      printf " %02d:%02d:%02d UT\n", $h, $mn, $s;
      exit(0);
  }
-@@ -230,14 +238,14 @@
+@@ -230,14 +230,14 @@
      if( $cal0 eq "jul" ){
  	$dj0 = &DiasEntreRJul(-4712,1,1,$y,$m,$d);
  	($era,$y,$m,$d,$dsem) = &DJ2CalGregor($dj0);
 -	print __x (" Data: ({era},{y},{m},{d})\n", 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
-+	print " Fecha: ($era,$y,$m,$d)\n";
++	print " Data: ($era,$y,$m,$d)\n";
  	exit(0);
      }
  #   greg->jul
@@ -140,212 +125,133 @@
  	$dj0 = &DiasEntreRGreg(-4713,11,24,$y,$m,$d);
  	($era,$y,$m,$d,$dsem) = &DJ2CalJul($dj0);
 -	print __x (" Data: ({era},{y},{m},{d})\n", 'era'=>$era, 'y'=>$y, 'm'=>$m, 'd'=>$d);
-+	print " Fecha: ($era,$y,$m,$d)\n";
++	print " Data: ($era,$y,$m,$d)\n";
  	exit(0);
      }
  }
-@@ -342,8 +350,8 @@
+@@ -342,8 +342,8 @@
  	elsif( $fcut>286 ){ # fcut > 14 Oct 1582
  	    $DJ0+=&DiasEntreRGreg(1582,10,14,$yy,$mm,$dd)+2299160;
  	}else{              # 5 Oct 1582 <= fcut <=  14 Oct 1582
 -	    print __" Dates between 5 and 14 of October of 1582 no\n";
 -	    print __" exist for calculus of the Julian Day.\n";
-+	    print " Fechas entre el 5 y 14 de Octubre de 1582 no\n";
-+	    print " existen para el calculo de la fecha Juliana.\n";
++	    print " Dates between 5 and 14 of October of 1582 no\n";
++	    print " exist for calculus of the Julian Day.\n";
  	    exit(0);
  	}
      }
-@@ -442,113 +450,113 @@
+@@ -442,7 +442,7 @@
      my $arg = shift;
    INFO: {
        if( $arg =~ /^arg$/ ){
 -	  print __ <<"END_INFO";
--  Arguments
-- Note: writing quotes ("") is obligatory for input of arguments.
-- 'era':= The position of the year in the Christian scale. With 'aC' denotes
--        ante Christium or before Christ; 'AD', Anno Domini or common era.
-- 'yy':= The year with a number greater than zero. The year zero or a year
--        negative does not exist in the Christian scale.
-- 'mm':= The month with numerical value (1-12).
-- 'dd':= The day of the month.
-- 'tt':= The solar time, has two options of entrance: writing the time
--        universal (UT) in format 'hh:mm:ss', or 'md' that is the hour to
--        noon of Greenwich (12:00:00 UT).
-- 'jd':= The Julian date. The integer and decimal parts the 'jd' represent
--        the Julian day number and Julian day fraction respectively. With
--        five numbers decimals the time is obtained with precision of 1
--        second. 'jd' can be a negative number.
-- 'mjd':= The modified Julian date; argument similarly to jd.
 +	  print <<"END_INFO";
-+  Argumentos
-+ Nota: escritura de comillas ("") es obligatoria para ingreso de argumentos.
-+ 'era':= Es la posicion del an~o en la escala cristiana. Con 'aC' denota ante
-+        Christium o antes de Cristo; 'AD', Anno Domini o despues de Cristo.
-+ 'yy':= El an~o con un numero mayor que cero. El an~o cero o un an~o negativo
-+        no existe en la escala cristiana.
-+ 'mm':= El mes con valor numerico 1-12.
-+ 'dd':= El dia del mes.
-+ 'tt':= La hora solar, tiene dos opciones de ingreso: escribiendo el tiempo
-+        universal (TU) en formato 'hh:mm:ss', o 'md' que es la hora a medio
-+        dia de Greenwich (12:00:00 TU).
-+ 'fj':= La fecha Juliana. Las partes entera y decimal de 'fj' representan el
-+        numero de dia Juliano y la fraccion de dia Juliano respectivamente.
-+        Con cinco cifras decimales significativas se obtiene la hora con una
-+        precision de 1 segundo. 'fj' puede ser un numero negativo.
-+ 'fjm':= La fecha Juliana modificada; argumento similar a fj.
- END_INFO
+   Arguments
+  Note: writing quotes ("") is obligatory for input of arguments.
+  'era':= The position of the year in the Christian scale. With 'aC' denotes
+@@ -463,7 +463,7 @@
      last INFO;
        }
        if( $arg =~ /^calc2FJ$/ ){
 -	  print __ <<"END_INFO";
 +	  print <<"END_INFO";
    --calc2FJ "(era,yy,mm,dd,tt)"
-- Calculation of Julian date from a calendar date used in the
-- Christian or Western culture. This function assumes the calendars
-- used in Western culture: the Gregorian calendar, currently used
-- for civil purposes, and its predecessor, the Julian calendar, used
-- by the old Roman Empire with use until end of century XVI.
-- Therefore, for a date previous to the 5 of October of 1582 the
-- Julian calendar is assumed, whereas for a date later to the 14 of
-- October of 1582 the Gregorian calendar is assumed.
-+ Calculo de fecha Juliana a partir de una fecha del calendario usado en la
-+ cultura Cristiana o Occidental. Esta funcion asume los calendarios usados
-+ en la cultura Occidental: el calendario Gregoriano, usado actualmente para
-+ fines civiles, y su antecesor, el calendario Juliano, usado por el antiguo
-+ Imperio Romano con vigencia hasta finales del siglo XVI. Por tanto, para
-+ una fecha anterior al 5 de Octubre de 1582 se asume el calendario Juliano,
-+ mientras que para una fecha posterior al 14 de Octubre de 1582 se asume el
-+ calendario Gregoriano.
- END_INFO
+  Calculation of Julian date from a calendar date used in the
+  Christian or Western culture. This function assumes the calendars
+@@ -477,7 +477,7 @@
      last INFO;
        }
        if( $arg =~ /^jul2FJ$/ ){
 -	  print __ <<"END_INFO";
 +	  print <<"END_INFO";
    --jul2FJ "(era,yy,mm,dd,tt)"
-- Calculation of Julian date from a Julian calendar date.
-- The function assumes only the Julian calendar.
-+ Calculo de fecha Juliana a partir de una fecha del calendario Juliano.
-+ La funcion asume unicamente el calendario Juliano.
- END_INFO
+  Calculation of Julian date from a Julian calendar date.
+  The function assumes only the Julian calendar.
+@@ -485,7 +485,7 @@
      last INFO;
        }
        if( $arg =~ /^greg2FJ$/ ){
 -	  print __ <<"END_INFO";
 +	  print <<"END_INFO";
    --greg2FJ "(era,yy,mm,dd,tt)"
-- Calculation of Julian date from a Gregorian calendar date.
-- The function assumes only the Gregorian calendar.
-+ Calculo de fecha Juliana a partir de una fecha del calendario Gregoriano.
-+ La funcion asume unicamente el calendario Gregoriano.
- END_INFO
+  Calculation of Julian date from a Gregorian calendar date.
+  The function assumes only the Gregorian calendar.
+@@ -493,7 +493,7 @@
      last INFO;
        }
        if( $arg =~ /^FJ2jul$/ ){
 -	  print __ <<"END_INFO";
--  --FJ2jul "(jd)"
-- Calculation of a Julian calendar date, time and day of the week
-- from a Julian date. It gives the date with format day of week,
-- era, year, month, day and time UT.
 +	  print <<"END_INFO";
-+  --FJ2jul "(fj)"
-+ Calculo de una fecha del calendario Juliano, hora y dia de la semana a
-+ partir de una fecha Juliana. Entrega la fecha con formato dia de la semana,
-+ era, an~o, mes, dia y hora TU.
- END_INFO
+   --FJ2jul "(jd)"
+  Calculation of a Julian calendar date, time and day of the week
+  from a Julian date. It gives the date with format day of week,
+@@ -502,7 +502,7 @@
      last INFO;
        }
        if( $arg =~ /^FJ2greg$/ ){
 -	  print __ <<"END_INFO";
--  --FJ2greg "(jd)"
-- Calculation of a Gregorian calendar date, time and day of the week
-- from a Julian date. It gives the date with format day of week,
-- era, year, month, day and time UT.
 +	  print <<"END_INFO";
-+  --FJ2greg "(fj)"
-+ Calculo de una fecha del calendario Gregoriano, hora y dia de la semana a
-+ partir de una fecha Juliana. Entrega la fecha con formato dia de la semana,
-+ era, an~o, mes, dia y hora TU.
- END_INFO
+   --FJ2greg "(jd)"
+  Calculation of a Gregorian calendar date, time and day of the week
+  from a Julian date. It gives the date with format day of week,
+@@ -511,7 +511,7 @@
      last INFO;
        }
        if( $arg =~ /^calc2FJM$/ ){
 -	  print __ <<"END_INFO";
 +	  print <<"END_INFO";
    --calc2FJM "(era,yy,mm,dd,tt)"
-- Calculation of modified Julian date from a Western calendar date.
-- This function is valid for any era.
-+ Calculo de fecha Juliana modificada desde fecha del calendario occidental.
-+ Esta funcion es valida para cualquier era.
- END_INFO
+  Calculation of modified Julian date from a Western calendar date.
+  This function is valid for any era.
+@@ -519,7 +519,7 @@
      last INFO;
        }
        if( $arg =~ /^FJM2calc$/ ){
 -	  print __ <<"END_INFO";
--  --FJM2calc "(mjd)"
-- Calculation of a Western calendar date, time and day of the week
-- from a modified Julian date. It gives the date with format day of
-- week, era, year, month, day and time UT.
 +	  print <<"END_INFO";
-+  --FJM2calc "(fjm)"
-+ Calculo de una fecha del calendario Occidental, hora y dia de la semana a
-+ partir de una fecha Juliana modificada. Entrega la fecha con formato dia
-+ de la semana, era, an~o, mes, dia y hora TU.
- END_INFO
+   --FJM2calc "(mjd)"
+  Calculation of a Western calendar date, time and day of the week
+  from a modified Julian date. It gives the date with format day of
+@@ -528,7 +528,7 @@
      last INFO;
        }
        if( $arg =~ /^convcal$/ ){
 -	  print __ <<"END_INFO";
 +	  print <<"END_INFO";
    --convcal "(era,yy,mm,dd,cal1,cal2)"
-- Conversion between calendar date 'cal1' to calendar date 'cal2'. The
-- conversion is made between Julian 'jul' and Gregorian 'greg' calendars
-- or vice versa. It gives the date with format era, year, month and day.
-+ Conversion entre fecha del calendario 'cal1' a fecha del calendario 'cal2'.
-+ La conversion se realiza entre calendarios Juliano 'jul' y Gregoriano
-+ 'greg' o viceversa. Entrega la fecha con formato era, an~o, mes y dia.
- END_INFO
+  Conversion between calendar date 'cal1' to calendar date 'cal2'. The
+  conversion is made between Julian 'jul' and Gregorian 'greg' calendars
+@@ -537,7 +537,7 @@
      last INFO;
        }
        if( $arg =~ /^mas$/ ){
 -	  print __ <<"END_INFO";
 +	  print <<"END_INFO";
    --mas 'fun'
-- Show additional information about function 'fun', where 'fun' is one of
-- the options: 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|
-- convcal|mas|arg'. The option 'arg' shows additional information on the
-- arguments. For calculate Julian date present, from PC clock, write
-- kalendas without arguments.
-+ Muestra informacion adicional sobre funcion 'fun', donde 'fun' es una de
-+ las opciones 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|
-+ convcal|mas|arg'. La opcion 'arg' muestra informacion adicional de los
-+ argumentos.  Para calcular fecha Juliana actual, desde el reloj del PC,
-+ escribir $PROG sin argumentos.
- END_INFO
+  Show additional information about function 'fun', where 'fun' is one of
+  the options: 'calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|
+@@ -548,7 +548,7 @@
      last INFO;
        }
        if( $arg ne "" ){
 -	  die __x ("There is not information for: '{arg}'\n", 'arg' => $arg);
-+	  die "No existe informacion para: '$arg'\n";
++	  die "There is not information for: '$arg'\n";
        }
    }
  }
-@@ -557,51 +565,52 @@
+@@ -557,22 +557,23 @@
  #   Version
  #-----------------------------------------------------------------------------
  sub vtxt{
 -    print "$InfoId\n";
--    print "Copyright (C) 2013-2016 $autor\n";
+-    print "Copyright (C) 2013-2018 $autor\n";
 -    print __ <<"END_VERSION";
--License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
--This program comes with ABSOLUTELY NO WARRANTY; This is free software, and you
--are welcome to redistribute it under certain conditions.
 +    print STDOUT <<"END_VERSION";
 +$InfoId
-+Copyright (C) 2013-2016 $autor
-+License GPLv3+: GNU GPL version 3 o posterior <http://gnu.org/licenses/gpl.html>.
-+Este programa se ofrece SIN GARANTIA ALGUNA. Es software libre, y usted puede
-+redistribuirlo bajo ciertas condiciones.
++Copyright (C) 2013-2018 $autor
+ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+ This program comes with ABSOLUTELY NO WARRANTY; This is free software, and you
+ are welcome to redistribute it under certain conditions.
 +
 +$InfoAp
  END_VERSION
@@ -358,56 +264,16 @@
  sub usotxt{
 -    print __x ("Use: {PROG} --Function \"Arguments\"\n", PROG => $PROG);
 -    print __ <<"END_KALENDAS";
-- Arguments: 'era' is the position of the year in the Christian scale: 'aC|AD',
--             'yy' year, 'mm' month (1-12) and 'dd' day, 'tt' hour in UT
--             or noon of Greenwich: 'hh:mm:ss|md'. 'jd' is the Julian date,
--             'mjd' is the modified Julian date.
-- Functions:
 +    print STDOUT <<"END_KALENDAS";
-+Use: $PROG --Funcion "Argumentos"
-+ Argumentos: 'era' es la posicion del an~o en la escala cristiana: 'aC|AD',
-+             'yy' el an~o, 'mm' el mes (1-12) y 'dd' el dia, 'tt' la hora
-+             en TU o a medio dia: 'hh:mm:ss|md'. 'fj' es la fecha Juliana,
-+             'fjm' es la fecha Juliana modificada.
-+ Funciones:
-  --calc2FJ "(era,yy,mm,dd,tt)"
--   Calculation Julian date from a calendar date used in the Western culture.
-+   Calcula fecha Juliana segun fecha calendario usado por cultura Occidental.
-  --jul2FJ "(era,yy,mm,dd,tt)"
--   Calculation of Julian date from a Julian calendar date.
-+   Calcula fecha Juliana a partir de una fecha del calendario Juliano.
-  --greg2FJ "(era,yy,mm,dd,tt)"
--   Calculation of Julian date from a Gregorian calendar date.
-- --FJ2jul "(jd)"
--   Calculation of a Julian calendar date from a Julian date.
-- --FJ2greg "(jd)"
--   Calculation of a Gregorian calendar date from a Julian date.
-+   Calcula fecha Juliana a partir de una fecha del calendario Gregoriano.
-+ --FJ2jul "(fj)"
-+   Calcula fecha de calendario Juliano a partir de una fecha Juliana.
-+ --FJ2greg "(fj)"
-+   Calcula fecha de calendario Gregoriano a partir de una fecha Juliana.
-  --calc2FJM "(era,yy,mm,dd,tt)"
--   Calculation of modified Julian date from date calendar Western.
-- --FJM2calc "(mjd)"
--   Calculation of date calendar Western from modified Julian date.
-+   Calculo fecha Juliana modificada desde fecha del calendario Occidental.
-+ --FJM2calc "(fjm)"
-+   Calculo fecha calendario Occidental desde fecha Juliana modificada.
-  --convcal "(era,yy,mm,dd,cal1,cal2)",  cal_=jul|greg
--   Conversion between calendar date 'cal1' to calendar date 'cal2'. The
--   conversion is made between Julian and Gregorian calendars or vice versa.
-+   Convierte fecha del calendario 'cal1' a fecha del calendario 'cal2'. La
-+   conversion es entre calendarios Juliano y Gregoriano o viceversa.
-  --mas fun,
-  fun=calc2FJ|jul2FJ|greg2FJ|FJ2jul|FJ2greg|calc2FJM|FJM2calc|convcal|mas|arg
--   Show additional information about function fun; arg show arguments.
-- -h,--help    Show this help.       -v,--version    Show version.
-- JD present!  For calculate Julian date present, from PC clock, write
-+   Muestra informacion adicional sobre funcion fun; arg muestra argumentos.
-+ -h,--help    Muestra esta ayuda.       -v,--version    Muestra version.
-+ FJ actual!   Para calcular fecha Juliana actual, desde el reloj del PC,
-+              escribir $PROG sin argumentos.
++Use: $PROG --Function \"Arguments\"
+  Arguments: 'era' is the position of the year in the Christian scale: 'aC|AD',
+              'yy' year, 'mm' month (1-12) and 'dd' day, 'tt' hour in UT
+              or noon of Greenwich: 'hh:mm:ss|md'. 'jd' is the Julian date,
+@@ -600,8 +601,8 @@
+    Show additional information about function fun; arg show arguments.
+  -h,--help    Show this help.       -v,--version    Show version.
+  JD present!  For calculate Julian date present, from PC clock, write
++              $PROG without arguments.
  END_KALENDAS
 -    print __x ("              {PROG} without arguments.\n", PROG => $PROG);
  }

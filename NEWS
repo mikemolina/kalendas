@@ -1,3 +1,3 @@
-kalendas - 1.3.0 (2015-12-27 00:37:31 UT)
-
- * Tests included for correct ejecution in many platforms.
+kalendas - 1.3.1
+----------------
+ * Improvements at the development level when language support is disabled.

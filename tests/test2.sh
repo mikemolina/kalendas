@@ -2,7 +2,7 @@
 #
 # test2.sh - Test de conversiones
 #
-# Copyright (C) 2016  Miguel Molina
+# Copyright (C) 2016-2018  Miguel Molina
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

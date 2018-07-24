@@ -7,10 +7,9 @@ EXTRA_DIST = kalendas.in
 kalendas: $(srcdir)/kalendas.in
 if NONLS
 	cp $(srcdir)/kalendas.in kalendas.in.t
-	patch $(srcdir)/kalendas.in < ../extra/nonls.diff
-	$(SUBST) $(srcdir)/kalendas.in > kalendas
-	rm $(srcdir)/kalendas.in
-	mv $(srcdir)/kalendas.in.t kalendas.in
+	patch kalendas.in.t < $(srcdir)/../extra/nonls.diff
+	$(SUBST) kalendas.in.t > kalendas
+	rm -f kalendas.in.t
 else
 	$(SUBST) $(srcdir)/kalendas.in > kalendas
 endif

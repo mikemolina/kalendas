@@ -4,6 +4,7 @@ DATE = `date -u "+%Y-%m-%d %T %Z"`
 EXTRA_DIST = build-aux/config.rpath autogen.sh autoclean.sh README.md LEAME.md LICENCIA DEPENDENCIES
 DISTCLEANFILES = DIST_REVISION
 
+# Banderas de mantenimiento: --disable-nls
 AM_DISTCHECK_CONFIGURE_FLAGS = --without-bash-completion
 
 dist-hook:
